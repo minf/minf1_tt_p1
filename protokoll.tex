@@ -1,7 +1,6 @@
 \documentclass[a4paper,10pt]{article}
 \usepackage[utf8x]{inputenc}
 
-%opening
 \title{TTP1 - Protokoll}
 \author{Andreas Krohn, Benjamin Vetter, Benjamin Jochheim}
 
@@ -9,61 +8,94 @@
 
 \maketitle
 
-\section{Projektschritt 2}
-\subsection{Welche Informationen tauschen die Nachbarn bei den jeweiligen Protokollen aus (Neighbor-Nachrichten)? Wie ermitteln/bewerten sie die Qualität der Links?}
-\subsubsection*{BATMAN}
-Hosts kommunizieren über BATMAN-Pakete. Diese bestehen aus Originator Message (OGM) und optionalen Host Network Announcements (HNA).
+\section{Projektschritt 2: Vergleichende Betrachtung des B.A.T.M.A.N.- und OLSR-Protokolls}
 
-OGM enthält:
-\begin{enumerate}
-  \item Version
-  \item Is-direct-link flag
-  \item Unidirectional flag
-  \item TTL
-  \item Gateway flags
-  \item Sequence Number
-  \item Originator Address
-\end{enumerate}
-HNA enthält:
-\begin{enumerate}
-  \item Network Address
-  \item Netmask
-\end{enumerate}
+\subsection{Welche Informationen tauschen die Nachbarn bei den jeweiligen Protokollen aus (Neighbor-Nachrichten)?}
 
+% B.A.T.M.A.N.
 
-\subsubsection*{Ermittlung der Qualität und Bidirektionalität der Links - BATMAN}
-Siehe RFC Abschnitt 4.2 "`The \emph{amount} of Sequence Numbers recorded in the Sliding Window is used as a metric for the quality of detected links an paths."'
+\subsubsection*{B.A.T.M.A.N.}
 
-Siehe RFC Abschnitt 5.3 Timeing, vgl. Sequence Number mehrerer OGMs..
+Bei B.A.T.M.A.N. werden proaktiv sog. Originator-Nachrichten (OGMs) ausgetauscht.
+Eine OGM umfasst folgende Felder: 
+
+\begin{description}
+  \item[Version] Versionsnummer
+  \item[Is-direct-link flag] Kennzeichnet, ob der Knoten ein direkter Nachbar ist oder nicht
+  \item[Unidirectional flag] Kennzeichnet, ob der Knoten bidirektional ist oder nicht
+  \item[TTL] der Time-To-Live Wert der OGM
+  \item[GWFlags] Kennzeichnet ob der Originator als Gateway ins Internet fungiert. Ein Originator kann sich selbst als Internet-Gateway annoncieren. Die Annonce beinhaltet die Link-Geschwindigkeit 
+  \item[GWPort] Beinhaltet eine Portnummer für einen Tunnel falls sich der Originator als Internet-Gateway annonciert
+  \item[Sequenznummer] Eine Sequenznummer der OGM (0 bis 2\^16-1). Anhand der Sequenznummer können andere Knoten entscheiden ob eine OGM "neu" ist.
+  \item[Originator-Adresse] Die IP-Adresse des B.A.T.M.A.N. Interfaces des OGM-Initiators
+\end{description}
+
+Einer OGM können sich Host Network Announcements (HNAs) anschließen. 
+Eine HNA umfasst folgende Felder: 
+
+\begin{description}
+  \item[Netmask] Kennzeichnet die Größe des annoncierten Netzes
+  \item[Network address] Die Adresse des annoncierten Netzes
+\end{description}
+
+% OLSR
 
 \subsubsection*{OLSR}
+
 Es gibt ein generelles Messageformat. Es enthält:
+
 \begin{itemize}
   \item abtippen RFC3626.txt
 \end{itemize}
 
 Anhand des Message Type-Feldes wird festgelegt, welcher Nachrichtentyp im MESSAGE-Block enthalten ist. Spezifiziert sind in RFC3626 die Nachrichten HELLO, TC und MID.
-
 HELLO-messages, performing the task of link sensing, neighbor detection and Multipoint Relay (MPR) signaling,
-
-
-
 TC-messages, performing the task of topology declaration (advertisement of link states).
-
 MID-messages, performing the task of declaring the presence of multiple interfaces on a node.
 
-\subsubsection*{Ermittlung der Qualität und Bidirektionalität der Links - OLSR}
+\subsection{Wie ermitteln/bewerten sie die Qualität der Links}
+
+% B.A.T.M.A.N.
+
+\subsubsection*{B.A.T.M.A.N.}
+
+Erhält ein Knoten schneller und zuverlässiger OGMs von einem Nachbarn kann er diesen Knoten als Best-Next-Hop auswählen um Nachrichten an weiter entfernte Knoten zu verschicken.
+Hierzu unterhält jeder Knoten ein Sliding-Window bzgl. der Sequenznummern von OGMs jedes Nachbarn. 
+Erhält ein Knoten eine OGM von einem Nachbarn betrachtet er die Sequenznummer der OGM.
+Wenn die Sequenznummer im Fenster vorhanden ist, speichert der Knoten diese Information.
+Hingegen wird das Fenster verschoben, wenn die Sequenznummer außerhalb des Fensters liegt.
+Je mehr Sequenznummern innerhalb des Fensters liegen, desto besser bewertet der Knoten die Link-Qualität.
+Der Link, der die meisten Sequenznummern in seinem Fenster aufweisen kann, gilt als aktueller Best-Next-Hop.
+
+\subsubsection*{OLSR}
+
 ...RFC lesen..
 Link Set über HELLO Messages aufbauen. Eigener Originator in empfangener Message enthalten -> Symmetrischer Link. Timeouts -> Asymmetrisch, dann Tot.
 Symmetrie eines Links ist ein Indiz für Qualität.. bla..
-Signal Noise Ratio -> l_link_quality P.57f
+Signal Noise Ratio -> l\_link\_quality P.57f
 
 \subsection{Wie bilden sich die lokalen Mesh-Konfigurationen?}
 
-Proaktiv
+% B.A.T.M.A.N.
+
+\subsubsection*{B.A.T.M.A.N.}
+
+B.A.T.M.A.N. ist ein proaktives Routing-Protokoll.
+Das Protokoll hat das Ziel für jeden Knoten den jeweils besten Next-Hop zu finden, so dass keine vollständigen Routen verwaltet werden müssen, sondern nur der nächste Hop zum Ziel.
+Jeder Knoten broadcastet Originator-Nachrichten (OGMs) in einem Intervall um seine Nachbarn über seine Existenz zu informieren.
+Ein Jitter verhindert dabei Kollisionen.
+Seine Nachbarn re-broadcasten die OGMs und informieren ihrerseits ihre Nachbarn über die Existenz des eigentlichen Absenders der OGM.
+Jeder Knoten re-broadcastet die OGM seines aktuell als Best-Next-Hop identifizierten Knotens, sofern der Knoten die OGM anhand der Sequenznummer als "neu" einstuft und die TTL noch nicht abgelaufen ist.
+Beim jedem Re-broadcasting wird der TTL-Wert um 1 verringert.
+Daher wird das Netz mit OGMs geflutet.
+Eine Verbindung mit einem spezifischen Nachbarn gilt als bidrektional wenn ein Knoten seine eigenen OGMs von diesem Nachbarn empfängt.
+
+% OLSR
+
+\subsubsection*{OLSR}
 
 \subsection{Ist das B.A.T.M.A.N.-Protokoll wirklich immer Loop-frei? Wie könnten sich ggf. Loops bilden?}
 Sind mehrere Nodes sowohl per BATMAN als auch per klassischem Ethernet verbunden, kann eine Loop entstehen. Die BATMAN-spezifischen Paketheader werden im Ethernet nicht weitergeleitet, damit die Mechanismen zur Loopverhinderung ausgehebelt....
 
-
 \end{document}
+
