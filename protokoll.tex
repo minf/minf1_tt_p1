@@ -20,17 +20,18 @@ Bei B.A.T.M.A.N. werden proaktiv sog. Originator-Nachrichten (OGMs) ausgetauscht
 Eine OGM umfasst folgende Felder: 
 
 \begin{description}
-  \item[Version] Versionsnummer
-  \item[Is-direct-link flag] Kennzeichnet, ob der Knoten ein direkter Nachbar ist oder nicht
-  \item[Unidirectional flag] Kennzeichnet, ob der Knoten bidirektional ist oder nicht
-  \item[TTL] der Time-To-Live Wert der OGM
-  \item[GWFlags] Kennzeichnet ob der Originator als Gateway ins Internet fungiert. Ein Originator kann sich selbst als Internet-Gateway annoncieren. Die Annonce beinhaltet die Link-Geschwindigkeit 
-  \item[GWPort] Beinhaltet eine Portnummer für einen Tunnel falls sich der Originator als Internet-Gateway annonciert
+  \item[Version] Versionsnummer.
+  \item[Is-direct-link flag] Kennzeichnet, ob der Knoten ein direkter Nachbar ist oder nicht.
+  \item[Unidirectional flag] Kennzeichnet, ob der Knoten bidirektional ist oder nicht.
+  \item[TTL] der Time-To-Live Wert der OGM.
+  \item[GWFlags] Kennzeichnet ob der Originator als Gateway ins Internet fungiert. Ein Originator kann sich selbst als Internet-Gateway annoncieren. Die Annonce beinhaltet die Link-Geschwindigkeit.
+  \item[GWPort] Beinhaltet eine Portnummer für einen Tunnel falls sich der Originator als Internet-Gateway annonciert.
   \item[Sequenznummer] Eine Sequenznummer der OGM (0 bis 2\^16-1). Anhand der Sequenznummer können andere Knoten entscheiden ob eine OGM "neu" ist.
-  \item[Originator-Adresse] Die IP-Adresse des B.A.T.M.A.N. Interfaces des OGM-Initiators
+  \item[Originator-Adresse] Die IP-Adresse des B.A.T.M.A.N. Interfaces des OGM-Initiators.
 \end{description}
 
 Einer OGM können sich Host Network Announcements (HNAs) anschließen. 
+HNAs annoncieren ein Gateway zu einem Netzwerk oder Host.
 Eine HNA umfasst folgende Felder: 
 
 \begin{description}
@@ -42,16 +43,32 @@ Eine HNA umfasst folgende Felder:
 
 \subsubsection*{OLSR}
 
-Es gibt ein generelles Messageformat. Es enthält:
+OLSR verfügt über ein generelles Messageformat.
+Nachrichten können konkateniert werden.
+Eine einzelne Nachricht besteht aus:
 
-\begin{itemize}
-  \item abtippen RFC3626.txt
-\end{itemize}
+\begin{description}
+  \item[Packet Length] Paketlänge.
+  \item[Packet Sequence Number] Die Sequenznummer. Erhöht sich bei jeder neuen Nachricht um 1. 
+  \item[Message Type] Die Message Type teilt mit um was für eine Nachricht es sich handelt, bzw. was das MESSAGE-Feld enthält.
+  \item[Vtime] Die Validity Time teilt mit wie lange die Informationen das Pakets von einem Knoten als aktuell betrachtet werden sollen, sofern keine neuere Nachricht zu einem Update führt.
+  \item[Message Size] Größe der Nachricht in Byte. Gezählt wird vom Feld Message Type an bis zum nächsten Message Type Feld (nächste konkaktenierte Nachricht).
+  \item[Originator Address] Die Adresse des Knotens, der die Nachricht ursprünglich generiert hat.
+  \item[Time To Live] Die maximale Anzahl an Hops. Der Wert wird dekrementiert bevor die Nachricht weitergeleitet wird.
+  \item[Hop Count] Die Anzahl an Hops, die die Nachricht zurückgelegt hat.
+  \item[Message Sequence Number] Der Originator einer Nachricht erzeugt eine eindeutige ID für jede Nachricht.
+  \item[MESSAGE]
+\end{description}
 
-Anhand des Message Type-Feldes wird festgelegt, welcher Nachrichtentyp im MESSAGE-Block enthalten ist. Spezifiziert sind in RFC3626 die Nachrichten HELLO, TC und MID.
-HELLO-messages, performing the task of link sensing, neighbor detection and Multipoint Relay (MPR) signaling,
-TC-messages, performing the task of topology declaration (advertisement of link states).
-MID-messages, performing the task of declaring the presence of multiple interfaces on a node.
+Anhand des Message Type Feldes wird festgelegt, welcher Nachrichtentyp im MESSAGE-Block enthalten ist. 
+RFC3626 spezifiziert die Nachrichtentypen HELLO, TC, MID und HNA.
+
+\begin{description}
+  \item[HELLO] HELLO-Nachrichten erfüllen den Zweck der Veröffentlichung der lokalen Routinginformationen, dem Erkennen von Nachbarn und der Auswahl der Multipoint Relays. Daher werden HELLO-Nachrichten stets periodisch verschickt. Eine HELLO-Nachricht besteht aus einer Liste von bekannten Nachbaradressen und Informationen (Status des Nachbarn) über diese Nachbarn, sowie der eigenen Bereitschaft Pakete weiterzuleiten (Willingness).
+  \item[TC] TC-Nachrichten dienen dazu die gewonnen Informationen über die Topologie zu verteilen. TC-Nachrichten werden von MPRs erstellt und beinhalten mindestens die Knoten von denen sie als MPR ausgewählt wurden.
+  \item[MID] Knoten, die über mehrere OLSR Interfaces verfügen verschicken MID-Nachrichten um den anderen Knoten ihre Interfacekonfiguration mitzuteilen.
+  \item[HNA] Knoten, die über Routinginformationen bzgl. der Außenwelt des MANETs betreffen, verschicken analog zu B.A.T.M.A.N. Host Network Announcement Nachrichten (HNAs).
+\end{description}
 
 \subsection{Wie ermitteln/bewerten sie die Qualität der Links}
 
@@ -66,6 +83,8 @@ Wenn die Sequenznummer im Fenster vorhanden ist, speichert der Knoten diese Info
 Hingegen wird das Fenster verschoben, wenn die Sequenznummer außerhalb des Fensters liegt.
 Je mehr Sequenznummern innerhalb des Fensters liegen, desto besser bewertet der Knoten die Link-Qualität.
 Der Link, der die meisten Sequenznummern in seinem Fenster aufweisen kann, gilt als aktueller Best-Next-Hop.
+
+% OLSR
 
 \subsubsection*{OLSR}
 
@@ -82,7 +101,7 @@ Signal Noise Ratio -> l\_link\_quality P.57f
 
 B.A.T.M.A.N. ist ein proaktives Routing-Protokoll.
 Das Protokoll hat das Ziel für jeden Knoten den jeweils besten Next-Hop zu finden, so dass keine vollständigen Routen verwaltet werden müssen, sondern nur der nächste Hop zum Ziel.
-Jeder Knoten broadcastet Originator-Nachrichten (OGMs) in einem Intervall um seine Nachbarn über seine Existenz zu informieren.
+Jeder Knoten broadcastet Originator-Nachrichten (OGMs) periodisch um seine Nachbarn über seine Existenz zu informieren.
 Ein Jitter verhindert dabei Kollisionen.
 Seine Nachbarn re-broadcasten die OGMs und informieren ihrerseits ihre Nachbarn über die Existenz des eigentlichen Absenders der OGM.
 Jeder Knoten re-broadcastet die OGM seines aktuell als Best-Next-Hop identifizierten Knotens, sofern der Knoten die OGM anhand der Sequenznummer als "neu" einstuft und die TTL noch nicht abgelaufen ist.
