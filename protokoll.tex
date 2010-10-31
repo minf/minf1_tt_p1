@@ -116,5 +116,119 @@ Eine Verbindung mit einem spezifischen Nachbarn gilt als bidrektional wenn ein K
 \subsection{Ist das B.A.T.M.A.N.-Protokoll wirklich immer Loop-frei? Wie könnten sich ggf. Loops bilden?}
 Sind mehrere Nodes sowohl per BATMAN als auch per klassischem Ethernet verbunden, kann eine Loop entstehen. Die BATMAN-spezifischen Paketheader werden im Ethernet nicht weitergeleitet, damit die Mechanismen zur Loopverhinderung ausgehebelt....
 
+\section{Projektschritt 3: Vergleichende Analyse der Übertragungsqualität}
+
+http://openmaniak.com/iperf.php
+
+als erstes mal bandwidth check
+==============================
+
+server: iperf -s -u # udp server öffnen (ggf -i für periodische ausgabe)
+client: iperf -c [IP] -u -i # client zum server per udp connecten und bandwidth check mit periodischer ausgabe
+
+dann bidirectional bandwidth check:
+===================================
+
+client: iperf -c [IP] -u -r -i # client zum server per udp connected und bidirectional bandwidth check
+
+dann simultaneous bidirectional bandwidth check
+===============================================
+
+client: iperf -c [IP] -u -d
+
+\subsection{1. Paketverluste (Loss)}
+
+PING
+====
+
+zunächst mal ping:
+
+ping [IP] -c 10
+
+IPERF
+=====
+
+Datagram loss: can be measured with an Iperf UDP test.
+
+client: iperf -c [IP] -u -d
+
+In der Ausgabe findet sich der Packet-loss
+
+\subsection{2. Paketlaufzeiten / -verzögerungen (Delay)}
+
+http://blogs.itrinegy.com/2009/02/how-do-you-measure-latency-rtt-in-a-network-these-days/
+
+PING
+====
+
+Latency (response time or RTT) can be measured with the Ping command.
+
+ping [IP] -c 10
+
+TCPDUMP
+=======
+
+Auch mit tcpdump kann die Lantenz gemessen werden, indem die Paketlaufzeiten bei zB TCP-Handshakes (SYN => SYN+ACK) gemessen werden
+
+client:
+
+tcpdump -ni [IF]
+...
+
+11:37:07.681274 IP [IP].[PORT] > [IP].[PORT]: Flags [S], ...
+11:37:07.682417 IP [IP].[PORT] > [IP].[PORT]: Flags [S.], ...
+
+11:37:07.682417 - 11:37:07.681274
+
+1,143 millis Latenz
+
+\subsection{3. Laufzeitschwankungen (Jitter) der Pakete}
+
+In the context of computer networks, the term jitter is often used as a measure of the variability over time of the packet latency across a network. A network with constant latency has no variation (or jitter).[2] Packet jitter is expressed as an average of the deviation from the network mean latency. However, for this use, the term is imprecise. The standards-based term is packet delay variation (PDV).[3] PDV is an important quality of service factor in assessment of network performance.
+
+The jitter is basically the latency variation and does not depend on the latency
+
+PING
+====
+
+ping [IP] -c 10
+
+rtt min/avg/max/mdev = 1.111/1.603/4.820/1.082 ms # Gibt grob über die Varianz der Lantenz Auskunft (eher konstante Latenz oder sehr große Unterschiede in der Latenz)
+
+Die Varianz ist das arithmetische Mittel der quadratischen Abweichungen vom Mittelwert.
+
+bsp für ping:
+
+... time=4.82 ms
+... time=1.13 ms
+... time=1.19 ms
+... time=1.11 ms
+... time=1.24 ms
+... time=1.17 ms
+... time=1.12 ms
+... time=1.46 ms
+... time=1.57 ms
+... time=1.18 ms
+
+def varianz(arr)
+  avg = arr.inject(0) { |x, y| x + y } / arr.size.to_f
+  q = arr.inject(0) { |x, y| x += (y - avg) * (y - avg) }
+  return q / arr.size.to_f
+end
+
+TCPDUMP
+======
+
+Das gleiche kann man auch per tcpdump machen, ist aber recht aufwendig
+
+IPERF
+=====
+
+Jitter (latency variation): can be measured with an Iperf UDP test.
+
+client: iperf -c [IP] -u -d
+
+In der Ausgabe findet sich der Jitter
+
 \end{document}
 
