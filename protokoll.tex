@@ -124,7 +124,7 @@ als erstes mal bandwidth check
 ==============================
 
 server: iperf -s -u # udp server öffnen (ggf -i für periodische ausgabe)
-client: iperf -c [IP] -u -i # client zum server per udp connecten und bandwidth check mit periodischer ausgabe
+client: iperf -c [IP] -u -i -t [SECONDS] # client zum server per udp connecten und bandwidth check mit periodischer ausgabe
 
 dann bidirectional bandwidth check:
 ===================================
@@ -229,6 +229,56 @@ Jitter (latency variation): can be measured with an Iperf UDP test.
 client: iperf -c [IP] -u -d
 
 In der Ausgabe findet sich der Jitter
+
+Methodik:
+
+- Telefonieren und Hopzahl steigern
+- Messungen durchführen und Hopzahl steigern
+- Telefonieren und dabei messen (iperf) um Netzlast zu erzeugen
+
+1. Telefonieren mit 1 Hop
+2. Messen mit 1 Hop
+3. Telefonieren und Messen mit 1 Hop mit Erhöhung der Netzlast (-b 0.1m -b 0.5m -b 1m -b 10m -b 100m)
+
+1. Telefonieren mit 2 Hop
+2. Messen mit 2 Hop
+3. Telefonieren und Messen mit 2 Hop mit Erhöhung der Netzlast (-b 0.1m -b 0.5m -b 1m -b 10m -b 100m)
+
+1. Telefonieren mit 3 Hop
+2. Messen mit 3 Hop
+3. Telefonieren und Messen mit 3 Hop mit Erhöhung der Netzlast (-b 0.1m -b 0.5m -b 1m -b 10m -b 100m)
+
+Das Messen geschieht folgendermaßen:
+
+server:
+iperf -s -u
+
+client:
+ping -c 20 [IP] >> ping.txt
+iperf -c [IP] -u -b [BANDWIDTH] >> iperf.txt
+
+#!/bin/sh
+
+# USAGE performance.sh [TARGET-IP] [LOGFILE]
+
+echo "NEW RUN `date`" > $2
+
+# PING
+
+echo "RUNNING PING" > $2
+echo "RUNNING PING"
+
+ping -c 20 $1 >> $2
+
+# IPERF
+
+for b in 0.1m 0.5m 1m 5m 10m 20m 50m # ggf anpassen
+do
+  echo "RUNNING IPERF for $b" > $2
+  echo "RUNNING IPERF for $b"
+
+  iperf -c $1 -u -b $b > $2
+done
 
 \end{document}
 
