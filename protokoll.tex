@@ -1,5 +1,6 @@
 \documentclass[a4paper,10pt]{article}
 \usepackage[utf8x]{inputenc}
+\usepackage{listings}
 
 \title{TTP1 - Protokoll}
 \author{Andreas Krohn, Benjamin Vetter, Benjamin Jochheim}
@@ -89,9 +90,21 @@ Der Link, der die meisten Sequenznummern in seinem Fenster aufweisen kann, gilt 
 \subsubsection*{OLSR}
 
 ...RFC lesen..
-Link Set über HELLO Messages aufbauen. Eigener Originator in empfangener Message enthalten -> Symmetrischer Link. Timeouts -> Asymmetrisch, dann Tot.
+Link Set über HELLO Messages aufbauen. Eigener Originator in 
+empfangener Message enthalten -> Symmetrischer Link. Timeouts -> Asymmetrisch, dann Tot.
 Symmetrie eines Links ist ein Indiz für Qualität.. bla..
 Signal Noise Ratio -> l\_link\_quality P.57f
+
+Der verwendete OLSR-Daemon nutzte Link Quality Extensions (ETX-metrik).
+Das RFC-gemäße OLSR versucht nur die HOP-Distanz zu minimieren. Die Link-Qualität
+wird nach RFC nicht berücksichtigt. Das kann bedeuten das ein unzuverlässiger Link zu einem Ziel bevorzugt wird,
+wenn er eine geringere HOP-Distanz bietet.
+
+Der um Link Quality Extensions erweiterte OLSR-Daemon wertet die erwarteten und tatsächlich empfangenen
+HELLO Pakete seiner direkten Nachbarn aus und kann dadurch die Link-Qualität bestimmen.
+
+http://www.olsr.org/docs/README-Link-Quality.html
+
 
 \subsection{Wie bilden sich die lokalen Mesh-Konfigurationen?}
 
@@ -123,18 +136,25 @@ http://openmaniak.com/iperf.php
 als erstes mal bandwidth check
 ==============================
 
+\begin{lstlisting}
 server: iperf -s -u # udp server öffnen (ggf -i für periodische ausgabe)
 client: iperf -c [IP] -u -i -t [SECONDS] # client zum server per udp connecten und bandwidth check mit periodischer ausgabe
+\end{lstlisting}
+
 
 dann bidirectional bandwidth check:
 ===================================
 
+\begin{lstlisting}
 client: iperf -c [IP] -u -r -i # client zum server per udp connected und bidirectional bandwidth check
+\end{lstlisting}
 
 dann simultaneous bidirectional bandwidth check
 ===============================================
 
+\begin{lstlisting}
 client: iperf -c [IP] -u -d
+\end{lstlisting}
 
 \subsection{1. Paketverluste (Loss)}
 
@@ -160,8 +180,8 @@ http://blogs.itrinegy.com/2009/02/how-do-you-measure-latency-rtt-in-a-network-th
 
 PING
 ====
+Mittels des Pings wird die round-trip-time gemessen.
 
-Latency (response time or RTT) can be measured with the Ping command.
 
 ping [IP] -c 10
 
