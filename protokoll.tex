@@ -128,6 +128,23 @@ Eine Verbindung mit einem spezifischen Nachbarn gilt als bidrektional wenn ein K
 
 \subsection{Ist das B.A.T.M.A.N.-Protokoll wirklich immer Loop-frei? Wie könnten sich ggf. Loops bilden?}
 Sind mehrere Nodes sowohl per BATMAN als auch per klassischem Ethernet verbunden, kann eine Loop entstehen. Die BATMAN-spezifischen Paketheader werden im Ethernet nicht weitergeleitet, damit die Mechanismen zur Loopverhinderung ausgehebelt....
+ Allerdings ist folgendes Szenario denkbar:
+Bei schwankender Linkqualität könnte ein Paket mehrfach an einem Host ankommen.
+In dem Bild
+
+%figure .eps
+
+
+möchte Host Z ein Paket an E senden. Dazu wählt er seinen nächsten Hop A aus.
+Die beiden Verbindungen zum zielhost sind jedoch von schlechter qualität.
+In dem moment in dem das Paket ankommt ist die Verbindung AE zusammengebrochen.
+Daher sendet A das Paket an D.
+D sendet an C.
+In dem moment in dem C das Paket erhält bricht die Verbindung zu E zusammen, so daß C das Paket wieder an A sendet.
+%etc.
+
+Bei unseren Versuchen konnten wir solche Loops nicht erzeugen.
+
 
 \section{Projektschritt 3: Vergleichende Analyse der Übertragungsqualität}
 
