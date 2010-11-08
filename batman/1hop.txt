@@ -1,0 +1,77 @@
+
+1HOP - direkt nebeneinander
+
+Originator  (#/255)         Nexthop [outgoingIF]:   Potential nexthops ... [B.A.T.M.A.N. 0.3.2 rv1294, MainIF/IP: eth2/10.0.0.12, UT: 0d 1h28m] 
+10.0.0.14       (251)       10.0.0.14 [      eth2]:       10.0.0.14 (251) 
+10.0.0.24       ( 25)       10.0.0.14 [      eth2]:       10.0.0.24 (  0)       10.0.0.53 ( 11)       10.0.0.14 ( 25) 
+10.0.0.53       ( 34)       10.0.0.53 [      eth2]:       10.0.0.53 ( 34) 
+10.0.0.13       (  8)       10.0.0.53 [      eth2]:       10.0.0.53 (  8) 
+
+root@AP-12:~# ping -c 20 10.0.0.14
+PING 10.0.0.14 (10.0.0.14): 56 data bytes
+64 bytes from 10.0.0.14: icmp_seq=1 ttl=64 time=3.9 ms
+64 bytes from 10.0.0.14: icmp_seq=2 ttl=64 time=3.9 ms
+64 bytes from 10.0.0.14: icmp_seq=3 ttl=64 time=10.6 ms
+64 bytes from 10.0.0.14: icmp_seq=4 ttl=64 time=40.6 ms
+64 bytes from 10.0.0.14: icmp_seq=5 ttl=64 time=3.8 ms
+64 bytes from 10.0.0.14: icmp_seq=6 ttl=64 time=5.3 ms
+64 bytes from 10.0.0.14: icmp_seq=7 ttl=64 time=6.5 ms
+64 bytes from 10.0.0.14: icmp_seq=8 ttl=64 time=3.5 ms
+64 bytes from 10.0.0.14: icmp_seq=9 ttl=64 time=21.0 ms
+64 bytes from 10.0.0.14: icmp_seq=10 ttl=64 time=3.5 ms
+64 bytes from 10.0.0.14: icmp_seq=11 ttl=64 time=3.5 ms
+64 bytes from 10.0.0.14: icmp_seq=12 ttl=64 time=59.7 ms
+64 bytes from 10.0.0.14: icmp_seq=13 ttl=64 time=3.5 ms
+64 bytes from 10.0.0.14: icmp_seq=14 ttl=64 time=3.5 ms
+64 bytes from 10.0.0.14: icmp_seq=15 ttl=64 time=4.8 ms
+64 bytes from 10.0.0.14: icmp_seq=16 ttl=64 time=3.1 ms
+64 bytes from 10.0.0.14: icmp_seq=17 ttl=64 time=3.1 ms
+64 bytes from 10.0.0.14: icmp_seq=18 ttl=64 time=3.0 ms
+64 bytes from 10.0.0.14: icmp_seq=19 ttl=64 time=3.1 ms
+
+--- 10.0.0.14 ping statistics ---
+20 packets transmitted, 19 packets received, 5% packet loss
+round-trip min/avg/max = 3.0/9.9/59.7 ms
+
+root@AP-12:~# netperf -H 10.0.0.14
+TCP STREAM TEST to 10.0.0.14
+Recv   Send    Send                          
+Socket Socket  Message  Elapsed              
+Size   Size    Size     Time     Throughput  
+bytes  bytes   bytes    secs.    10^6bits/sec  
+
+ 43689  16384  16384    10.02       6.62   
+
+root@AP-12:~# netperf -P1 -v2 -H 10.0.0.14 -t UDP_STREAM
+UDP UNIDIRECTIONAL SEND TEST to 10.0.0.14
+Socket  Message  Elapsed      Messages                
+Size    Size     Time         Okay Errors   Throughput
+bytes   bytes    secs            #      #   10^6bits/sec
+
+ 32767   32767   10.00         294      0       7.71
+ 32767           10.00           0              0.00
+
+
+Endgerät zu Endgerät iperf:
+
+hkf@satellite:~$ iperf -s -u
+------------------------------------------------------------
+Server listening on UDP port 5001
+Receiving 1470 byte datagrams
+UDP buffer size:   122 KByte (default)
+------------------------------------------------------------
+[  3] local 192.168.12.139 port 5001 connected with 192.168.14.232 port 45829
+[ ID] Interval       Transfer     Bandwidth       Jitter   Lost/Total Datagrams
+[  3]  0.0-10.0 sec  1.25 MBytes  1.05 Mbits/sec  1.342 ms    3/  893 (0.34%)
+[  4] local 192.168.12.139 port 5001 connected with 192.168.14.232 port 54231
+[  4]  0.0-10.0 sec  1.25 MBytes  1.05 Mbits/sec  0.816 ms    2/  893 (0.22%)
+[  3] local 192.168.12.139 port 5001 connected with 192.168.14.232 port 41070
+[  3]  0.0-10.0 sec  1.25 MBytes  1.04 Mbits/sec  1.014 ms    4/  893 (0.45%)
+[  4] local 192.168.12.139 port 5001 connected with 192.168.14.232 port 45941
+[  4]  0.0-10.0 sec  1.25 MBytes  1.05 Mbits/sec  3.377 ms    2/  893 (0.22%)
+[  3] local 192.168.12.139 port 5001 connected with 192.168.14.232 port 40947
+[  3]  0.0-10.0 sec  1.25 MBytes  1.05 Mbits/sec  2.689 ms    0/  893 (0%)
+[  4] local 192.168.12.139 port 5001 connected with 192.168.14.232 port 47410
+[  4]  0.0-10.0 sec  1.25 MBytes  1.05 Mbits/sec  2.218 ms    0/  893 (0%)
+
+

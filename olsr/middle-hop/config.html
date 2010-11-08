@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1">
+<title>olsr.org httpinfo plugin</title>
+<link rel="icon" href="http://192.168.12.1:8080/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="http://192.168.12.1:8080/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="config_files/httpinfo.css">
+</head><body text="#000000" bgcolor="#ffffff">
+<font face="timesroman" size="6" color="black">&nbsp;&nbsp;&nbsp;olsr.org OLSR daemon</font><img src="config_files/logo.asc" alt="olsrd logo"><p></p><table width="800" border="0" cellpadding="0" cellspacing="0" align="center"><tbody><tr bgcolor="#ffffff"></tr></tbody></table><!-- END HEAD -->
+
+<table width="800" border="0" cellpadding="0" cellspacing="0" align="center">
+<tbody><tr bgcolor="#ffffff"><td>
+<ul id="tabnav">
+<li><a href="http://192.168.12.1:8080/config" class="active">Configuration</a></li>
+<li><a href="http://192.168.12.1:8080/routes">Routes</a></li>
+<li><a href="http://192.168.12.1:8080/nodes">Links/Topology</a></li>
+<li><a href="http://192.168.12.1:8080/all">All</a></li>
+<li><a href="http://192.168.12.1:8080/about">About</a></li>
+</ul>
+</td></tr>
+<tr><td>
+<div id="maintable">
+OS: GNU/Linux
+<br>System time: <i>Sat, 01 Jan 2000 00:03:05</i><br>
+Olsrd uptime: <i>00 hours 02 minutes 39 seconds</i><br>
+HTTP stats(ok/dyn/error/illegal): <i>43/0/0/0</i><br>
+Click <a href="http://192.168.12.1:8080/cfgfile">here</a> to <i>generate a configuration file for this node</i>.
+<h2>Variables</h2>
+<table width="100%" border="0">
+<tbody><tr><td>Main address: <b>10.0.0.12</b></td>
+<td>IP version: 4</td>
+<td>Debug level: 0</td>
+</tr>
+<tr>
+<td>Pollrate: 0.10</td>
+<td>TC redundancy: 2</td>
+<td>MPR coverage: 7</td>
+</tr>
+<tr>
+<td>Fisheye: Enabled</td>
+<td>TOS: 0x0010</td>
+<td>Willingness: 3 </td>
+</tr>
+<tr>
+<td>Hysteresis: Disabled</td>
+<td>Hyst scaling: 0.50</td>
+<td>Hyst lower/upper: 0.30/0.80</td>
+</tr>
+<tr>
+<td>LQ extention: Enabled</td>
+<td>LQ level: 2</td>
+<td>LQ winsize: 100</td>
+<td></td>
+</tr></tbody></table>
+<h2>Interfaces</h2>
+<table width="100%" border="0">
+<tbody><tr><th colspan="3">eth2</th>
+</tr><tr><td>IP: 10.0.0.12</td>
+<td>MASK: 255.255.255.0</td>
+<td>BCAST: 10.255.255.255</td></tr>
+<tr><td>MTU: 1472</td>
+<td>WLAN: Yes</td>
+<td>STATUS: UP</td></tr>
+</tbody></table>
+<i>Olsrd is configured to run even if no interfaces are available</i><br>
+<h2>Plugins</h2>
+<table width="100%" border="0"><tbody><tr><th>Name</th><th>Parameters</th></tr>
+<tr><td>olsrd_httpinfo.so.0.1</td>
+<td><select>
+<option selected="selected">KEY, VALUE</option>
+<option>"Net", "192.168.12.0 255.255.255.0"</option>
+<option>"Host", "127.0.0.1"</option>
+<option>"port", "8080"</option>
+</select></td></tr>
+<tr><td>olsrd_dyn_gw.so.0.4</td>
+<td><select>
+<option selected="selected">KEY, VALUE</option>
+</select></td></tr>
+</tbody></table>
+<h2>Announced HNA entries</h2>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center"><tbody><tr><th>Network</th><th>Netmask</th></tr>
+<tr><td>192.168.12.0</td><td>255.255.255.0</td></tr>
+</tbody></table>
+</div>
+
+<!-- START TAIL -->
+
+<div id="footer">
+
+<p></p><center>
+(C)2005 Andreas Tønnesen<br>
+<a href="http://www.olsr.org/">http://www.olsr.org</a>
+</center>
+</div>
+</td></tr></tbody></table></body></html>

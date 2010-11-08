@@ -1,0 +1,21 @@
+
+Nachdem wir multihop abgebaut haben (14 nicht mehr erreichbar) trotzdem noch in routing tabelle
+Routen halten sich mehrere Sekunden
+
+root@AP-12:/etc# route -n
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+10.0.0.82       0.0.0.0         255.255.255.255 UH    1      0        0 eth2
+10.0.0.34       0.0.0.0         255.255.255.255 UH    1      0        0 eth2
+10.0.0.81       0.0.0.0         255.255.255.255 UH    1      0        0 eth2
+10.0.0.14       10.0.0.82       255.255.255.255 UGH   2      0        0 eth2
+10.0.0.0        0.0.0.0         255.255.255.0   U     0      0        0 eth2
+192.168.34.0    10.0.0.34       255.255.255.0   UG    1      0        0 eth2
+192.168.81.0    10.0.0.81       255.255.255.0   UG    1      0        0 eth2
+192.168.82.0    10.0.0.82       255.255.255.0   UG    1      0        0 eth2
+192.168.14.0    10.0.0.82       255.255.255.0   UG    2      0        0 eth2
+192.168.12.0    0.0.0.0         255.255.255.0   U     0      0        0 eth0
+0.0.0.0         10.0.0.24       0.0.0.0         UG    0      0        0 eth2
+
+
+

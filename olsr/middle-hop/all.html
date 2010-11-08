@@ -1,0 +1,221 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1">
+<title>olsr.org httpinfo plugin</title>
+<link rel="icon" href="http://192.168.12.1:8080/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="http://192.168.12.1:8080/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="all_files/httpinfo.css">
+</head><body text="#000000" bgcolor="#ffffff">
+<font face="timesroman" size="6" color="black">&nbsp;&nbsp;&nbsp;olsr.org OLSR daemon</font><img src="all_files/logo.asc" alt="olsrd logo"><p></p><table width="800" border="0" cellpadding="0" cellspacing="0" align="center"><tbody><tr bgcolor="#ffffff"></tr></tbody></table><!-- END HEAD -->
+
+<table width="800" border="0" cellpadding="0" cellspacing="0" align="center">
+<tbody><tr bgcolor="#ffffff"><td>
+<ul id="tabnav">
+<li><a href="http://192.168.12.1:8080/config">Configuration</a></li>
+<li><a href="http://192.168.12.1:8080/routes">Routes</a></li>
+<li><a href="http://192.168.12.1:8080/nodes">Links/Topology</a></li>
+<li><a href="http://192.168.12.1:8080/all" class="active">All</a></li>
+<li><a href="http://192.168.12.1:8080/about">About</a></li>
+</ul>
+</td></tr>
+<tr><td>
+<div id="maintable">
+OS: GNU/Linux
+<br>System time: <i>Sat, 01 Jan 2000 00:03:15</i><br>
+Olsrd uptime: <i>00 hours 02 minutes 48 seconds</i><br>
+HTTP stats(ok/dyn/error/illegal): <i>57/0/0/0</i><br>
+Click <a href="http://192.168.12.1:8080/cfgfile">here</a> to <i>generate a configuration file for this node</i>.
+<h2>Variables</h2>
+<table width="100%" border="0">
+<tbody><tr><td>Main address: <b>10.0.0.12</b></td>
+<td>IP version: 4</td>
+<td>Debug level: 0</td>
+</tr>
+<tr>
+<td>Pollrate: 0.10</td>
+<td>TC redundancy: 2</td>
+<td>MPR coverage: 7</td>
+</tr>
+<tr>
+<td>Fisheye: Enabled</td>
+<td>TOS: 0x0010</td>
+<td>Willingness: 3 </td>
+</tr>
+<tr>
+<td>Hysteresis: Disabled</td>
+<td>Hyst scaling: 0.50</td>
+<td>Hyst lower/upper: 0.30/0.80</td>
+</tr>
+<tr>
+<td>LQ extention: Enabled</td>
+<td>LQ level: 2</td>
+<td>LQ winsize: 100</td>
+<td></td>
+</tr></tbody></table>
+<h2>Interfaces</h2>
+<table width="100%" border="0">
+<tbody><tr><th colspan="3">eth2</th>
+</tr><tr><td>IP: 10.0.0.12</td>
+<td>MASK: 255.255.255.0</td>
+<td>BCAST: 10.255.255.255</td></tr>
+<tr><td>MTU: 1472</td>
+<td>WLAN: Yes</td>
+<td>STATUS: UP</td></tr>
+</tbody></table>
+<i>Olsrd is configured to run even if no interfaces are available</i><br>
+<h2>Plugins</h2>
+<table width="100%" border="0"><tbody><tr><th>Name</th><th>Parameters</th></tr>
+<tr><td>olsrd_httpinfo.so.0.1</td>
+<td><select>
+<option selected="selected">KEY, VALUE</option>
+<option>"Net", "192.168.12.0 255.255.255.0"</option>
+<option>"Host", "127.0.0.1"</option>
+<option>"port", "8080"</option>
+</select></td></tr>
+<tr><td>olsrd_dyn_gw.so.0.4</td>
+<td><select>
+<option selected="selected">KEY, VALUE</option>
+</select></td></tr>
+</tbody></table>
+<h2>Announced HNA entries</h2>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center"><tbody><tr><th>Network</th><th>Netmask</th></tr>
+<tr><td>192.168.12.0</td><td>255.255.255.0</td></tr>
+</tbody></table>
+<h2>OLSR routes in kernel</h2>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center"><tbody><tr><th>Destination</th><th>Gateway</th><th>Metric</th><th>ETX</th><th>Interface</th><th>Type</th></tr>
+<tr><td>10.0.0.14</td><td>10.0.0.81</td><td>2</td><td>2.49</td><td>eth2</td><td>HOST</td></tr>
+<tr><td>10.0.0.41</td><td>10.0.0.41</td><td>1</td><td>1.26</td><td>eth2</td><td>HOST</td></tr>
+<tr><td>10.0.0.34</td><td>10.0.0.34</td><td>1</td><td>1.51</td><td>eth2</td><td>HOST</td></tr>
+<tr><td>10.0.0.54</td><td>10.0.0.54</td><td>1</td><td>1.21</td><td>eth2</td><td>HOST</td></tr>
+<tr><td>10.0.0.82</td><td>10.0.0.82</td><td>1</td><td>1.80</td><td>eth2</td><td>HOST</td></tr>
+<tr><td>10.0.0.81</td><td>10.0.0.81</td><td>1</td><td>2.49</td><td>eth2</td><td>HOST</td></tr>
+<tr><td>192.168.81.0</td><td>10.0.0.81</td><td>1</td><td>eth2</td><td>HNA</td></tr>
+<tr><td>192.168.82.0</td><td>10.0.0.82</td><td>1</td><td>eth2</td><td>HNA</td></tr>
+<tr><td>192.168.41.0</td><td>10.0.0.41</td><td>1</td><td>eth2</td><td>HNA</td></tr>
+<tr><td>192.168.34.0</td><td>10.0.0.34</td><td>1</td><td>eth2</td><td>HNA</td></tr>
+<tr><td>192.168.54.0</td><td>10.0.0.54</td><td>1</td><td>eth2</td><td>HNA</td></tr>
+<tr><td>192.168.14.0</td><td>10.0.0.81</td><td>2</td><td>eth2</td><td>HNA</td></tr>
+</tbody></table>
+<h2>Links</h2>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center"><tbody><tr><th>Local IP</th><th>remote IP</th><th>Hysteresis</th><th>LinkQuality</th><th>lost</th><th>total</th><th>NLQ</th><th>ETX</th></tr>
+<tr><td>10.0.0.12</td><td>10.0.0.54</td><td>0.00</td><td>0.91</td><td>9</td><td>100</td><td>0.91</td><td>1.21</td></tr>
+<tr><td>10.0.0.12</td><td>10.0.0.14</td><td>0.00</td><td>0.37</td><td>63</td><td>100</td><td>0.00</td><td>0.00</td></tr>
+<tr><td>10.0.0.12</td><td>10.0.0.41</td><td>0.00</td><td>0.98</td><td>2</td><td>100</td><td>0.81</td><td>1.26</td></tr>
+<tr><td>10.0.0.12</td><td>10.0.0.34</td><td>0.00</td><td>0.94</td><td>6</td><td>100</td><td>0.68</td><td>1.57</td></tr>
+<tr><td>10.0.0.12</td><td>10.0.0.82</td><td>0.00</td><td>0.88</td><td>12</td><td>100</td><td>0.64</td><td>1.78</td></tr>
+<tr><td>10.0.0.12</td><td>10.0.0.81</td><td>0.00</td><td>0.97</td><td>3</td><td>100</td><td>0.78</td><td>1.33</td></tr>
+</tbody></table>
+<h2>Neighbors</h2>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center"><tbody><tr><th>IP address</th><th>SYM</th><th>MPR</th><th>MPRS</th><th>Willingness</th><th>2 Hop Neighbors</th></tr>
+<tr><td>10.0.0.14</td><td>YES</td><td>YES</td><td>NO</td><td>3</td><td><select>
+<option selected="selected">IP ADDRESS</option>
+<option>10.0.0.54</option>
+<option>10.0.0.81</option>
+<option>10.0.0.82</option>
+<option>10.0.0.41</option>
+<option>10.0.0.34</option>
+</select> (5)</td></tr>
+<tr><td>10.0.0.41</td><td>YES</td><td>YES</td><td>YES</td><td>3</td><td><select>
+<option selected="selected">IP ADDRESS</option>
+<option>10.0.0.54</option>
+<option>10.0.0.14</option>
+<option>10.0.0.82</option>
+<option>10.0.0.34</option>
+<option>10.0.0.81</option>
+</select> (5)</td></tr>
+<tr><td>10.0.0.34</td><td>YES</td><td>YES</td><td>YES</td><td>3</td><td><select>
+<option selected="selected">IP ADDRESS</option>
+<option>10.0.0.54</option>
+<option>10.0.0.14</option>
+<option>10.0.0.41</option>
+<option>10.0.0.82</option>
+<option>10.0.0.81</option>
+</select> (5)</td></tr>
+<tr><td>10.0.0.54</td><td>YES</td><td>YES</td><td>YES</td><td>3</td><td><select>
+<option selected="selected">IP ADDRESS</option>
+<option>10.0.0.14</option>
+<option>10.0.0.34</option>
+<option>10.0.0.81</option>
+<option>10.0.0.41</option>
+<option>10.0.0.82</option>
+</select> (5)</td></tr>
+<tr><td>10.0.0.82</td><td>YES</td><td>YES</td><td>YES</td><td>3</td><td><select>
+<option selected="selected">IP ADDRESS</option>
+<option>10.0.0.54</option>
+<option>10.0.0.14</option>
+<option>10.0.0.34</option>
+<option>10.0.0.41</option>
+<option>10.0.0.81</option>
+</select> (5)</td></tr>
+<tr><td>10.0.0.81</td><td>YES</td><td>YES</td><td>YES</td><td>3</td><td><select>
+<option selected="selected">IP ADDRESS</option>
+<option>10.0.0.54</option>
+<option>10.0.0.14</option>
+<option>10.0.0.82</option>
+<option>10.0.0.34</option>
+<option>10.0.0.41</option>
+</select> (5)</td></tr>
+</tbody></table>
+<h2>Topology entries</h2>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center"><tbody><tr><th>Destination IP</th><th>Last hop IP</th><th>LQ</th><th>ILQ</th><th>ETX</th></tr>
+<tr><td>10.0.0.41</td><td>10.0.0.14</td><td>0.89</td><td>0.91</td><td>1.24</td></tr>
+<tr><td>10.0.0.34</td><td>10.0.0.14</td><td>0.87</td><td>0.86</td><td>1.34</td></tr>
+<tr><td>10.0.0.54</td><td>10.0.0.14</td><td>0.41</td><td>0.79</td><td>3.08</td></tr>
+<tr><td>10.0.0.82</td><td>10.0.0.14</td><td>0.84</td><td>0.94</td><td>1.27</td></tr>
+<tr><td>10.0.0.81</td><td>10.0.0.14</td><td>0.89</td><td>0.92</td><td>1.23</td></tr>
+<tr><td>10.0.0.14</td><td>10.0.0.41</td><td>0.90</td><td>0.89</td><td>1.26</td></tr>
+<tr><td>10.0.0.12</td><td>10.0.0.41</td><td>0.98</td><td>0.76</td><td>1.35</td></tr>
+<tr><td>10.0.0.34</td><td>10.0.0.41</td><td>0.89</td><td>0.97</td><td>1.16</td></tr>
+<tr><td>10.0.0.54</td><td>10.0.0.41</td><td>0.95</td><td>0.83</td><td>1.27</td></tr>
+<tr><td>10.0.0.82</td><td>10.0.0.41</td><td>0.87</td><td>0.94</td><td>1.23</td></tr>
+<tr><td>10.0.0.81</td><td>10.0.0.41</td><td>0.93</td><td>0.91</td><td>1.18</td></tr>
+<tr><td>10.0.0.14</td><td>10.0.0.34</td><td>0.87</td><td>0.87</td><td>1.33</td></tr>
+<tr><td>10.0.0.12</td><td>10.0.0.34</td><td>0.93</td><td>0.68</td><td>1.59</td></tr>
+<tr><td>10.0.0.41</td><td>10.0.0.34</td><td>0.97</td><td>0.89</td><td>1.16</td></tr>
+<tr><td>10.0.0.54</td><td>10.0.0.34</td><td>0.90</td><td>0.76</td><td>1.47</td></tr>
+<tr><td>10.0.0.82</td><td>10.0.0.34</td><td>0.94</td><td>0.95</td><td>1.12</td></tr>
+<tr><td>10.0.0.81</td><td>10.0.0.34</td><td>0.95</td><td>0.91</td><td>1.16</td></tr>
+<tr><td>10.0.0.14</td><td>10.0.0.54</td><td>0.89</td><td>0.39</td><td>2.89</td></tr>
+<tr><td>10.0.0.12</td><td>10.0.0.54</td><td>0.98</td><td>0.90</td><td>1.14</td></tr>
+<tr><td>10.0.0.41</td><td>10.0.0.54</td><td>0.93</td><td>0.94</td><td>1.15</td></tr>
+<tr><td>10.0.0.34</td><td>10.0.0.54</td><td>0.82</td><td>0.90</td><td>1.36</td></tr>
+<tr><td>10.0.0.82</td><td>10.0.0.54</td><td>0.88</td><td>0.92</td><td>1.24</td></tr>
+<tr><td>10.0.0.81</td><td>10.0.0.54</td><td>0.79</td><td>0.95</td><td>1.34</td></tr>
+<tr><td>10.0.0.14</td><td>10.0.0.82</td><td>0.95</td><td>0.85</td><td>1.24</td></tr>
+<tr><td>10.0.0.12</td><td>10.0.0.82</td><td>0.86</td><td>0.64</td><td>1.82</td></tr>
+<tr><td>10.0.0.41</td><td>10.0.0.82</td><td>0.95</td><td>0.85</td><td>1.24</td></tr>
+<tr><td>10.0.0.34</td><td>10.0.0.82</td><td>0.95</td><td>0.92</td><td>1.15</td></tr>
+<tr><td>10.0.0.54</td><td>10.0.0.82</td><td>0.92</td><td>0.79</td><td>1.38</td></tr>
+<tr><td>10.0.0.81</td><td>10.0.0.82</td><td>0.94</td><td>0.92</td><td>1.16</td></tr>
+<tr><td>10.0.0.14</td><td>10.0.0.81</td><td>0.91</td><td>0.89</td><td>1.24</td></tr>
+<tr><td>10.0.0.12</td><td>10.0.0.81</td><td>0.97</td><td>0.78</td><td>1.33</td></tr>
+<tr><td>10.0.0.41</td><td>10.0.0.81</td><td>0.91</td><td>0.93</td><td>1.18</td></tr>
+<tr><td>10.0.0.34</td><td>10.0.0.81</td><td>0.91</td><td>0.95</td><td>1.16</td></tr>
+<tr><td>10.0.0.54</td><td>10.0.0.81</td><td>0.99</td><td>0.80</td><td>1.26</td></tr>
+<tr><td>10.0.0.82</td><td>10.0.0.81</td><td>0.93</td><td>0.92</td><td>1.17</td></tr>
+</tbody></table>
+<h2>HNA entries</h2>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center"><tbody><tr><th>Network</th><th>Netmask</th><th>Gateway</th></tr>
+<tr><td>192.168.14.0</td><td>255.255.255.0</td><td>10.0.0.14</td></tr>
+<tr><td>192.168.41.0</td><td>255.255.255.0</td><td>10.0.0.41</td></tr>
+<tr><td>192.168.34.0</td><td>255.255.255.0</td><td>10.0.0.34</td></tr>
+<tr><td>192.168.54.0</td><td>255.255.255.0</td><td>10.0.0.54</td></tr>
+<tr><td>192.168.82.0</td><td>255.255.255.0</td><td>10.0.0.82</td></tr>
+<tr><td>192.168.81.0</td><td>255.255.255.0</td><td>10.0.0.81</td></tr>
+</tbody></table>
+<h2>MID entries</h2>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center"><tbody><tr><th>Main Address</th><th>Aliases</th></tr>
+</tbody></table>
+</div>
+
+<!-- START TAIL -->
+
+<div id="footer">
+
+<p></p><center>
+(C)2005 Andreas Tønnesen<br>
+<a href="http://www.olsr.org/">http://www.olsr.org</a>
+</center>
+</div>
+</td></tr></tbody></table></body></html>

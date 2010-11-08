@@ -1,0 +1,181 @@
+2 HOPS!
+
+atellite:~$ ping 192.168.14.232 -c 20
+PING 192.168.14.232 (192.168.14.232) 56(84) bytes of data.
+64 bytes from 192.168.14.232: icmp_req=1 ttl=61 time=5.68 ms
+From 10.0.0.13 icmp_seq=4 Destination Host Unreachable
+From 10.0.0.13 icmp_seq=5 Destination Host Unreachable
+From 10.0.0.13 icmp_seq=6 Destination Host Unreachable
+From 10.0.0.13 icmp_seq=7 Destination Host Unreachable
+From 10.0.0.13 icmp_seq=8 Destination Host Unreachable
+64 bytes from 192.168.14.232: icmp_req=14 ttl=61 time=7.80 ms
+
+--- 192.168.14.232 ping statistics ---
+20 packets transmitted, 2 received, +5 errors, 90% packet loss, time 19097ms
+rtt min/avg/max/mdev = 5.680/6.744/7.808/1.064 ms, pipe 4
+hkf@satellite:~$ ping 192.168.14.232 -c 20
+PING 192.168.14.232 (192.168.14.232) 56(84) bytes of data.
+^C
+--- 192.168.14.232 ping statistics ---
+1 packets transmitted, 0 received, 100% packet loss, time 0ms
+
+hkf@satellite:~$ ping 192.168.14.232
+PING 192.168.14.232 (192.168.14.232) 56(84) bytes of data.
+^C
+--- 192.168.14.232 ping statistics ---
+19 packets transmitted, 0 received, 100% packet loss, time 18078ms
+
+hkf@satellite:~$ ping 192.168.14.232
+PING 192.168.14.232 (192.168.14.232) 56(84) bytes of data.
+^C
+--- 192.168.14.232 ping statistics ---
+1 packets transmitted, 0 received, 100% packet loss, time 0ms
+
+hkf@satellite:~$ ping 192.168.14.232
+PING 192.168.14.232 (192.168.14.232) 56(84) bytes of data.
+^C
+--- 192.168.14.232 ping statistics ---
+1 packets transmitted, 0 received, 100% packet loss, time 0ms
+
+hkf@satellite:~$ ping 192.168.14.232
+PING 192.168.14.232 (192.168.14.232) 56(84) bytes of data.
+
+hkf@satellite:~$ ping 192.168.14.232 -c 20
+PING 192.168.14.232 (192.168.14.232) 56(84) bytes of data.
+64 bytes from 192.168.14.232: icmp_req=2 ttl=61 time=17.6 ms
+64 bytes from 192.168.14.232: icmp_req=3 ttl=61 time=18.4 ms
+64 bytes from 192.168.14.232: icmp_req=4 ttl=61 time=10.5 ms
+64 bytes from 192.168.14.232: icmp_req=5 ttl=61 time=32.0 ms
+64 bytes from 192.168.14.232: icmp_req=7 ttl=61 time=72.8 ms
+64 bytes from 192.168.14.232: icmp_req=8 ttl=61 time=158 ms
+64 bytes from 192.168.14.232: icmp_req=9 ttl=61 time=203 ms
+64 bytes from 192.168.14.232: icmp_req=10 ttl=61 time=60.9 ms
+64 bytes from 192.168.14.232: icmp_req=11 ttl=61 time=69.0 ms
+64 bytes from 192.168.14.232: icmp_req=12 ttl=61 time=80.3 ms
+64 bytes from 192.168.14.232: icmp_req=13 ttl=61 time=78.6 ms
+64 bytes from 192.168.14.232: icmp_req=14 ttl=61 time=196 ms
+64 bytes from 192.168.14.232: icmp_req=15 ttl=61 time=110 ms
+64 bytes from 192.168.14.232: icmp_req=16 ttl=61 time=183 ms
+64 bytes from 192.168.14.232: icmp_req=17 ttl=61 time=23.3 ms
+64 bytes from 192.168.14.232: icmp_req=18 ttl=61 time=24.7 ms
+64 bytes from 192.168.14.232: icmp_req=19 ttl=61 time=15.4 ms
+64 bytes from 192.168.14.232: icmp_req=20 ttl=61 time=9.41 ms
+
+--- 192.168.14.232 ping statistics ---
+20 packets transmitted, 18 received, 10% packet loss, time 19040ms
+rtt min/avg/max/mdev = 9.419/75.873/203.346/65.425 ms
+
+hkf@satellite:~$ ping 192.168.14.232 -c 20
+PING 192.168.14.232 (192.168.14.232) 56(84) bytes of data.
+64 bytes from 192.168.14.232: icmp_req=1 ttl=61 time=47.5 ms
+64 bytes from 192.168.14.232: icmp_req=2 ttl=61 time=31.1 ms
+64 bytes from 192.168.14.232: icmp_req=3 ttl=61 time=19.4 ms
+64 bytes from 192.168.14.232: icmp_req=4 ttl=61 time=14.7 ms
+64 bytes from 192.168.14.232: icmp_req=5 ttl=61 time=4.52 ms
+64 bytes from 192.168.14.232: icmp_req=6 ttl=61 time=5.18 ms
+64 bytes from 192.168.14.232: icmp_req=7 ttl=61 time=24.0 ms
+64 bytes from 192.168.14.232: icmp_req=8 ttl=61 time=26.2 ms
+64 bytes from 192.168.14.232: icmp_req=9 ttl=61 time=4.56 ms
+64 bytes from 192.168.14.232: icmp_req=10 ttl=61 time=4.17 ms
+64 bytes from 192.168.14.232: icmp_req=11 ttl=61 time=7.06 ms
+64 bytes from 192.168.14.232: icmp_req=12 ttl=61 time=4.61 ms
+64 bytes from 192.168.14.232: icmp_req=13 ttl=61 time=6.92 ms
+64 bytes from 192.168.14.232: icmp_req=14 ttl=61 time=7.99 ms
+64 bytes from 192.168.14.232: icmp_req=15 ttl=61 time=4.47 ms
+64 bytes from 192.168.14.232: icmp_req=16 ttl=61 time=6.01 ms
+64 bytes from 192.168.14.232: icmp_req=17 ttl=61 time=7.99 ms
+64 bytes from 192.168.14.232: icmp_req=18 ttl=61 time=4.47 ms
+64 bytes from 192.168.14.232: icmp_req=19 ttl=61 time=15.9 ms
+64 bytes from 192.168.14.232: icmp_req=20 ttl=61 time=9.25 ms
+
+--- 192.168.14.232 ping statistics ---
+20 packets transmitted, 20 received, 0% packet loss, time 19028ms
+rtt min/avg/max/mdev = 4.171/12.822/47.531/11.306 ms
+
+
+hkf@satellite:~$ iperf -s -u
+------------------------------------------------------------
+Server listening on UDP port 5001
+Receiving 1470 byte datagrams
+UDP buffer size:   122 KByte (default)
+------------------------------------------------------------
+[  3] local 192.168.12.139 port 5001 connected with 10.0.0.14 port 36476
+[ ID] Interval       Transfer     Bandwidth       Jitter   Lost/Total Datagrams
+[  3]  0.0- 3.3 sec    459 KBytes  1.13 Mbits/sec  7.744 ms  573/  893 (64%)
+read failed: Connection refused
+[  4] local 192.168.12.139 port 5001 connected with 10.0.0.14 port 44771
+[  4]  0.0-13.7 sec  1.24 MBytes    763 Kbits/sec  9.908 ms    5/  893 (0.56%)
+[  3] local 192.168.12.139 port 5001 connected with 10.0.0.14 port 39462
+read failed: Connection refused
+[  3]  0.0-42.0 sec  1.22 MBytes    243 Kbits/sec  15.430 ms   23/  893 (2.6%)
+[  5] local 192.168.12.139 port 5001 connected with 10.0.0.14 port 36082
+[  5]  0.0-59.5 sec  1.24 MBytes    175 Kbits/sec  7.575 ms    6/  893 (0.67%)
+[  4] local 192.168.12.139 port 5001 connected with 10.0.0.14 port 55695
+
+Häufige Verbindungsabbrüche
+
+hkf@satellite:~$ iperf -s -u
+------------------------------------------------------------
+Server listening on UDP port 5001
+Receiving 1470 byte datagrams
+UDP buffer size:   122 KByte (default)
+------------------------------------------------------------
+[  3] local 192.168.12.139 port 5001 connected with 10.0.0.14 port 36476
+[ ID] Interval       Transfer     Bandwidth       Jitter   Lost/Total Datagrams
+[  3]  0.0- 3.3 sec    459 KBytes  1.13 Mbits/sec  7.744 ms  573/  893 (64%)
+read failed: Connection refused
+[  4] local 192.168.12.139 port 5001 connected with 10.0.0.14 port 44771
+[  4]  0.0-13.7 sec  1.24 MBytes    763 Kbits/sec  9.908 ms    5/  893 (0.56%)
+[  3] local 192.168.12.139 port 5001 connected with 10.0.0.14 port 39462
+read failed: Connection refused
+[  3]  0.0-42.0 sec  1.22 MBytes    243 Kbits/sec  15.430 ms   23/  893 (2.6%)
+[  5] local 192.168.12.139 port 5001 connected with 10.0.0.14 port 36082
+[  5]  0.0-59.5 sec  1.24 MBytes    175 Kbits/sec  7.575 ms    6/  893 (0.67%)
+[  4] local 192.168.12.139 port 5001 connected with 10.0.0.14 port 55695
+[  3] local 192.168.12.139 port 5001 connected with 10.0.0.14 port 36217
+[  3]  0.0-171.9 sec  1.05 MBytes  51.0 Kbits/sec  17.746 ms  147/  893 (16%)
+[  5] local 192.168.12.139 port 5001 connected with 10.0.0.14 port 34923
+^[[6~^[[6~[  6] local 192.168.12.139 port 5001 connected with 10.0.0.14 port 51237
+[  6]  0.0-265.1 sec  73.2 KBytes  2.26 Kbits/sec  28.245 ms  842/  893 (94%)
+
+
+
+root@AP-12:/etc# netperf -t UDP_STREAM -v2 -P1 -H 10.0.0.14
+UDP UNIDIRECTIONAL SEND TEST to 10.0.0.14
+Socket  Message  Elapsed      Messages                
+Size    Size     Time         Okay Errors   Throughput
+bytes   bytes    secs            #      #   10^6bits/sec
+
+ 32767   32767   10.01          81      0       2.12
+ 32767           10.01           0              0.00
+
+root@AP-12:/etc# netperf -t UDP_STREAM -v2 -P1 -H 10.0.0.14
+UDP UNIDIRECTIONAL SEND TEST to 10.0.0.14
+Socket  Message  Elapsed      Messages                
+Size    Size     Time         Okay Errors   Throughput
+bytes   bytes    secs            #      #   10^6bits/sec
+
+ 32767   32767   9.99           38      0       1.00
+ 32767           9.99            0              0.00
+
+root@AP-12:/etc# netperf -t UDP_STREAM -v2 -P1 -H 10.0.0.14
+UDP UNIDIRECTIONAL SEND TEST to 10.0.0.14
+Socket  Message  Elapsed      Messages                
+Size    Size     Time         Okay Errors   Throughput
+bytes   bytes    secs            #      #   10^6bits/sec
+
+ 32767   32767   10.02          16      0       0.42
+ 32767           10.02           0              0.00
+
+root@AP-12:/etc# netperf -t UDP_STREAM -v2 -P1 -H 10.0.0.14
+UDP UNIDIRECTIONAL SEND TEST to 10.0.0.14
+Socket  Message  Elapsed      Messages                
+Size    Size     Time         Okay Errors   Throughput
+bytes   bytes    secs            #      #   10^6bits/sec
+
+ 32767   32767   10.00          74      0       1.94
+ 32767           10.00           0              0.00
+
+root@AP-12:/etc# netperf -v2 -P1 -H 10.0.0.14              
+TCP STREAM TEST to 10.0.0.14
+
