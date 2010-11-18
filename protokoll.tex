@@ -1,6 +1,15 @@
 \documentclass[a4paper,10pt]{article}
+
 \usepackage[utf8x]{inputenc}
+
+\usepackage[a4paper,left=1.5cm,right=1.5cm,bottom=2cm,top=1cm]{geometry}
 \usepackage{listings}
+\lstset{inputencoding=utf8x, extendedchars=\true}
+
+\usepackage{url}
+
+\parindent 0pt
+\parskip 10pt
 
 \title{TTP1 - Protokoll}
 \author{Andreas Krohn, Benjamin Vetter, Benjamin Jochheim}
@@ -17,7 +26,7 @@
 
 \subsubsection*{B.A.T.M.A.N.}
 
-Bei B.A.T.M.A.N. werden proaktiv sog. Originator-Nachrichten (OGMs) ausgetauscht.
+B.A.T.M.A.N.-Nodes tauschen proaktiv sog. Originator-Nachrichten (OGMs) aus.
 Eine OGM umfasst folgende Felder: 
 
 \begin{description}
@@ -58,7 +67,7 @@ Eine einzelne Nachricht besteht aus:
   \item[Time To Live] Die maximale Anzahl an Hops. Der Wert wird dekrementiert bevor die Nachricht weitergeleitet wird.
   \item[Hop Count] Die Anzahl an Hops, die die Nachricht zurückgelegt hat.
   \item[Message Sequence Number] Der Originator einer Nachricht erzeugt eine eindeutige ID für jede Nachricht.
-  \item[MESSAGE]
+  \item[MESSAGE] Nachricht vom Typ \textbf{Message Type}
 \end{description}
 
 Anhand des Message Type Feldes wird festgelegt, welcher Nachrichtentyp im MESSAGE-Block enthalten ist. 
@@ -193,7 +202,7 @@ In der Ausgabe findet sich der Packet-loss
 
 \subsection{2. Paketlaufzeiten / -verzögerungen (Delay)}
 
-http://blogs.itrinegy.com/2009/02/how-do-you-measure-latency-rtt-in-a-network-these-days/
+\url{http://blogs.itrinegy.com/2009/02/how-do-you-measure-latency-rtt-in-a-network-these-days/}
 
 PING
 ====
@@ -230,7 +239,7 @@ PING
 
 ping [IP] -c 10
 
-rtt min/avg/max/mdev = 1.111/1.603/4.820/1.082 ms # Gibt grob über die Varianz der Lantenz Auskunft (eher konstante Latenz oder sehr große Unterschiede in der Latenz)
+$rtt min/avg/max/mdev = 1.111/1.603/4.820/1.082 ms$ Gibt grob über die Varianz der Lantenz Auskunft (eher konstante Latenz oder sehr große Unterschiede in der Latenz)
 
 Die Varianz ist das arithmetische Mittel der quadratischen Abweichungen vom Mittelwert.
 
@@ -247,11 +256,13 @@ bsp für ping:
 ... time=1.57 ms
 ... time=1.18 ms
 
+\begin{lstlisting}
 def varianz(arr)
   avg = arr.inject(0) { |x, y| x + y } / arr.size.to_f
   q = arr.inject(0) { |x, y| x += (y - avg) * (y - avg) }
   return q / arr.size.to_f
 end
+\end{lstlisting}
 
 TCPDUMP
 ======
@@ -294,6 +305,7 @@ client:
 ping -c 20 [IP] >> ping.txt
 iperf -c [IP] -u -b [BANDWIDTH] >> iperf.txt
 
+\begin{lstlisting}
 #!/bin/sh
 
 # USAGE performance.sh [TARGET-IP] [LOGFILE]
@@ -316,6 +328,6 @@ do
 
   iperf -c $1 -u -b $b > $2
 done
-
+\end{lstlisting}
 \end{document}
 
