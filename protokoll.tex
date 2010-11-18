@@ -98,6 +98,8 @@ Der Link, der die meisten Sequenznummern in seinem Fenster aufweisen kann, gilt 
 
 \subsubsection*{OLSR}
 
+=> AK
+
 ...RFC lesen..
 Link Set über HELLO Messages aufbauen. Eigener Originator in 
 empfangener Message enthalten -> Symmetrischer Link. Timeouts -> Asymmetrisch, dann Tot.
@@ -135,7 +137,12 @@ Eine Verbindung mit einem spezifischen Nachbarn gilt als bidrektional wenn ein K
 
 \subsubsection*{OLSR}
 
+=> BJ
+
 \subsection{Ist das B.A.T.M.A.N.-Protokoll wirklich immer Loop-frei? Wie könnten sich ggf. Loops bilden?}
+
+=> BJ
+
 Sind mehrere Nodes sowohl per BATMAN als auch per klassischem Ethernet verbunden, kann eine Loop entstehen. Die BATMAN-spezifischen Paketheader werden im Ethernet nicht weitergeleitet, damit die Mechanismen zur Loopverhinderung ausgehebelt....
  Allerdings ist folgendes Szenario denkbar:
 Bei schwankender Linkqualität könnte ein Paket mehrfach an einem Host ankommen.
@@ -184,6 +191,8 @@ client: iperf -c [IP] -u -d
 
 \subsection{1. Paketverluste (Loss)}
 
+=> BJ
+
 PING
 ====
 
@@ -201,6 +210,8 @@ client: iperf -c [IP] -u -d
 In der Ausgabe findet sich der Packet-loss
 
 \subsection{2. Paketlaufzeiten / -verzögerungen (Delay)}
+
+=> AK
 
 \url{http://blogs.itrinegy.com/2009/02/how-do-you-measure-latency-rtt-in-a-network-these-days/}
 
@@ -229,6 +240,8 @@ tcpdump -ni [IF]
 1,143 millis Latenz
 
 \subsection{3. Laufzeitschwankungen (Jitter) der Pakete}
+
+=> BV
 
 In the context of computer networks, the term jitter is often used as a measure of the variability over time of the packet latency across a network. A network with constant latency has no variation (or jitter).[2] Packet jitter is expressed as an average of the deviation from the network mean latency. However, for this use, the term is imprecise. The standards-based term is packet delay variation (PDV).[3] PDV is an important quality of service factor in assessment of network performance.
 
