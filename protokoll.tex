@@ -1,6 +1,7 @@
 \documentclass[a4paper,10pt]{article}
 
 \usepackage[utf8x]{inputenc}
+\usepackage{graphicx}
 
 \usepackage[a4paper,left=1.5cm,right=1.5cm,bottom=2cm,top=1cm]{geometry}
 \usepackage{listings}
@@ -98,7 +99,7 @@ Der Link, der die meisten Sequenznummern in seinem Fenster aufweisen kann, gilt 
 
 \subsubsection*{OLSR}
 
-=> AK
+von AK zu bearbeiten
 
 ...RFC lesen..
 Link Set über HELLO Messages aufbauen. Eigener Originator in 
@@ -137,11 +138,11 @@ Eine Verbindung mit einem spezifischen Nachbarn gilt als bidrektional wenn ein K
 
 \subsubsection*{OLSR}
 
-=> BJ
+von BJ zu bearbeiten
 
 \subsection{Ist das B.A.T.M.A.N.-Protokoll wirklich immer Loop-frei? Wie könnten sich ggf. Loops bilden?}
 
-=> BJ
+von BJ zu bearbeiten
 
 Sind mehrere Nodes sowohl per BATMAN als auch per klassischem Ethernet verbunden, kann eine Loop entstehen. Die BATMAN-spezifischen Paketheader werden im Ethernet nicht weitergeleitet, damit die Mechanismen zur Loopverhinderung ausgehebelt....
  Allerdings ist folgendes Szenario denkbar:
@@ -161,186 +162,528 @@ In dem moment in dem C das Paket erhält bricht die Verbindung zu E zusammen, so
 
 Bei unseren Versuchen konnten wir solche Loops nicht erzeugen.
 
-
 \section{Projektschritt 3: Vergleichende Analyse der Übertragungsqualität}
 
-http://openmaniak.com/iperf.php
+Unsere APs hatten die Nummbern 12 und 14, im weiteren als AP-12 und AP-14 bezeichnet.
+Um vergleichbare, reproduzierbare und praxisrelevante Ergebnisse zu erhalten haben wir die Messungen zum größten Teil von Ende zu Ende durchgeführt, denn in der Praxis ist auch eher die Verbindungsqualität an den Endpunkten von Interesse.
+Dazu haben wir bspw. die Ping- und Iperf-Messungen auf unseren Notebooks durchgeführt, die jeweils mit einem Access Point (APs) verbunden wurden.
+Das 1. Notebook (Notebook-1) wurde mit dem AP-12 verbunden, das 2. Notebook (Notebook-2) wurde mit dem AP-14 verbunden.
 
-als erstes mal bandwidth check
-==============================
+Um den Einfluss der Hop-Anzahl bemessen zu können haben wir die Messungen außerdem für zwei verschiende Szenarien durchgeführt:
+\begin{itemize}
+  \item[1-Hop] die kommunizierenden Endpunkte sind über ihre unterschiedlichen Access Points direkt miteinander verbunden 
+  \item[Multi-Hop] die kommunizierenden Endpunkte sind über ihre unterschiedlichen Access Points und weitere, zusätzliche Hops (Access Points) miteinander verbunden
+\end{itemize}
 
-\begin{lstlisting}
-server: iperf -s -u # udp server öffnen (ggf -i für periodische ausgabe)
-client: iperf -c [IP] -u -i -t [SECONDS] # client zum server per udp connecten und bandwidth check mit periodischer ausgabe
-\end{lstlisting}
-
-
-dann bidirectional bandwidth check:
-===================================
-
-\begin{lstlisting}
-client: iperf -c [IP] -u -r -i # client zum server per udp connected und bidirectional bandwidth check
-\end{lstlisting}
-
-dann simultaneous bidirectional bandwidth check
-===============================================
+Um die Szenarien deutlicher zu beschreiben lassen sich die Statistiken der Routing-Daemons abfragen.
+Für B.A.T.M.A.N. wurde hierzu folgender Befehl benutzt:
 
 \begin{lstlisting}
-client: iperf -c [IP] -u -d
+$ batmand -c -d 1
 \end{lstlisting}
 
+Für B.A.T.M.A.N. sieht das 1-Hop-Szenario bspw. wie folgt aus (AP-12):
+
+\begin{lstlisting}
+Originator (#/255)    Nexthop [outgoingIF]:  Potential nexthops
+10.0.0.14    (251)  10.0.0.14 [      eth2]:      10.0.0.14 (251) 
+10.0.0.24    ( 25)  10.0.0.14 [      eth2]:      10.0.0.24 (  0)
+10.0.0.53    ( 34)  10.0.0.53 [      eth2]:      10.0.0.53 ( 34) 
+10.0.0.13    (  8)  10.0.0.53 [      eth2]:      10.0.0.53 (  8)  
+\end{lstlisting}
+
+Der best next Hop um zu AP-14 zu gelangen ist AP-14 selbst, d.h. bei einer Kommunikation von AP-12 zu AP-14 liegt kein weitere HOP dazwischen.
+
+Für B.A.T.M.A.N. sieht das Multi-Hop-Szenario bspw. wie folgt aus (AP-12):
+
+\begin{lstlisting}
+Originator (#/255)    Nexthop [outgoingIF]:   Potential nexthops
+10.0.0.14    ( 32)  10.0.0.53 [      eth2]:       10.0.0.53 ( 32)
+10.0.0.24    ( 29)  10.0.0.53 [      eth2]:       10.0.0.53 ( 29)
+10.0.0.53    ( 44)  10.0.0.53 [      eth2]:       10.0.0.53 ( 44)
+10.0.0.13    ( 42)  10.0.0.53 [      eth2]:       10.0.0.53 ( 42)
+\end{lstlisting}
+
+Der best next Hop um zu AP-14 zu gelangen ist AP-53, d.h. bei einer Kommunikation von AP-12 zu AP-14 liegt mindstens 1 weiterer Hop dazwischen.
+
+Um den OLSR-Routing-Daemon nach seinen Routing-Entscheidungen zu befragen wurde das OLSR-HttpInfo-Modul benutzt.
+
+Figure \ref{1hop_olsr} zeigt die Routing-Informationen für OLSR bzgl. des 1-Hop-Szenarios (AP-12).
+
+\begin{center}
+  \begin{figure}[thb]
+    \includegraphics[width=1\textwidth]{1hop_olsr.png}
+    \caption{1-Hop OLSR}
+    \label{1hop_olsr}
+  \end{figure}
+\end{center}
+
+Die Route zu AP-14 weist die Metrik 1 auf und der Gateway zu AP-14 ist AP-14 selbst, d.h. bei einer Kommunikation von AP-12 zu AP-14 liegt kein weiterer Hop dazwischen.
+
+Figure \ref{2hop_olsr} zeigt die Routing-Informationen für OLSR bzgl. des Multi-Hop-Szenarios (AP-12).
+
+\begin{center}
+  \begin{figure}[thb]
+    \includegraphics[width=1\textwidth]{2hop_olsr.png}
+    \caption{Multi-Hop OLSR}
+    \label{2hop_olsr}
+  \end{figure}
+\end{center}
+
+Die Route zu AP-14 weist die Metrik 2 auf und der Gateway zu AP-14 ist AP-13, d.h. bei einer Kommunikation von AP-12 zu AP-14 liegt ein weiterer Hop dazwischen.
+
+\subsubsection*{Hinweis bzgl. der Szenarien}
+
+Da die APs ständig ihre Routing-Entscheidungen ändern können,
+haben wir vor und während der Messungen immer überprüft ob das gerade zu untersuchende Szenario überhaupt (noch) vorhanden ist.
+
+%http://openmaniak.com/iperf.php
+%
+%als erstes mal bandwidth check
+%==============================
+%
+%\begin{lstlisting}
+%server: iperf -s -u # udp server öffnen (ggf -i für periodische ausgabe)
+%client: iperf -c [IP] -u -i -t [SECONDS] # client zum server per udp connecten und bandwidth check mit periodischer ausgabe
+%\end{lstlisting}
+%
+%
+%dann bidirectional bandwidth check:
+%===================================
+%
+%\begin{lstlisting}
+%client: iperf -c [IP] -u -r -i # client zum server per udp connected und bidirectional bandwidth check
+%\end{lstlisting}
+%
+%dann simultaneous bidirectional bandwidth check
+%===============================================
+%
+%\begin{lstlisting}
+%client: iperf -c [IP] -u -d
+%\end{lstlisting}
+%
 \subsection{1. Paketverluste (Loss)}
 
-=> BJ
+von BJ zu bearbeiten
 
-PING
-====
-
-zunächst mal ping:
-
-ping [IP] -c 10
-
-IPERF
-=====
-
-Datagram loss: can be measured with an Iperf UDP test.
-
-client: iperf -c [IP] -u -d
-
-In der Ausgabe findet sich der Packet-loss
-
+%PING
+%====
+%
+%zunächst mal ping:
+%
+%ping [IP] -c 10
+%
+%IPERF
+%=====
+%
+%Datagram loss: can be measured with an Iperf UDP test.
+%
+%client: iperf -c [IP] -u -d
+%
+%In der Ausgabe findet sich der Packet-loss
+%
 \subsection{2. Paketlaufzeiten / -verzögerungen (Delay)}
 
-=> AK
+von AK zu bearbeiten
 
-\url{http://blogs.itrinegy.com/2009/02/how-do-you-measure-latency-rtt-in-a-network-these-days/}
-
-PING
-====
-Mittels des Pings wird die round-trip-time gemessen.
-
-
-ping [IP] -c 10
-
-TCPDUMP
-=======
-
-Auch mit tcpdump kann die Lantenz gemessen werden, indem die Paketlaufzeiten bei zB TCP-Handshakes (SYN => SYN+ACK) gemessen werden
-
-client:
-
-tcpdump -ni [IF]
-...
-
-11:37:07.681274 IP [IP].[PORT] > [IP].[PORT]: Flags [S], ...
-11:37:07.682417 IP [IP].[PORT] > [IP].[PORT]: Flags [S.], ...
-
-11:37:07.682417 - 11:37:07.681274
-
-1,143 millis Latenz
-
+%\url{http://blogs.itrinegy.com/2009/02/how-do-you-measure-latency-rtt-in-a-network-these-days/}
+%
+%PING
+%====
+%Mittels des Pings wird die round-trip-time gemessen.
+%
+%
+%ping [IP] -c 10
+%
+%TCPDUMP
+%=======
+%
+%Auch mit tcpdump kann die Lantenz gemessen werden, indem die Paketlaufzeiten bei zB TCP-Handshakes (SYN => SYN+ACK) gemessen werden
+%
+%client:
+%
+%tcpdump -ni [IF]
+%...
+%
+%11:37:07.681274 IP [IP].[PORT] > [IP].[PORT]: Flags [S], ...
+%11:37:07.682417 IP [IP].[PORT] > [IP].[PORT]: Flags [S.], ...
+%
+%11:37:07.682417 - 11:37:07.681274
+%
+%1,143 millis Latenz
+%
 \subsection{3. Laufzeitschwankungen (Jitter) der Pakete}
 
-=> BV
+Der Jitter ist die Varianz der Latenz und wird durch den Durchschnitt der Abweichung von der mittleren Latenz ausgedrückt.
+Um zunächst einen groben Eindruck vom vorhandenen Jitter zu erhalten kann die Latenz der Replies auf ICMP-Echo-Requests betrachtet werden.
+Dies haben wir zunächst für das 1-Hop-Szenario sowohl für das B.A.T.M.A.N.- und anschließend für das OLSR-Protokoll durchgeführt.
 
-In the context of computer networks, the term jitter is often used as a measure of the variability over time of the packet latency across a network. A network with constant latency has no variation (or jitter).[2] Packet jitter is expressed as an average of the deviation from the network mean latency. However, for this use, the term is imprecise. The standards-based term is packet delay variation (PDV).[3] PDV is an important quality of service factor in assessment of network performance.
+\subsubsection*{B.A.T.M.A.N.}
 
-The jitter is basically the latency variation and does not depend on the latency
+Da bei uns und anderen Teilnehmern des Praktikums bzgl. B.A.T.M.A.N. durchgehend Probleme bei der Ende-zu-Ende-Kommunikation auftraten mussten wir die Ping-Messungen bzgl. des Jitters für B.A.T.M.A.N. von Router zur Router messen.
 
-PING
-====
-
-ping [IP] -c 10
-
-$rtt min/avg/max/mdev = 1.111/1.603/4.820/1.082 ms$ Gibt grob über die Varianz der Lantenz Auskunft (eher konstante Latenz oder sehr große Unterschiede in der Latenz)
-
-Die Varianz ist das arithmetische Mittel der quadratischen Abweichungen vom Mittelwert.
-
-bsp für ping:
-
-... time=4.82 ms
-... time=1.13 ms
-... time=1.19 ms
-... time=1.11 ms
-... time=1.24 ms
-... time=1.17 ms
-... time=1.12 ms
-... time=1.46 ms
-... time=1.57 ms
-... time=1.18 ms
+1-Hop-Szenario:
 
 \begin{lstlisting}
-def varianz(arr)
-  avg = arr.inject(0) { |x, y| x + y } / arr.size.to_f
-  q = arr.inject(0) { |x, y| x += (y - avg) * (y - avg) }
-  return q / arr.size.to_f
-end
+root@AP-12:~# ping -c 20 10.0.0.14
+PING 10.0.0.14 (10.0.0.14): 56 data bytes
+64 bytes from 10.0.0.14: icmp_seq=1 ttl=64 time=3.9 ms
+64 bytes from 10.0.0.14: icmp_seq=2 ttl=64 time=3.9 ms
+64 bytes from 10.0.0.14: icmp_seq=3 ttl=64 time=10.6 ms
+64 bytes from 10.0.0.14: icmp_seq=4 ttl=64 time=40.6 ms
+64 bytes from 10.0.0.14: icmp_seq=5 ttl=64 time=3.8 ms
+64 bytes from 10.0.0.14: icmp_seq=6 ttl=64 time=5.3 ms
+64 bytes from 10.0.0.14: icmp_seq=7 ttl=64 time=6.5 ms
+64 bytes from 10.0.0.14: icmp_seq=8 ttl=64 time=3.5 ms
+64 bytes from 10.0.0.14: icmp_seq=9 ttl=64 time=21.0 ms
+64 bytes from 10.0.0.14: icmp_seq=10 ttl=64 time=3.5 ms
+64 bytes from 10.0.0.14: icmp_seq=11 ttl=64 time=3.5 ms
+64 bytes from 10.0.0.14: icmp_seq=12 ttl=64 time=59.7 ms
+64 bytes from 10.0.0.14: icmp_seq=13 ttl=64 time=3.5 ms
+64 bytes from 10.0.0.14: icmp_seq=14 ttl=64 time=3.5 ms
+64 bytes from 10.0.0.14: icmp_seq=15 ttl=64 time=4.8 ms
+64 bytes from 10.0.0.14: icmp_seq=16 ttl=64 time=3.1 ms
+64 bytes from 10.0.0.14: icmp_seq=17 ttl=64 time=3.1 ms
+64 bytes from 10.0.0.14: icmp_seq=18 ttl=64 time=3.0 ms
+64 bytes from 10.0.0.14: icmp_seq=19 ttl=64 time=3.1 ms
+
+--- 10.0.0.14 ping statistics --- 
+20 packets transmitted, 19 packets received, 5% packet loss
+round-trip min/avg/max = 3.0/9.9/59.7 ms
 \end{lstlisting}
 
-TCPDUMP
-======
-
-Das gleiche kann man auch per tcpdump machen, ist aber recht aufwendig
-
-IPERF
-=====
-
-Jitter (latency variation): can be measured with an Iperf UDP test.
-
-client: iperf -c [IP] -u -d
-
-In der Ausgabe findet sich der Jitter
-
-Methodik:
-
-- Telefonieren und Hopzahl steigern
-- Messungen durchführen und Hopzahl steigern
-- Telefonieren und dabei messen (iperf) um Netzlast zu erzeugen
-
-1. Telefonieren mit 1 Hop
-2. Messen mit 1 Hop
-3. Telefonieren und Messen mit 1 Hop mit Erhöhung der Netzlast (-b 0.1m -b 0.5m -b 1m -b 10m -b 100m)
-
-1. Telefonieren mit 2 Hop
-2. Messen mit 2 Hop
-3. Telefonieren und Messen mit 2 Hop mit Erhöhung der Netzlast (-b 0.1m -b 0.5m -b 1m -b 10m -b 100m)
-
-1. Telefonieren mit 3 Hop
-2. Messen mit 3 Hop
-3. Telefonieren und Messen mit 3 Hop mit Erhöhung der Netzlast (-b 0.1m -b 0.5m -b 1m -b 10m -b 100m)
-
-Das Messen geschieht folgendermaßen:
-
-server:
-iperf -s -u
-
-client:
-ping -c 20 [IP] >> ping.txt
-iperf -c [IP] -u -b [BANDWIDTH] >> iperf.txt
+Multi-Hop-Szenario:
 
 \begin{lstlisting}
-#!/bin/sh
+hkf@satellite:~$ ping 10.0.0.14 -c 20
+PING 10.0.0.14 (10.0.0.14) 56(84) bytes of data.
+64 bytes from 10.0.0.14: icmp_req=1 ttl=62 time=64.9 ms
+64 bytes from 10.0.0.14: icmp_req=3 ttl=62 time=8.63 ms
+64 bytes from 10.0.0.14: icmp_req=4 ttl=62 time=9.56 ms
+64 bytes from 10.0.0.14: icmp_req=5 ttl=62 time=57.8 ms
+64 bytes from 10.0.0.14: icmp_req=7 ttl=62 time=92.5 ms
+64 bytes from 10.0.0.14: icmp_req=8 ttl=62 time=6.23 ms
+64 bytes from 10.0.0.14: icmp_req=9 ttl=62 time=10.4 ms
+64 bytes from 10.0.0.14: icmp_req=10 ttl=62 time=11.8 ms
+64 bytes from 10.0.0.14: icmp_req=11 ttl=62 time=7.81 ms
+64 bytes from 10.0.0.14: icmp_req=12 ttl=62 time=7.22 ms
+64 bytes from 10.0.0.14: icmp_req=13 ttl=62 time=8.84 ms
+64 bytes from 10.0.0.14: icmp_req=14 ttl=62 time=19.7 ms
+64 bytes from 10.0.0.14: icmp_req=15 ttl=62 time=36.3 ms
+64 bytes from 10.0.0.14: icmp_req=16 ttl=62 time=12.8 ms
+64 bytes from 10.0.0.14: icmp_req=17 ttl=62 time=5.69 ms
+64 bytes from 10.0.0.14: icmp_req=18 ttl=62 time=244 ms
+64 bytes from 10.0.0.14: icmp_req=19 ttl=62 time=105 ms
+64 bytes from 10.0.0.14: icmp_req=20 ttl=62 time=203 ms
 
-# USAGE performance.sh [TARGET-IP] [LOGFILE]
-
-echo "NEW RUN `date`" > $2
-
-# PING
-
-echo "RUNNING PING" > $2
-echo "RUNNING PING"
-
-ping -c 20 $1 >> $2
-
-# IPERF
-
-for b in 0.1m 0.5m 1m 5m 10m 20m 50m # ggf anpassen
-do
-  echo "RUNNING IPERF for $b" > $2
-  echo "RUNNING IPERF for $b"
-
-  iperf -c $1 -u -b $b > $2
-done
+--- 10.0.0.14 ping statistics --- 
+20 packets transmitted, 18 received, 10% packet loss, time 19019ms
+rtt min/avg/max/mdev = 5.697/50.818/244.965/68.620 ms
 \end{lstlisting}
+
+Für B.A.T.M.A.N. sind z.T. einige "Ausreisser" zu erkennen, was auf einen höheren Jitter schließen lässt.
+Vor für das Multi-Hop-Szenario variiert die Latenz deutlich.
+
+\subsubsection*{OLSR}
+
+Bei OLSR waren uns Messungen von Ende zu Ende möglich.
+
+1-Hop-Szenario:
+
+\begin{lstlisting}
+user@notebook-1:~$ ping -c 20 192.168.14.232
+PING 192.168.14.232 (192.168.14.232) 56(84) bytes of data.
+64 bytes from 192.168.14.232: icmp_req=1 ttl=62 time=4.65 ms
+64 bytes from 192.168.14.232: icmp_req=2 ttl=62 time=4.89 ms
+64 bytes from 192.168.14.232: icmp_req=3 ttl=62 time=4.16 ms
+64 bytes from 192.168.14.232: icmp_req=4 ttl=62 time=2.74 ms
+64 bytes from 192.168.14.232: icmp_req=5 ttl=62 time=3.41 ms
+64 bytes from 192.168.14.232: icmp_req=6 ttl=62 time=2.92 ms
+64 bytes from 192.168.14.232: icmp_req=7 ttl=62 time=4.12 ms
+64 bytes from 192.168.14.232: icmp_req=9 ttl=62 time=6.49 ms
+64 bytes from 192.168.14.232: icmp_req=10 ttl=62 time=5.79 ms
+64 bytes from 192.168.14.232: icmp_req=11 ttl=62 time=2.80 ms
+64 bytes from 192.168.14.232: icmp_req=12 ttl=62 time=14.3 ms
+64 bytes from 192.168.14.232: icmp_req=13 ttl=62 time=3.62 ms
+64 bytes from 192.168.14.232: icmp_req=14 ttl=62 time=9.26 ms
+64 bytes from 192.168.14.232: icmp_req=15 ttl=62 time=5.30 ms
+64 bytes from 192.168.14.232: icmp_req=16 ttl=62 time=3.03 ms
+64 bytes from 192.168.14.232: icmp_req=17 ttl=62 time=2.98 ms
+64 bytes from 192.168.14.232: icmp_req=18 ttl=62 time=4.97 ms
+64 bytes from 192.168.14.232: icmp_req=19 ttl=62 time=2.97 ms
+64 bytes from 192.168.14.232: icmp_req=20 ttl=62 time=3.01 ms
+
+--- 192.168.14.232 ping statistics ---
+20 packets transmitted, 19 received, 5% packet loss, time 19034ms
+rtt min/avg/max/mdev = 2.742/4.816/14.338/2.753 ms
+\end{lstlisting}
+
+Multi-Hop-Szenario:
+
+\begin{lstlisting}
+hkf@satellite:~$ ping 192.168.14.232 -c 20
+PING 192.168.14.232 (192.168.14.232) 56(84) bytes of data.
+64 bytes from 192.168.14.232: icmp_req=2 ttl=61 time=17.6 ms
+64 bytes from 192.168.14.232: icmp_req=3 ttl=61 time=18.4 ms
+64 bytes from 192.168.14.232: icmp_req=4 ttl=61 time=10.5 ms
+64 bytes from 192.168.14.232: icmp_req=5 ttl=61 time=32.0 ms
+64 bytes from 192.168.14.232: icmp_req=7 ttl=61 time=72.8 ms
+64 bytes from 192.168.14.232: icmp_req=8 ttl=61 time=158 ms
+64 bytes from 192.168.14.232: icmp_req=9 ttl=61 time=203 ms
+64 bytes from 192.168.14.232: icmp_req=10 ttl=61 time=60.9 ms
+64 bytes from 192.168.14.232: icmp_req=11 ttl=61 time=69.0 ms
+64 bytes from 192.168.14.232: icmp_req=12 ttl=61 time=80.3 ms
+64 bytes from 192.168.14.232: icmp_req=13 ttl=61 time=78.6 ms
+64 bytes from 192.168.14.232: icmp_req=14 ttl=61 time=196 ms
+64 bytes from 192.168.14.232: icmp_req=15 ttl=61 time=110 ms
+64 bytes from 192.168.14.232: icmp_req=16 ttl=61 time=183 ms
+64 bytes from 192.168.14.232: icmp_req=17 ttl=61 time=23.3 ms
+64 bytes from 192.168.14.232: icmp_req=18 ttl=61 time=24.7 ms
+64 bytes from 192.168.14.232: icmp_req=19 ttl=61 time=15.4 ms
+64 bytes from 192.168.14.232: icmp_req=20 ttl=61 time=9.41 ms
+
+--- 192.168.14.232 ping statistics --- 
+20 packets transmitted, 18 received, 10% packet loss, time 19040ms
+rtt min/avg/max/mdev = 9.419/75.873/203.346/65.425 ms
+\end{lstlisting}
+
+Auch OLSR weist "Ausreisser" auf.
+Der Jitter scheint daher bei beiden Protokollen, auch in Abhängigkeit von der Hop-Anzahl, ähnlich zu sein.
+
+\subsubsection*{Berechnung des Jitters}
+
+Aus den gewonnen Werten ist es möglich den Jitter zu berechnen.
+Der Jitter ist die Varianz der Latenz und die Varianz ist das arithmetische Mittel der quadratischen Abweichungen vom Mittelwert.
+Da Messungen mittels Iperf den Jitter allerdings ausgeben, haben wir den Jitter nicht manuell berechnet, sondern mittels Iperf analysiert
+
+\subsubsection*{Messungen mit Iperf bzgl. des Jitters für B.A.T.M.A.N.}
+
+Zwischenzeitlich war es uns wieder möglich Messungen auch für B.A.T.M.A.N. von Ende zu Ende durchzuführen.
+
+1-Hop-Szenario:
+
+\begin{lstlisting}
+user@notebook-1:~$ iperf -s -u
+------------------------------------------------------------
+Server listening on UDP port 5001
+Receiving 1470 byte datagrams
+UDP buffer size:   122 KByte (default)
+------------------------------------------------------------
+[  3] local 192.168.12.139 port 5001 connected with 192.168.14.232 port 45829
+[ ID] Interval       Transfer     Bandwidth       Jitter   Lost/Total Datagrams
+[  3]  0.0-10.0 sec  1.25 MBytes  1.05 Mbits/sec  1.342 ms    3/  893 (0.34%)
+[  4] local 192.168.12.139 port 5001 connected with 192.168.14.232 port 54231
+[  4]  0.0-10.0 sec  1.25 MBytes  1.05 Mbits/sec  0.816 ms    2/  893 (0.22%)
+[  3] local 192.168.12.139 port 5001 connected with 192.168.14.232 port 41070
+[  3]  0.0-10.0 sec  1.25 MBytes  1.04 Mbits/sec  1.014 ms    4/  893 (0.45%)
+[  4] local 192.168.12.139 port 5001 connected with 192.168.14.232 port 45941
+[  4]  0.0-10.0 sec  1.25 MBytes  1.05 Mbits/sec  3.377 ms    2/  893 (0.22%)
+[  3] local 192.168.12.139 port 5001 connected with 192.168.14.232 port 40947
+[  3]  0.0-10.0 sec  1.25 MBytes  1.05 Mbits/sec  2.689 ms    0/  893 (0%)
+[  4] local 192.168.12.139 port 5001 connected with 192.168.14.232 port 47410
+[  4]  0.0-10.0 sec  1.25 MBytes  1.05 Mbits/sec  2.218 ms    0/  893 (0%)
+\end{lstlisting}
+
+Der Jitter lag für B.A.T.M.A.N. und das 1-Hop-Szenario also bei durchschnittlich 1.91 Millisekunden.
+
+Multi-Hop-Szenario:
+
+\begin{lstlisting}
+------------------------------------------------------------
+Server listening on UDP port 5001
+Receiving 1470 byte datagrams
+UDP buffer size:   122 KByte (default)
+------------------------------------------------------------
+[  3] local 192.168.12.139 port 5001 connected with 192.168.14.232 port 45320
+[ ID] Interval       Transfer     Bandwidth       Jitter   Lost/Total Datagrams
+[  3]  0.0- 7.2 sec    613 KBytes    694 Kbits/sec  10.260 ms  466/  893 (52%)
+[  4] local 192.168.12.139 port 5001 connected with 192.168.14.232 port 55901
+[  4]  0.0-24.3 sec  1.23 MBytes    424 Kbits/sec  11.178 ms   17/  893 (1.9%)
+[  3] local 192.168.12.139 port 5001 connected with 192.168.14.232 port 45975
+[  3]  0.0-50.3 sec  1.23 MBytes    205 Kbits/sec  9.333 ms   15/  893 (1.7%)
+[  5] local 192.168.12.139 port 5001 connected with 192.168.14.232 port 55692
+[  5]  0.0-58.2 sec  1.18 MBytes    170 Kbits/sec  6.782 ms   53/  893 (5.9%)
+[  4] local 192.168.12.139 port 5001 connected with 192.168.14.232 port 49418
+[  4]  0.0-61.6 sec    538 KBytes  71.6 Kbits/sec  7.284 ms  518/  893 (58%)
+read failed: Connection refused
+[  3] local 192.168.12.139 port 5001 connected with 192.168.14.232 port 58259
+[  3]  0.0- 9.7 sec  1.21 MBytes  1.05 Mbits/sec  3.111 ms    1/  863 (0.12%)
+[  3]  0.0- 9.7 sec  1 datagrams received out-of-order
+[  4] local 192.168.12.139 port 5001 connected with 192.168.14.232 port 33807
+[  4]  0.0-10.0 sec  1.25 MBytes  1.05 Mbits/sec  3.160 ms    0/  893 (0%)
+\end{lstlisting}
+
+Der Jitter lag für B.A.T.M.A.N. und das Multi-Hop-Szenario also bei durchschnittlich 7.3 Millisekunden.
+Der hohe Packet-Loss bei den Messungen weist auf starke Schwankungen der Verbindungsqualität hin.
+
+\subsubsection*{Messungen mit Iperf bzgl. des Jitters für OLSR}
+
+1-Hop-Szenario:
+
+\begin{lstlisting}
+user@notebook-1:~$ iperf -s -u
+------------------------------------------------------------
+Server listening on UDP port 5001
+Receiving 1470 byte datagrams
+UDP buffer size:   122 KByte (default)
+------------------------------------------------------------
+[  3] local 192.168.12.139 port 5001 connected with 10.0.0.14 port 37087
+[ ID] Interval       Transfer     Bandwidth       Jitter   Lost/Total Datagrams
+[  3]  0.0-11.2 sec    847 KBytes    617 Kbits/sec  10.511 ms  303/  893 (34%)
+read failed: Connection refused
+[  4] local 192.168.12.139 port 5001 connected with 10.0.0.14 port 34792
+[  4]  0.0-10.0 sec  1.24 MBytes  1.04 Mbits/sec  3.373 ms    6/  893 (0.67%)
+[  3] local 192.168.12.139 port 5001 connected with 10.0.0.14 port 59874
+[  3]  0.0-10.0 sec  1.25 MBytes  1.05 Mbits/sec  1.659 ms    0/  893 (0%)
+[  4] local 192.168.12.139 port 5001 connected with 10.0.0.14 port 46285
+[  4]  0.0-10.0 sec  1.25 MBytes  1.05 Mbits/sec  2.818 ms    0/  893 (0%)
+\end{lstlisting}
+
+Der Jitter lag für OLSR und das 1-Hop-Szenario also bei durchschnittlich 4.59 Millisekunden.
+
+Multi-Hop-Szenario:
+
+\begin{lstlisting}
+user@notebook-1:~$ iperf -s -u
+------------------------------------------------------------
+Server listening on UDP port 5001
+Receiving 1470 byte datagrams
+UDP buffer size:   122 KByte (default)
+------------------------------------------------------------
+[  3] local 192.168.12.139 port 5001 connected with 10.0.0.14 port 36476
+[ ID] Interval       Transfer     Bandwidth       Jitter   Lost/Total Datagrams
+[  3]  0.0- 3.3 sec    459 KBytes  1.13 Mbits/sec  7.744 ms  573/  893 (64%)
+read failed: Connection refused
+[  4] local 192.168.12.139 port 5001 connected with 10.0.0.14 port 44771
+[  4]  0.0-13.7 sec  1.24 MBytes    763 Kbits/sec  9.908 ms    5/  893 (0.56%)
+[  3] local 192.168.12.139 port 5001 connected with 10.0.0.14 port 39462
+read failed: Connection refused
+[  3]  0.0-42.0 sec  1.22 MBytes    243 Kbits/sec  15.430 ms   23/  893 (2.6%)
+[  5] local 192.168.12.139 port 5001 connected with 10.0.0.14 port 36082
+[  5]  0.0-59.5 sec  1.24 MBytes    175 Kbits/sec  7.575 ms    6/  893 (0.67%)
+[  4] local 192.168.12.139 port 5001 connected with 10.0.0.14 port 55695
+[  3] local 192.168.12.139 port 5001 connected with 10.0.0.14 port 36217
+[  3]  0.0-171.9 sec  1.05 MBytes  51.0 Kbits/sec  17.746 ms  147/  893 (16%)
+[  5] local 192.168.12.139 port 5001 connected with 10.0.0.14 port 34923
+[  6] local 192.168.12.139 port 5001 connected with 10.0.0.14 port 51237
+[  6]  0.0-265.1 sec  73.2 KBytes  2.26 Kbits/sec  28.245 ms  842/  893 (94%)
+\end{lstlisting}
+
+Der Jitter lag für OLSR und das Multi-Hop-Szenario also bei durchschnittlich 14.44 Millisekunden.
+Auch hier sind starke Schwankungen der Verbindungsqualität festzustellen.
+
+\subsubsection*{Vergleich der Messungen bzgl. des Jitters für B.A.T.M.A.N. und OLSR}
+
+Beide Protokolle weisen ein ähnliches Verhalten auf.
+Der Jitter wächst mit steigender Anzahl an Hops.
+B.A.T.M.A.N. scheint bzgl. des Jitters ein etwas besseres Verhalten aufzuweisen.
+Aufgrund der ständigen Verbindungsprobleme ist es jedoch schwer einen klareren Gewinner zu benennen.
+
+\subsection{Zusammenfassung}
+
+Die Verbindungsqualität variiert zeitlich sehr stark bei beiden Protokollen.
+Es ist sehr schwierig einen einmal erreichten Zustand des Netzwerkes über längere Zeit aufrecht zu erhalten um vergleichbare Messungen durchführen zu können.
+Ein Klarer Gewinner beim Wettstreit der Protokolle ist daher nur schwer zu benennen.
+B.A.T.M.A.N. scheint jedoch einen kleinen Vorsprung zu besitzen.
+
+%In the context of computer networks, the term jitter is often used as a measure of the variability over time of the packet latency across a network. A network with constant latency has no variation (or jitter).[2] Packet jitter is expressed as an average of the deviation from the network mean latency. However, for this use, the term is imprecise. The standards-based term is packet delay variation (PDV).[3] PDV is an important quality of service factor in assessment of network performance.
+%
+%The jitter is basically the latency variation and does not depend on the latency
+%
+%PING
+%====
+%
+%ping [IP] -c 10
+%
+%$rtt min/avg/max/mdev = 1.111/1.603/4.820/1.082 ms$ Gibt grob über die Varianz der Lantenz Auskunft (eher konstante Latenz oder sehr große Unterschiede in der Latenz)
+%
+%Die Varianz ist das arithmetische Mittel der quadratischen Abweichungen vom Mittelwert.
+%
+%bsp für ping:
+%
+%... time=4.82 ms
+%... time=1.13 ms
+%... time=1.19 ms
+%... time=1.11 ms
+%... time=1.24 ms
+%... time=1.17 ms
+%... time=1.12 ms
+%... time=1.46 ms
+%... time=1.57 ms
+%... time=1.18 ms
+%
+%\begin{lstlisting}
+%def varianz(arr)
+%  avg = arr.inject(0) { |x, y| x + y } / arr.size.to_f
+%  q = arr.inject(0) { |x, y| x += (y - avg) * (y - avg) }
+%  return q / arr.size.to_f
+%end
+%\end{lstlisting}
+%
+%TCPDUMP
+%======
+%
+%Das gleiche kann man auch per tcpdump machen, ist aber recht aufwendig
+%
+%IPERF
+%=====
+%
+%Jitter (latency variation): can be measured with an Iperf UDP test.
+%
+%client: iperf -c [IP] -u -d
+%
+%In der Ausgabe findet sich der Jitter
+%
+%Methodik:
+%
+%- Telefonieren und Hopzahl steigern
+%- Messungen durchführen und Hopzahl steigern
+%- Telefonieren und dabei messen (iperf) um Netzlast zu erzeugen
+%
+%1. Telefonieren mit 1 Hop
+%2. Messen mit 1 Hop
+%3. Telefonieren und Messen mit 1 Hop mit Erhöhung der Netzlast (-b 0.1m -b 0.5m -b 1m -b 10m -b 100m)
+%
+%1. Telefonieren mit 2 Hop
+%2. Messen mit 2 Hop
+%3. Telefonieren und Messen mit 2 Hop mit Erhöhung der Netzlast (-b 0.1m -b 0.5m -b 1m -b 10m -b 100m)
+%
+%1. Telefonieren mit 3 Hop
+%2. Messen mit 3 Hop
+%3. Telefonieren und Messen mit 3 Hop mit Erhöhung der Netzlast (-b 0.1m -b 0.5m -b 1m -b 10m -b 100m)
+%
+%Das Messen geschieht folgendermaßen:
+%
+%server:
+%iperf -s -u
+%
+%client:
+%ping -c 20 [IP] >> ping.txt
+%iperf -c [IP] -u -b [BANDWIDTH] >> iperf.txt
+%
+%\begin{lstlisting}
+%#!/bin/sh
+%
+%# USAGE performance.sh [TARGET-IP] [LOGFILE]
+%
+%echo "NEW RUN `date`" > $2
+%
+%# PING
+%
+%echo "RUNNING PING" > $2
+%echo "RUNNING PING"
+%
+%ping -c 20 $1 >> $2
+%
+%# IPERF
+%
+%for b in 0.1m 0.5m 1m 5m 10m 20m 50m # ggf anpassen
+%do
+%  echo "RUNNING IPERF for $b" > $2
+%  echo "RUNNING IPERF for $b"
+%
+%  iperf -c $1 -u -b $b > $2
+%done
+%\end{lstlisting}
 \end{document}
 
