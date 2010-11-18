@@ -1,8 +1,8 @@
 \documentclass[a4paper,10pt]{article}
 
 \usepackage[utf8x]{inputenc}
+\usepackage[ngerman]{babel}
 \usepackage{graphicx}
-
 \usepackage[a4paper,left=1.5cm,right=1.5cm,bottom=2cm,top=1cm]{geometry}
 \usepackage{listings}
 \lstset{inputencoding=utf8x, extendedchars=\true}
@@ -18,6 +18,10 @@
 \begin{document}
 
 \maketitle
+
+\tableofcontents 
+
+\newpage
 
 \section{Projektschritt 2: Vergleichende Betrachtung des B.A.T.M.A.N.- und OLSR-Protokolls}
 
@@ -37,7 +41,7 @@ Eine OGM umfasst folgende Felder:
   \item[TTL] der Time-To-Live Wert der OGM.
   \item[GWFlags] Kennzeichnet ob der Originator als Gateway ins Internet fungiert. Ein Originator kann sich selbst als Internet-Gateway annoncieren. Die Annonce beinhaltet die Link-Geschwindigkeit.
   \item[GWPort] Beinhaltet eine Portnummer für einen Tunnel falls sich der Originator als Internet-Gateway annonciert.
-  \item[Sequenznummer] Eine Sequenznummer der OGM (0 bis 2\^16-1). Anhand der Sequenznummer können andere Knoten entscheiden ob eine OGM "neu" ist.
+  \item[Sequenznummer] Eine Sequenznummer der OGM (0 bis $2^{16}-1$). Anhand der Sequenznummer können andere Knoten entscheiden ob eine OGM "`neu"' ist.
   \item[Originator-Adresse] Die IP-Adresse des B.A.T.M.A.N. Interfaces des OGM-Initiators.
 \end{description}
 
@@ -129,8 +133,8 @@ Das Protokoll hat das Ziel für jeden Knoten den jeweils besten Next-Hop zu find
 Jeder Knoten broadcastet Originator-Nachrichten (OGMs) periodisch um seine Nachbarn über seine Existenz zu informieren.
 Ein Jitter verhindert dabei Kollisionen.
 Seine Nachbarn re-broadcasten die OGMs und informieren ihrerseits ihre Nachbarn über die Existenz des eigentlichen Absenders der OGM.
-Jeder Knoten re-broadcastet die OGM seines aktuell als Best-Next-Hop identifizierten Knotens, sofern der Knoten die OGM anhand der Sequenznummer als "neu" einstuft und die TTL noch nicht abgelaufen ist.
-Beim jedem Re-broadcasting wird der TTL-Wert um 1 verringert.
+Jeder Knoten re-broadcastet die OGM seines aktuell als Best-Next-Hop identifizierten Knotens, sofern der Knoten die OGM anhand der Sequenznummer als "´neu"' einstuft und die TTL noch nicht abgelaufen ist.
+Bei jedem Re-broadcasting wird der TTL-Wert um 1 verringert.
 Daher wird das Netz mit OGMs geflutet.
 Eine Verbindung mit einem spezifischen Nachbarn gilt als bidrektional wenn ein Knoten seine eigenen OGMs von diesem Nachbarn empfängt.
 
@@ -164,25 +168,28 @@ Bei unseren Versuchen konnten wir solche Loops nicht erzeugen.
 
 \section{Projektschritt 3: Vergleichende Analyse der Übertragungsqualität}
 
-Unsere APs hatten die Nummbern 12 und 14, im weiteren als AP-12 und AP-14 bezeichnet.
+Unsere Access Points (APs) hatten die Nummbern 12 und 14, im weiteren als AP-12 und AP-14 bezeichnet.
 Um vergleichbare, reproduzierbare und praxisrelevante Ergebnisse zu erhalten haben wir die Messungen zum größten Teil von Ende zu Ende durchgeführt, denn in der Praxis ist auch eher die Verbindungsqualität an den Endpunkten von Interesse.
-Dazu haben wir bspw. die Ping- und Iperf-Messungen auf unseren Notebooks durchgeführt, die jeweils mit einem Access Point (APs) verbunden wurden.
+Dazu haben wir bspw. die Ping- und Iperf-Messungen auf unseren Notebooks durchgeführt, die jeweils mit einem AP verbunden wurden.
 Das 1. Notebook (Notebook-1) wurde mit dem AP-12 verbunden, das 2. Notebook (Notebook-2) wurde mit dem AP-14 verbunden.
 
 Um den Einfluss der Hop-Anzahl bemessen zu können haben wir die Messungen außerdem für zwei verschiende Szenarien durchgeführt:
 \begin{itemize}
   \item[1-Hop] die kommunizierenden Endpunkte sind über ihre unterschiedlichen Access Points direkt miteinander verbunden 
-  \item[Multi-Hop] die kommunizierenden Endpunkte sind über ihre unterschiedlichen Access Points und weitere, zusätzliche Hops (Access Points) miteinander verbunden
+  \item[Multi-Hop] die kommunizierenden Endpunkte sind über ihre unterschiedlichen Access Points und weitere, zusätzliche Hops (APs) miteinander verbunden
 \end{itemize}
 
-Um die Szenarien deutlicher zu beschreiben lassen sich die Statistiken der Routing-Daemons abfragen.
+Wir haben uns dafür entschieden das zweite Szenario als "`Multi-Hop"' zu bezeichnen, da das B.A.T.M.A.N.-Protokoll nicht die genaue Netztopologie kennt, sondern nur den jeweils besten Next-Hop.
+Dadurch ist nicht möglich die Anzahl an Hops genau zu bemessen oder festzulegen.
+
+Um die Szenarien anschaulicher zu beschreiben lassen sich die Statistiken der Routing-Daemons abfragen.
 Für B.A.T.M.A.N. wurde hierzu folgender Befehl benutzt:
 
 \begin{lstlisting}
 $ batmand -c -d 1
 \end{lstlisting}
 
-Für B.A.T.M.A.N. sieht das 1-Hop-Szenario bspw. wie folgt aus (AP-12):
+Für B.A.T.M.A.N. sieht unser 1-Hop-Szenario bspw. wie folgt aus (AP-12):
 
 \begin{lstlisting}
 Originator (#/255)    Nexthop [outgoingIF]:  Potential nexthops
@@ -192,9 +199,9 @@ Originator (#/255)    Nexthop [outgoingIF]:  Potential nexthops
 10.0.0.13    (  8)  10.0.0.53 [      eth2]:      10.0.0.53 (  8)  
 \end{lstlisting}
 
-Der best next Hop um zu AP-14 zu gelangen ist AP-14 selbst, d.h. bei einer Kommunikation von AP-12 zu AP-14 liegt kein weitere HOP dazwischen.
+Unser Best-Next-Hop um zu AP-14 zu gelangen ist AP-14 selbst, d.h. bei einer Kommunikation von AP-12 zu AP-14 liegt kein weiterer HOP dazwischen.
 
-Für B.A.T.M.A.N. sieht das Multi-Hop-Szenario bspw. wie folgt aus (AP-12):
+Für B.A.T.M.A.N. sieht unser Multi-Hop-Szenario bspw. wie folgt aus (AP-12):
 
 \begin{lstlisting}
 Originator (#/255)    Nexthop [outgoingIF]:   Potential nexthops
@@ -204,11 +211,11 @@ Originator (#/255)    Nexthop [outgoingIF]:   Potential nexthops
 10.0.0.13    ( 42)  10.0.0.53 [      eth2]:       10.0.0.53 ( 42)
 \end{lstlisting}
 
-Der best next Hop um zu AP-14 zu gelangen ist AP-53, d.h. bei einer Kommunikation von AP-12 zu AP-14 liegt mindstens 1 weiterer Hop dazwischen.
+Unser Best-Next-Hop um zu AP-14 zu gelangen ist AP-53, d.h. bei einer Kommunikation von AP-12 zu AP-14 liegt mindstens 1 weiterer Hop dazwischen.
 
-Um den OLSR-Routing-Daemon nach seinen Routing-Entscheidungen zu befragen wurde das OLSR-HttpInfo-Modul benutzt.
+Um den OLSR-Routing-Daemon nach seinen Routing-Entscheidungen zu befragen haben wir das OLSR-HttpInfo-Modul benutzt.
 
-Figure \ref{1hop_olsr} zeigt die Routing-Informationen für OLSR bzgl. des 1-Hop-Szenarios (AP-12).
+Abbildung \ref{1hop_olsr} zeigt die Routing-Informationen für OLSR bzgl. des 1-Hop-Szenarios (AP-12).
 
 \begin{center}
   \begin{figure}[thb]
@@ -218,7 +225,7 @@ Figure \ref{1hop_olsr} zeigt die Routing-Informationen für OLSR bzgl. des 1-Hop
   \end{figure}
 \end{center}
 
-Die Route zu AP-14 weist die Metrik 1 auf und der Gateway zu AP-14 ist AP-14 selbst, d.h. bei einer Kommunikation von AP-12 zu AP-14 liegt kein weiterer Hop dazwischen.
+Unsere Route zu AP-14 weist die Metrik 1 auf und der Gateway zu AP-14 ist AP-14 selbst, d.h. bei einer Kommunikation von AP-12 zu AP-14 liegt kein weiterer Hop dazwischen.
 
 Figure \ref{2hop_olsr} zeigt die Routing-Informationen für OLSR bzgl. des Multi-Hop-Szenarios (AP-12).
 
@@ -230,7 +237,7 @@ Figure \ref{2hop_olsr} zeigt die Routing-Informationen für OLSR bzgl. des Multi
   \end{figure}
 \end{center}
 
-Die Route zu AP-14 weist die Metrik 2 auf und der Gateway zu AP-14 ist AP-13, d.h. bei einer Kommunikation von AP-12 zu AP-14 liegt ein weiterer Hop dazwischen.
+Unsere Route zu AP-14 weist die Metrik 2 auf und der Gateway zu AP-14 ist AP-13, d.h. bei einer Kommunikation von AP-12 zu AP-14 liegt ein weiterer Hop (AP-13) dazwischen.
 
 \subsubsection*{Hinweis bzgl. der Szenarien}
 
@@ -315,14 +322,14 @@ von AK zu bearbeiten
 \subsection{3. Laufzeitschwankungen (Jitter) der Pakete}
 
 Der Jitter ist die Varianz der Latenz und wird durch den Durchschnitt der Abweichung von der mittleren Latenz ausgedrückt.
-Um zunächst einen groben Eindruck vom vorhandenen Jitter zu erhalten kann die Latenz der Replies auf ICMP-Echo-Requests betrachtet werden.
-Dies haben wir zunächst für das 1-Hop-Szenario sowohl für das B.A.T.M.A.N.- und anschließend für das OLSR-Protokoll durchgeführt.
+Um zunächst einen groben Eindruck vom vorhandenen Jitter zu erhalten haben wir die Latenz der Replies auf ICMP-Echo-Requests betrachtet.
+Dies haben wir zunächst für das 1-Hop-Szenario und dann für das Multi-Hop-Szenario sowohl für das B.A.T.M.A.N.- als auch für das OLSR-Protokoll durchgeführt.
 
-\subsubsection*{B.A.T.M.A.N.}
+\subsubsection{Grobe Einschätzung des Jitters für B.A.T.M.A.N. mittels Ping}
 
-Da bei uns und anderen Teilnehmern des Praktikums bzgl. B.A.T.M.A.N. durchgehend Probleme bei der Ende-zu-Ende-Kommunikation auftraten mussten wir die Ping-Messungen bzgl. des Jitters für B.A.T.M.A.N. von Router zur Router messen.
+Da bei uns und anderen Teilnehmern des Praktikums bzgl. B.A.T.M.A.N. häufig Probleme bei der Ende zu Ende Kommunikation auftraten mussten wir die Ping-Messungen bzgl. des Jitters für B.A.T.M.A.N. von Router zur Router durchführen.
 
-1-Hop-Szenario:
+\subsubsection*{1-Hop-Szenario}
 
 \begin{lstlisting}
 root@AP-12:~# ping -c 20 10.0.0.14
@@ -352,10 +359,10 @@ PING 10.0.0.14 (10.0.0.14): 56 data bytes
 round-trip min/avg/max = 3.0/9.9/59.7 ms
 \end{lstlisting}
 
-Multi-Hop-Szenario:
+\subsubsection*{Multi-Hop-Szenario}
 
 \begin{lstlisting}
-hkf@satellite:~$ ping 10.0.0.14 -c 20
+user@notebook-1:~$ ping 10.0.0.14 -c 20
 PING 10.0.0.14 (10.0.0.14) 56(84) bytes of data.
 64 bytes from 10.0.0.14: icmp_req=1 ttl=62 time=64.9 ms
 64 bytes from 10.0.0.14: icmp_req=3 ttl=62 time=8.63 ms
@@ -381,14 +388,14 @@ PING 10.0.0.14 (10.0.0.14) 56(84) bytes of data.
 rtt min/avg/max/mdev = 5.697/50.818/244.965/68.620 ms
 \end{lstlisting}
 
-Für B.A.T.M.A.N. sind z.T. einige "Ausreisser" zu erkennen, was auf einen höheren Jitter schließen lässt.
-Vor für das Multi-Hop-Szenario variiert die Latenz deutlich.
+Für B.A.T.M.A.N. sind z.T. einige "`Ausreisser"' zu erkennen, was auf einen höheren Jitter schließen lässt.
+Für das Multi-Hop-Szenario variiert die Latenz deutlich.
 
-\subsubsection*{OLSR}
+\subsubsection{Grobe Einschätzung des Jitters für OLSR mittels Ping}
 
-Bei OLSR waren uns Messungen von Ende zu Ende möglich.
+Bei OLSR waren uns Messungen von Ende zu Ende immer möglich, so dass wir von Ende zu Ende gemessen haben.
 
-1-Hop-Szenario:
+\subsubsection*{1-Hop-Szenario}
 
 \begin{lstlisting}
 user@notebook-1:~$ ping -c 20 192.168.14.232
@@ -418,10 +425,10 @@ PING 192.168.14.232 (192.168.14.232) 56(84) bytes of data.
 rtt min/avg/max/mdev = 2.742/4.816/14.338/2.753 ms
 \end{lstlisting}
 
-Multi-Hop-Szenario:
+\subsubsection*{Multi-Hop-Szenario}
 
 \begin{lstlisting}
-hkf@satellite:~$ ping 192.168.14.232 -c 20
+user@notebook-1:~$ ping 192.168.14.232 -c 20
 PING 192.168.14.232 (192.168.14.232) 56(84) bytes of data.
 64 bytes from 192.168.14.232: icmp_req=2 ttl=61 time=17.6 ms
 64 bytes from 192.168.14.232: icmp_req=3 ttl=61 time=18.4 ms
@@ -447,20 +454,20 @@ PING 192.168.14.232 (192.168.14.232) 56(84) bytes of data.
 rtt min/avg/max/mdev = 9.419/75.873/203.346/65.425 ms
 \end{lstlisting}
 
-Auch OLSR weist "Ausreisser" auf.
-Der Jitter scheint daher bei beiden Protokollen, auch in Abhängigkeit von der Hop-Anzahl, ähnlich zu sein.
+Auch OLSR weist "`Ausreisser"' auf.
+Die grobe Betrachtung des Jitters lässt daher darauf schließen, dass der Jitter bei beiden Protokollen, auch in Abhängigkeit von der Hop-Anzahl, ähnlich ist.
 
 \subsubsection*{Berechnung des Jitters}
 
 Aus den gewonnen Werten ist es möglich den Jitter zu berechnen.
 Der Jitter ist die Varianz der Latenz und die Varianz ist das arithmetische Mittel der quadratischen Abweichungen vom Mittelwert.
-Da Messungen mittels Iperf den Jitter allerdings ausgeben, haben wir den Jitter nicht manuell berechnet, sondern mittels Iperf analysiert
+Da Messungen mittels Iperf den Jitter allerdings ausgeben, haben wir den Jitter nicht manuell berechnet, sondern mittels Iperf analysiert.
 
-\subsubsection*{Messungen mit Iperf bzgl. des Jitters für B.A.T.M.A.N.}
+\subsubsection{Bestimmung des Jitters für B.A.T.M.A.N. mittels Iperf}
 
 Zwischenzeitlich war es uns wieder möglich Messungen auch für B.A.T.M.A.N. von Ende zu Ende durchzuführen.
 
-1-Hop-Szenario:
+\subsubsection*{1-Hop-Szenario}
 
 \begin{lstlisting}
 user@notebook-1:~$ iperf -s -u
@@ -486,7 +493,7 @@ UDP buffer size:   122 KByte (default)
 
 Der Jitter lag für B.A.T.M.A.N. und das 1-Hop-Szenario also bei durchschnittlich 1.91 Millisekunden.
 
-Multi-Hop-Szenario:
+\subsubsection*{Multi-Hop-Szenario}
 
 \begin{lstlisting}
 ------------------------------------------------------------
@@ -514,11 +521,11 @@ read failed: Connection refused
 \end{lstlisting}
 
 Der Jitter lag für B.A.T.M.A.N. und das Multi-Hop-Szenario also bei durchschnittlich 7.3 Millisekunden.
-Der hohe Packet-Loss bei den Messungen weist auf starke Schwankungen der Verbindungsqualität hin.
+Der hohe Packet-Loss, die Schwankungen im Jitter und der Bandbreite bei den Messungen weisen auf starke Schwankungen der Verbindungsqualität hin.
 
-\subsubsection*{Messungen mit Iperf bzgl. des Jitters für OLSR}
+\subsubsection{Bestimmung des Jitters für OLSR mittels Iperf}
 
-1-Hop-Szenario:
+\subsubsection*{1-Hop-Szenario}
 
 \begin{lstlisting}
 user@notebook-1:~$ iperf -s -u
@@ -541,7 +548,7 @@ read failed: Connection refused
 
 Der Jitter lag für OLSR und das 1-Hop-Szenario also bei durchschnittlich 4.59 Millisekunden.
 
-Multi-Hop-Szenario:
+\subsubsection*{Multi-Hop-Szenario}
 
 \begin{lstlisting}
 user@notebook-1:~$ iperf -s -u
@@ -572,7 +579,7 @@ read failed: Connection refused
 Der Jitter lag für OLSR und das Multi-Hop-Szenario also bei durchschnittlich 14.44 Millisekunden.
 Auch hier sind starke Schwankungen der Verbindungsqualität festzustellen.
 
-\subsubsection*{Vergleich der Messungen bzgl. des Jitters für B.A.T.M.A.N. und OLSR}
+\subsubsection{Vergleich der Messungen bzgl. des Jitters für B.A.T.M.A.N. und OLSR}
 
 Beide Protokolle weisen ein ähnliches Verhalten auf.
 Der Jitter wächst mit steigender Anzahl an Hops.
@@ -582,6 +589,8 @@ Aufgrund der ständigen Verbindungsprobleme ist es jedoch schwer einen klareren 
 \subsection{Zusammenfassung}
 
 Die Verbindungsqualität variiert zeitlich sehr stark bei beiden Protokollen.
+Bei B.A.T.M.A.N. hatten wir außerdem das Problem, dass eine Ende zu Ende Kommunikation oftmals nicht möglich war.
+Wir vermuten, dass das Problem dafür in den Host Network Announcements zu suchen ist, da die Router zu Router Kommunikation davon nicht beeinträchtigt wurde.
 Es ist sehr schwierig einen einmal erreichten Zustand des Netzwerkes über längere Zeit aufrecht zu erhalten um vergleichbare Messungen durchführen zu können.
 Ein Klarer Gewinner beim Wettstreit der Protokolle ist daher nur schwer zu benennen.
 B.A.T.M.A.N. scheint jedoch einen kleinen Vorsprung zu besitzen.
