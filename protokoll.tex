@@ -141,14 +141,27 @@ Eine Verbindung mit einem spezifischen Nachbarn gilt als bidrektional wenn ein K
 % OLSR
 
 \subsubsection*{OLSR}
+%von BJ zu bearbeiten
+Das OLSR (Optimized Link State Routing) Protokoll ist ebenso wie B.A.T.M.A.N. ein proaktives Routingprotokoll.
+OLSR wird in dem RFC3626 (aus dem Jahr 2003) beschrieben.
 
-von BJ zu bearbeiten
+Bei OLSR ist allen Routern die Netztopologie vollständig bekannt. Ein Router benötigt daher im Vergleich zu B.A.T.M.A.N. bei größeren
+Netzen wesentlich mehr Speicherplatz.
+% Ist OLSR immer Loop-Frei ?
+Die im Praktikum eingesetzte OLSR Software (von olsr.org) ist nicht RFC-Konform sondern wurde um einige dinge erweitert:
+
+\begin{description}
+\item[Linkqualität], die Linkqualität wird zur berechnung der Route herangezogen.
+\item[ETX], Expected Transmission Count (eine Maßnahme zur feststellung der Linkqualität asymetrischer Links)
+\item[Fish Eye Algorithmus], Routen zu weiter entfernten Knoten werden seltener neu berechnet, dadurch bessere Skalierbarkeit
+\end{description}
 
 \subsection{Ist das B.A.T.M.A.N.-Protokoll wirklich immer Loop-frei? Wie könnten sich ggf. Loops bilden?}
 
 von BJ zu bearbeiten
 
-Sind mehrere Nodes sowohl per BATMAN als auch per klassischem Ethernet verbunden, kann eine Loop entstehen. Die BATMAN-spezifischen Paketheader werden im Ethernet nicht weitergeleitet, damit die Mechanismen zur Loopverhinderung ausgehebelt....
+Sind mehrere Nodes sowohl per BATMAN als auch per klassischem Ethernet verbunden, kann eine Loop entstehen.
+Die BATMAN-spezifischen Paketheader werden im Ethernet nicht weitergeleitet, damit die Mechanismen zur Loopverhinderung ausgehebelt....
  Allerdings ist folgendes Szenario denkbar:
 Bei schwankender Linkqualität könnte ein Paket mehrfach an einem Host ankommen.
 In dem Bild
