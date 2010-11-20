@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.10.14)  20 NOV 2010 11:29
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.10.14)  20 NOV 2010 11:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -226,17 +226,17 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (/usr/share/texmf-texlive/tex/latex/ucs/data/uni-0.def
 File: uni-0.def 2004/10/17 UCS: Unicode data U+0000..U+00FF
 ) [2] [3]
-Overfull \hbox (21.46237pt too wide) in paragraph at lines 198--200
+Overfull \hbox (21.46237pt too wide) in paragraph at lines 200--202
 []\OT1/cmr/m/n/10 Um die Sze-na-ri-en an-schau-li-cher zu be-schrei-ben las-sen
  sich die Sta-tis-ti-ken der Routing-Daemons ab-fra-gen. F[]ur B.A.T.M.A.N.
  []
 
 (/usr/share/texmf-texlive/tex/latex/ucs/utf8x.def
 File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
-)
+) [4]
 (/usr/share/texmf-texlive/tex/latex/ucs/utf8x.def
 File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
-) [4]
+)
 (/usr/share/texmf-texlive/tex/latex/ucs/utf8x.def
 File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
 )
@@ -249,7 +249,7 @@ File: 2hop_olsr.png Graphic file (type png)
 /tex/latex/ucs/utf8x.def
 File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
 )
-Overfull \hbox (8.99014pt too wide) in paragraph at lines 306--308
+Overfull \hbox (8.99014pt too wide) in paragraph at lines 308--310
 []\OT1/cmr/m/n/10 Die Mes-sung mit-tels Ping er-gab einen Pa-ket-ver-lust von 5
 %. An-schlie-^^Yend ha-ben wir die Pa-ket-ver-lus-te bzgl. B.A.T.M.A.N.
  []
@@ -302,11 +302,11 @@ File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
 Here is how much of TeX's memory you used:
  3879 strings out of 495021
  53368 string characters out of 1181034
- 189034 words of memory out of 3000000
+ 199034 words of memory out of 3000000
  7018 multiletter control sequences out of 15000+50000
  7895 words of font info for 28 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 26i,7n,32p,510b,1139s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 26i,7n,32p,510b,1143s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texmf-texlive/fonts/type1/public/ams
 fonts/cm/cmbx10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cm
 bx12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
@@ -315,7 +315,7 @@ xmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/
 fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/
 public/amsfonts/cm/cmr7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfon
 ts/cm/cmsy10.pfb>
-Output written on protokoll.pdf (14 pages, 217360 bytes).
+Output written on protokoll.pdf (14 pages, 218297 bytes).
 PDF statistics:
  82 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
