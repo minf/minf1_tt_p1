@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.10.14)  20 NOV 2010 10:33
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.10.14)  20 NOV 2010 11:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -249,8 +249,15 @@ File: 2hop_olsr.png Graphic file (type png)
 /tex/latex/ucs/utf8x.def
 File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
 )
-[6 <./2hop_olsr.png (PNG copy)>]
+Overfull \hbox (8.99014pt too wide) in paragraph at lines 306--308
+[]\OT1/cmr/m/n/10 Die Mes-sung mit-tels Ping er-gab einen Pa-ket-ver-lust von 5
+%. An-schlie-^^Yend ha-ben wir die Pa-ket-ver-lus-te bzgl. B.A.T.M.A.N.
+ []
+
 (/usr/share/texmf-texlive/tex/latex/ucs/utf8x.def
+File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
+) [6 <./2hop_olsr.png (PNG copy)>] (/usr/share/texmf-texlive/tex/latex/ucs/utf8
+x.def
 File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
 )
 (/usr/share/texmf-texlive/tex/latex/ucs/utf8x.def
@@ -261,24 +268,45 @@ File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
 )
 (/usr/share/texmf-texlive/tex/latex/ucs/utf8x.def
 File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
-) [8]
+)
 (/usr/share/texmf-texlive/tex/latex/ucs/utf8x.def
 File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
-)
+) [8]
 (/usr/share/texmf-texlive/tex/latex/ucs/utf8x.def
 File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
 ) [9]
 (/usr/share/texmf-texlive/tex/latex/ucs/utf8x.def
 File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
-) [10] [11] (./protokoll.aux) ) 
+)
+(/usr/share/texmf-texlive/tex/latex/ucs/utf8x.def
+File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
+) [10]
+(/usr/share/texmf-texlive/tex/latex/ucs/utf8x.def
+File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
+)
+(/usr/share/texmf-texlive/tex/latex/ucs/utf8x.def
+File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
+) [11]
+(/usr/share/texmf-texlive/tex/latex/ucs/utf8x.def
+File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
+)
+(/usr/share/texmf-texlive/tex/latex/ucs/utf8x.def
+File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
+) [12]
+(/usr/share/texmf-texlive/tex/latex/ucs/utf8x.def
+File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
+)
+(/usr/share/texmf-texlive/tex/latex/ucs/utf8x.def
+File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
+) [13] [14] (./protokoll.aux) ) 
 Here is how much of TeX's memory you used:
- 3864 strings out of 495021
- 52618 string characters out of 1181034
- 203025 words of memory out of 3000000
- 7019 multiletter control sequences out of 15000+50000
+ 3879 strings out of 495021
+ 53368 string characters out of 1181034
+ 189034 words of memory out of 3000000
+ 7018 multiletter control sequences out of 15000+50000
  7895 words of font info for 28 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 26i,6n,32p,510b,1143s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 26i,7n,32p,510b,1139s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texmf-texlive/fonts/type1/public/ams
 fonts/cm/cmbx10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cm
 bx12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
@@ -287,9 +315,9 @@ xmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/
 fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/
 public/amsfonts/cm/cmr7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfon
 ts/cm/cmsy10.pfb>
-Output written on protokoll.pdf (11 pages, 205375 bytes).
+Output written on protokoll.pdf (14 pages, 217360 bytes).
 PDF statistics:
- 72 PDF objects out of 1000 (max. 8388607)
+ 82 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

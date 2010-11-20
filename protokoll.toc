@@ -6,11 +6,14 @@
 \contentsline {subsection}{\numberline {1.4}Ist das B.A.T.M.A.N.-Protokoll wirklich immer Loop-frei? Wie k\IeC {\"o}nnten sich ggf. Loops bilden?}{4}
 \contentsline {section}{\numberline {2}Projektschritt 3: Vergleichende Analyse der \IeC {\"U}bertragungsqualit\IeC {\"a}t}{4}
 \contentsline {subsection}{\numberline {2.1}1. Paketverluste (Loss)}{6}
-\contentsline {subsection}{\numberline {2.2}2. Paketlaufzeiten / -verz\IeC {\"o}gerungen (Delay)}{6}
-\contentsline {subsection}{\numberline {2.3}3. Laufzeitschwankungen (Jitter) der Pakete}{6}
-\contentsline {subsubsection}{\numberline {2.3.1}Grobe Einsch\IeC {\"a}tzung des Jitters f\IeC {\"u}r B.A.T.M.A.N. mittels Ping}{6}
-\contentsline {subsubsection}{\numberline {2.3.2}Grobe Einsch\IeC {\"a}tzung des Jitters f\IeC {\"u}r OLSR mittels Ping}{7}
-\contentsline {subsubsection}{\numberline {2.3.3}Bestimmung des Jitters f\IeC {\"u}r B.A.T.M.A.N. mittels Iperf}{8}
-\contentsline {subsubsection}{\numberline {2.3.4}Bestimmung des Jitters f\IeC {\"u}r OLSR mittels Iperf}{9}
-\contentsline {subsubsection}{\numberline {2.3.5}Vergleich der Messungen bzgl. des Jitters f\IeC {\"u}r B.A.T.M.A.N. und OLSR}{10}
-\contentsline {subsection}{\numberline {2.4}Zusammenfassung}{10}
+\contentsline {subsubsection}{\numberline {2.1.1}Paketverluste bzgl. B.A.T.M.A.N.}{6}
+\contentsline {subsubsection}{\numberline {2.1.2}Paketverluste bzgl. OLSR}{8}
+\contentsline {subsubsection}{\numberline {2.1.3}Vergleich der Messungen bzgl. des Paketverlusts f\IeC {\"u}r B.A.T.M.A.N. und OLSR}{9}
+\contentsline {subsection}{\numberline {2.2}2. Paketlaufzeiten / -verz\IeC {\"o}gerungen (Delay)}{9}
+\contentsline {subsection}{\numberline {2.3}3. Laufzeitschwankungen (Jitter) der Pakete}{9}
+\contentsline {subsubsection}{\numberline {2.3.1}Grobe Einsch\IeC {\"a}tzung des Jitters f\IeC {\"u}r B.A.T.M.A.N. mittels Ping}{10}
+\contentsline {subsubsection}{\numberline {2.3.2}Grobe Einsch\IeC {\"a}tzung des Jitters f\IeC {\"u}r OLSR mittels Ping}{11}
+\contentsline {subsubsection}{\numberline {2.3.3}Bestimmung des Jitters f\IeC {\"u}r B.A.T.M.A.N. mittels Iperf}{12}
+\contentsline {subsubsection}{\numberline {2.3.4}Bestimmung des Jitters f\IeC {\"u}r OLSR mittels Iperf}{13}
+\contentsline {subsubsection}{\numberline {2.3.5}Vergleich der Messungen bzgl. des Jitters f\IeC {\"u}r B.A.T.M.A.N. und OLSR}{14}
+\contentsline {subsection}{\numberline {2.4}Zusammenfassung}{14}
