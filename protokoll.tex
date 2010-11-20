@@ -119,6 +119,25 @@ wenn er eine geringere HOP-Distanz bietet.
 Der um Link Quality Extensions erweiterte OLSR-Daemon wertet die erwarteten und tatsächlich empfangenen
 HELLO Pakete seiner direkten Nachbarn aus und kann dadurch die Link-Qualität bestimmen.
 
+Zusätzlich zur "Link Quality" ist auch die rückrichtung, also vom Nachbarn zu uns interesannt.
+Die Rückrichtung ist ("Neighbour Link Quality") ist die Linkqualität aus sicht des Nachbarn.
+Nur wenn beide Messdaten gute Werte zeigen ist ein Link auch Bidirektional nutzbar.
+Beim OSLR-Daemon sind die "Link Quality" sowie die "Neighbor Link Quality" werte zwischen
+0 und 1 die die Wahrscheinlichkeit eines fehlerfreien Paketversands zwischen 0Prozent und 100Prozent anzeigen.
+
+Der ETX-Wert (Expected Transmission Count) ist dabei die erwartete Anzahl an erneuten Übertragungen bis ein Paket fehlerfrei ankommt.
+$ETX= 1/(LQ*NLQ)$.
+
+Beispiel:
+$LQ=0.56$
+$NLQ=0.80$
+
+Das ergibt eine Wahrscheinlichkeit von $0.448$ für einen erfolgreichen Roundtrip.
+Der ETX-Wert liegt daher bei $1/0.448=2.23$. Ein Paket muss also im durchschnitt 2.23 mal versendet werden
+bevor es erfolgreich vom Empfänger bestätigt werden kann.
+
+
+
 http://www.olsr.org/docs/README-Link-Quality.html
 
 \subsection{Wie bilden sich die lokalen Mesh-Konfigurationen?}
