@@ -135,7 +135,7 @@ Seine Nachbarn re-broadcasten die OGMs und informieren ihrerseits ihre Nachbarn 
 Jeder Knoten re-broadcastet die OGM seines aktuell als Best-Next-Hop identifizierten Knotens, sofern der Knoten die OGM anhand der Sequenznummer als "`neu"' einstuft und die TTL noch nicht abgelaufen ist.
 Bei jedem Re-broadcasting wird der TTL-Wert um 1 verringert.
 Daher wird das Netz mit OGMs geflutet.
-Eine Verbindung mit einem spezifischen Nachbarn gilt als bidrektional wenn ein Knoten seine eigenen OGMs von diesem Nachbarn empfängt.
+Eine Verbindung mit einem spezifischen Nachbarn gilt als bidrektional wenn ein Knoten seine eigenen OGMs von diesem Nachbarn empfängt (als "Echo").
 
 % OLSR
 
@@ -146,7 +146,7 @@ OLSR wird in dem RFC3626 (aus dem Jahr 2003) beschrieben.
 
 Bei OLSR ist allen Routern die Netztopologie vollständig bekannt. Ein Router benötigt daher im Vergleich zu B.A.T.M.A.N. bei größeren
 Netzen wesentlich mehr Speicherplatz.
-% Ist OLSR immer Loop-Frei ?
+Weil das gesamte Netz bekannt ist, können Loops nicht vorkommen.
 Die im Praktikum eingesetzte OLSR Software (von olsr.org) ist nicht RFC-Konform sondern wurde um einige dinge erweitert:
 
 \begin{description}
@@ -155,9 +155,28 @@ Die im Praktikum eingesetzte OLSR Software (von olsr.org) ist nicht RFC-Konform 
 \item[Fish Eye Algorithmus], Routen zu weiter entfernten Knoten werden seltener neu berechnet, dadurch bessere Skalierbarkeit
 \end{description}
 
-\subsection{Ist das B.A.T.M.A.N.-Protokoll wirklich immer Loop-frei? Wie könnten sich ggf. Loops bilden?}
+Beim OLSR-Protokoll erhalten einige teilnehmende Knoten eine Sonderfunktion als Multipoint Relays (MPRs).
+MPRs sind Knoten die die Broadcast-Nachrichten während des Flooding-Prozesses weiterleiten. Dadurch das nicht alle
+Knoten einen Broadcast weiterleiten wird die Grundlast des Netzes (zur OLSR Topologie-Erkennung) verkleinert.
 
-von BJ zu bearbeiten
+Beim OLSR-Protokoll wird die Information über die Link-States auch nur von den MPRs generiert und nicht von jedem
+Teilnehmer des Netzes.
+
+Multipoint Relays eines Knotens X nur die Nachbarn von X, so dass
+jeder 2-Hop Nachbar ein ein-Hop-Nachbar von mindestens einem Multipoint-Relay von X ist.
+
+Das flooden findet also immer entlang der Multipoint-Relays statt.
+
+Durch einsatz des Dijkstra-Algorithmusses wird stets die kürzeste Route 
+eines Pakets (gemessen an der Hop-Anzahl) gefunden.
+
+
+\subsection{Ist das B.A.T.M.A.N.-Protokoll wirklich immer Loop-frei? Wie könnten sich ggf. Loops bilden?}
+%von BJ zu bearbeiten
+% habe das Looping via Ethernet entfernt, da ich nicht denke das es
+% zu unserer Fragestellung passt.
+% Hier ein Link zu batman-adv und loops:
+% http://www.open-mesh.org/wiki/bridge-loop-avoidance
 
 Sind mehrere Nodes sowohl per BATMAN als auch per klassischem Ethernet verbunden, kann eine Loop entstehen.
 Die BATMAN-spezifischen Paketheader werden im Ethernet nicht weitergeleitet, damit die Mechanismen zur Loopverhinderung ausgehebelt....
@@ -180,9 +199,9 @@ In dem moment in dem das Paket ankommt ist die Verbindung AE zusammengebrochen.
 Daher sendet A das Paket an D.
 D sendet an C.
 In dem moment in dem C das Paket erhält bricht die Verbindung zu E zusammen, so daß C das Paket wieder an A sendet.
-%etc.
+Durch wiederholung dieses Vorgangs können Loops entstehen.
 
-Bei unseren Versuchen konnten wir solche Loops nicht erzeugen.
+Bei unseren Versuchen konnten wir den oben genannten Loop nicht erzeugen.
 
 \section{Projektschritt 3: Vergleichende Analyse der Übertragungsqualität}
 
