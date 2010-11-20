@@ -184,6 +184,7 @@ Unsere Access Points (APs) hatten die Nummbern 12 und 14, im weiteren als AP-12 
 Um vergleichbare, reproduzierbare und praxisrelevante Ergebnisse zu erhalten haben wir die Messungen zum größten Teil von Ende zu Ende durchgeführt, denn in der Praxis ist auch eher die Verbindungsqualität an den Endpunkten von Interesse.
 Dazu haben wir bspw. die Ping- und Iperf-Messungen auf unseren Notebooks durchgeführt, die jeweils mit einem AP verbunden wurden.
 Das 1. Notebook (Notebook-1) wurde mit dem AP-12 verbunden, das 2. Notebook (Notebook-2) wurde mit dem AP-14 verbunden.
+Da die Untersuchungen für eine sensitive Echtzeitapplikation durchgeführt werden sollten, haben wir Messungen mit Iperf primär für UDP-Datenströme durchgeführt.
 
 Um den Einfluss der Hop-Anzahl bemessen zu können haben wir die Messungen außerdem für zwei verschiende Szenarien durchgeführt:
 \begin{itemize}
@@ -607,6 +608,26 @@ Wir vermuten, dass das Problem dafür in den Host Network Announcements zu suche
 Es ist sehr schwierig einen einmal erreichten Zustand des Netzwerkes über längere Zeit aufrecht zu erhalten um vergleichbare Messungen durchführen zu können.
 Ein Klarer Gewinner beim Wettstreit der Protokolle ist daher nur schwer zu benennen.
 B.A.T.M.A.N. scheint jedoch einen kleinen Vorsprung zu besitzen.
+
+\subsubsection*{Subjektiver Eindruck}
+
+Aufgrund häufig auftretender Verbindungsabrüche und Qualitätsschwankungen zumindest während unserer Messversuche halten wir eine Anwendbarkeit der Protokolle für sensitive Echtzeitapplikationen insbesondere für Multi-Hop-Szenarien für nicht gegeben. 
+
+\subsubsection*{Beleg durch Messungen}
+
+Sensitive Echtzeitapplikationen, wie bspw. VOIP haben folgende Vorraussetzungen 
+
+\begin{itemize}
+  \item[Latenz] $< 100ms$
+  \item[Jitter] $< 50ms$
+  \item[Packet Loss] $< 1\%$
+\end{itemize}
+
+Zwar liegen Latenz und Jitter im Mittel bei unseren Messungen in diesem Rahmen, 
+der Packet Loss fällt jedoch deutlich aus dem Rahmen, 
+was unseren subjektiven Eindruck verstärkt.
+Unsere Messreihen für das Multi-Hop-Szenario mittels Ping zeigen außerdem, 
+dass sich auch die Latenz nicht immer im Rahmen von $100ms$ bewegen kann. 
 
 %In the context of computer networks, the term jitter is often used as a measure of the variability over time of the packet latency across a network. A network with constant latency has no variation (or jitter).[2] Packet jitter is expressed as an average of the deviation from the network mean latency. However, for this use, the term is imprecise. The standards-based term is packet delay variation (PDV).[3] PDV is an important quality of service factor in assessment of network performance.
 %
