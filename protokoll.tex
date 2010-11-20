@@ -163,9 +163,15 @@ Sind mehrere Nodes sowohl per BATMAN als auch per klassischem Ethernet verbunden
 Die BATMAN-spezifischen Paketheader werden im Ethernet nicht weitergeleitet, damit die Mechanismen zur Loopverhinderung ausgehebelt....
  Allerdings ist folgendes Szenario denkbar:
 Bei schwankender Linkqualität könnte ein Paket mehrfach an einem Host ankommen.
-In dem Bild
+In dem Bild \ref{batman-loop-air}
 
-%loop-routing.eps einfuegen
+
+\begin{figure}
+\includegraphics{loop-routing.eps}
+\caption{Routing-Loops bei B.A.T.M.A.N. bei wechselnder Qualität}
+\label{batman-loop-air}
+\end{figure}
+
 
 
 möchte Host Z ein Paket an E senden. Dazu wählt er seinen nächsten Hop A aus.
