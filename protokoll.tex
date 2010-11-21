@@ -133,6 +133,14 @@ ist vor.
   \end{center}
 \end{figure}
 
+Zuerst sendet Host A ein leeres Hello-Paket. Host B antwortet mit einem Hello-Paket das Absender-Adresse
+und die Adresse von A enthält. An diesem Punkt ist ein Asymetrischer Link festgestellt.
+Host A sendet ein Antwort-Paket an B und zeigt einen Symmetrischen Link an. Auf dieses Paket antwortet Host B seinerseits
+wieder mit einem HELLO-Paket um auch von seiner Seite aus einen Symmetrischen Link zu bestätigen.
+
+In den Hello-Paketen zeigt ein Host seine links und die ihm bekannten Nachbarn an. Zusätzlich zeigt er auch die
+von ihm ausgewählten MPRs (Multipoint Relays) an.
+
 Der verwendete OLSR-Daemon nutzte Link Quality Extensions (ETX-metrik).
 Das RFC-gemäße OLSR versucht nur die HOP-Distanz zu minimieren. Die Link-Qualität
 wird nach RFC nicht berücksichtigt. Das kann bedeuten das ein unzuverlässiger Link zu einem Ziel bevorzugt wird,
