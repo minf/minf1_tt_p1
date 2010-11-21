@@ -1,0 +1,22 @@
+\BOOKMARK [1][-]{section.1}{Projektschritt 2: Vergleichende Betrachtung des B.A.T.M.A.N.- und OLSR-Protokolls}{}
+\BOOKMARK [2][-]{subsection.1.1}{Welche Informationen tauschen die Nachbarn bei den jeweiligen Protokollen aus \(Neighbor-Nachrichten\)?}{section.1}
+\BOOKMARK [2][-]{subsection.1.2}{Wie ermitteln/bewerten sie die Qualit\344t der Links}{section.1}
+\BOOKMARK [2][-]{subsection.1.3}{Wie bilden sich die lokalen Mesh-Konfigurationen?}{section.1}
+\BOOKMARK [2][-]{subsection.1.4}{Ist das B.A.T.M.A.N.-Protokoll wirklich immer Loop-frei? Wie k\366nnten sich ggf. Loops bilden?}{section.1}
+\BOOKMARK [1][-]{section.2}{Projektschritt 3: Vergleichende Analyse der \334bertragungsqualit\344t}{}
+\BOOKMARK [2][-]{subsection.2.1}{Vorgehensweise}{section.2}
+\BOOKMARK [2][-]{subsection.2.2}{Paketverluste \(Loss\)}{section.2}
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Paketverluste bzgl. B.A.T.M.A.N.}{subsection.2.2}
+\BOOKMARK [3][-]{subsubsection.2.2.2}{Paketverluste bzgl. OLSR}{subsection.2.2}
+\BOOKMARK [3][-]{subsubsection.2.2.3}{Vergleich der Messungen bzgl. des Paketverlusts f\374r B.A.T.M.A.N. und OLSR}{subsection.2.2}
+\BOOKMARK [2][-]{subsection.2.3}{Paketlaufzeiten / -verz\366gerungen \(Delay\)}{section.2}
+\BOOKMARK [3][-]{subsubsection.2.3.1}{Paketlaufzeiten f\374r B.A.T.M.A.N.}{subsection.2.3}
+\BOOKMARK [3][-]{subsubsection.2.3.2}{Paketlaufzeiten f\374r OLSR}{subsection.2.3}
+\BOOKMARK [3][-]{subsubsection.2.3.3}{Vergleich der Messungen bzgl. der Paketlaufzeiten f\374r B.A.T.M.A.N. und OLSR}{subsection.2.3}
+\BOOKMARK [2][-]{subsection.2.4}{Laufzeitschwankungen \(Jitter\) der Pakete}{section.2}
+\BOOKMARK [3][-]{subsubsection.2.4.1}{Grobe Einsch\344tzung des Jitters f\374r B.A.T.M.A.N. mittels Ping}{subsection.2.4}
+\BOOKMARK [3][-]{subsubsection.2.4.2}{Grobe Einsch\344tzung des Jitters f\374r OLSR mittels Ping}{subsection.2.4}
+\BOOKMARK [3][-]{subsubsection.2.4.3}{Bestimmung des Jitters f\374r B.A.T.M.A.N. mittels Iperf}{subsection.2.4}
+\BOOKMARK [3][-]{subsubsection.2.4.4}{Bestimmung des Jitters f\374r OLSR mittels Iperf}{subsection.2.4}
+\BOOKMARK [3][-]{subsubsection.2.4.5}{Vergleich der Messungen bzgl. des Jitters f\374r B.A.T.M.A.N. und OLSR}{subsection.2.4}
+\BOOKMARK [2][-]{subsection.2.5}{Zusammenfassung}{section.2}

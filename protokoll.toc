@@ -1,20 +1,23 @@
 \select@language {ngerman}
-\contentsline {section}{\numberline {1}Projektschritt 2: Vergleichende Betrachtung des B.A.T.M.A.N.- und OLSR-Protokolls}{2}
-\contentsline {subsection}{\numberline {1.1}Welche Informationen tauschen die Nachbarn bei den jeweiligen Protokollen aus (Neighbor-Nachrichten)?}{2}
-\contentsline {subsection}{\numberline {1.2}Wie ermitteln/bewerten sie die Qualit\IeC {\"a}t der Links}{3}
-\contentsline {subsection}{\numberline {1.3}Wie bilden sich die lokalen Mesh-Konfigurationen?}{4}
-\contentsline {subsection}{\numberline {1.4}Ist das B.A.T.M.A.N.-Protokoll wirklich immer Loop-frei? Wie k\IeC {\"o}nnten sich ggf. Loops bilden?}{4}
-\contentsline {section}{\numberline {2}Projektschritt 3: Vergleichende Analyse der \IeC {\"U}bertragungsqualit\IeC {\"a}t}{5}
-\contentsline {subsection}{\numberline {2.1}Vorgehensweise}{5}
-\contentsline {subsection}{\numberline {2.2}1. Paketverluste (Loss)}{7}
-\contentsline {subsubsection}{\numberline {2.2.1}Paketverluste bzgl. B.A.T.M.A.N.}{7}
-\contentsline {subsubsection}{\numberline {2.2.2}Paketverluste bzgl. OLSR}{9}
-\contentsline {subsubsection}{\numberline {2.2.3}Vergleich der Messungen bzgl. des Paketverlusts f\IeC {\"u}r B.A.T.M.A.N. und OLSR}{10}
-\contentsline {subsection}{\numberline {2.3}2. Paketlaufzeiten / -verz\IeC {\"o}gerungen (Delay)}{10}
-\contentsline {subsection}{\numberline {2.4}3. Laufzeitschwankungen (Jitter) der Pakete}{10}
-\contentsline {subsubsection}{\numberline {2.4.1}Grobe Einsch\IeC {\"a}tzung des Jitters f\IeC {\"u}r B.A.T.M.A.N. mittels Ping}{10}
-\contentsline {subsubsection}{\numberline {2.4.2}Grobe Einsch\IeC {\"a}tzung des Jitters f\IeC {\"u}r OLSR mittels Ping}{11}
-\contentsline {subsubsection}{\numberline {2.4.3}Bestimmung des Jitters f\IeC {\"u}r B.A.T.M.A.N. mittels Iperf}{13}
-\contentsline {subsubsection}{\numberline {2.4.4}Bestimmung des Jitters f\IeC {\"u}r OLSR mittels Iperf}{13}
-\contentsline {subsubsection}{\numberline {2.4.5}Vergleich der Messungen bzgl. des Jitters f\IeC {\"u}r B.A.T.M.A.N. und OLSR}{14}
-\contentsline {subsection}{\numberline {2.5}Zusammenfassung}{14}
+\contentsline {section}{\numberline {1}Projektschritt 2: Vergleichende Betrachtung des B.A.T.M.A.N.- und OLSR-Protokolls}{2}{section.1}
+\contentsline {subsection}{\numberline {1.1}Welche Informationen tauschen die Nachbarn bei den jeweiligen Protokollen aus (Neighbor-Nachrichten)?}{2}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Wie ermitteln/bewerten sie die Qualit\IeC {\"a}t der Links}{3}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}Wie bilden sich die lokalen Mesh-Konfigurationen?}{4}{subsection.1.3}
+\contentsline {subsection}{\numberline {1.4}Ist das B.A.T.M.A.N.-Protokoll wirklich immer Loop-frei? Wie k\IeC {\"o}nnten sich ggf. Loops bilden?}{4}{subsection.1.4}
+\contentsline {section}{\numberline {2}Projektschritt 3: Vergleichende Analyse der \IeC {\"U}bertragungsqualit\IeC {\"a}t}{5}{section.2}
+\contentsline {subsection}{\numberline {2.1}Vorgehensweise}{5}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Paketverluste (Loss)}{6}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}Paketverluste bzgl. B.A.T.M.A.N.}{7}{subsubsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.2}Paketverluste bzgl. OLSR}{9}{subsubsection.2.2.2}
+\contentsline {subsubsection}{\numberline {2.2.3}Vergleich der Messungen bzgl. des Paketverlusts f\IeC {\"u}r B.A.T.M.A.N. und OLSR}{10}{subsubsection.2.2.3}
+\contentsline {subsection}{\numberline {2.3}Paketlaufzeiten / -verz\IeC {\"o}gerungen (Delay)}{10}{subsection.2.3}
+\contentsline {subsubsection}{\numberline {2.3.1}Paketlaufzeiten f\IeC {\"u}r B.A.T.M.A.N.}{10}{subsubsection.2.3.1}
+\contentsline {subsubsection}{\numberline {2.3.2}Paketlaufzeiten f\IeC {\"u}r OLSR}{11}{subsubsection.2.3.2}
+\contentsline {subsubsection}{\numberline {2.3.3}Vergleich der Messungen bzgl. der Paketlaufzeiten f\IeC {\"u}r B.A.T.M.A.N. und OLSR}{13}{subsubsection.2.3.3}
+\contentsline {subsection}{\numberline {2.4}Laufzeitschwankungen (Jitter) der Pakete}{13}{subsection.2.4}
+\contentsline {subsubsection}{\numberline {2.4.1}Grobe Einsch\IeC {\"a}tzung des Jitters f\IeC {\"u}r B.A.T.M.A.N. mittels Ping}{13}{subsubsection.2.4.1}
+\contentsline {subsubsection}{\numberline {2.4.2}Grobe Einsch\IeC {\"a}tzung des Jitters f\IeC {\"u}r OLSR mittels Ping}{14}{subsubsection.2.4.2}
+\contentsline {subsubsection}{\numberline {2.4.3}Bestimmung des Jitters f\IeC {\"u}r B.A.T.M.A.N. mittels Iperf}{15}{subsubsection.2.4.3}
+\contentsline {subsubsection}{\numberline {2.4.4}Bestimmung des Jitters f\IeC {\"u}r OLSR mittels Iperf}{16}{subsubsection.2.4.4}
+\contentsline {subsubsection}{\numberline {2.4.5}Vergleich der Messungen bzgl. des Jitters f\IeC {\"u}r B.A.T.M.A.N. und OLSR}{17}{subsubsection.2.4.5}
+\contentsline {subsection}{\numberline {2.5}Zusammenfassung}{17}{subsection.2.5}

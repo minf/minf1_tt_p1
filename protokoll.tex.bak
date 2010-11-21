@@ -7,16 +7,6 @@
 \usepackage{listings}
 \lstset{inputencoding=utf8x, extendedchars=\true}
 
-\usepackage{hyperref}
-
-\hypersetup{
-    colorlinks,
-    citecolor=black,
-    filecolor=black,
-    linkcolor=black,
-    urlcolor=black
-}
-
 \usepackage{url}
 
 \parindent 0pt
@@ -113,13 +103,13 @@ Der Link, der die meisten Sequenznummern in seinem Fenster aufweisen kann, gilt 
 
 \subsubsection*{OLSR}
 
-%von AK zu bearbeiten
+von AK zu bearbeiten
 
-%...RFC lesen..
-%Link Set über HELLO Messages aufbauen. Eigener Originator in 
-%empfangener Message enthalten -> Symmetrischer Link. Timeouts -> Asymmetrisch, dann Tot.
-%Symmetrie eines Links ist ein Indiz für Qualität.. bla..
-%Signal Noise Ratio -> l\_link\_quality P.57f
+...RFC lesen..
+Link Set über HELLO Messages aufbauen. Eigener Originator in 
+empfangener Message enthalten -> Symmetrischer Link. Timeouts -> Asymmetrisch, dann Tot.
+Symmetrie eines Links ist ein Indiz für Qualität.. bla..
+Signal Noise Ratio -> l\_link\_quality P.57f
 
 Der verwendete OLSR-Daemon nutzte Link Quality Extensions (ETX-metrik).
 Das RFC-gemäße OLSR versucht nur die HOP-Distanz zu minimieren. Die Link-Qualität
@@ -129,11 +119,11 @@ wenn er eine geringere HOP-Distanz bietet.
 Der um Link Quality Extensions erweiterte OLSR-Daemon wertet die erwarteten und tatsächlich empfangenen
 HELLO Pakete seiner direkten Nachbarn aus und kann dadurch die Link-Qualität bestimmen.
 
-Zusätzlich zur "`Link Quality"' ist auch die Rückrichtung, also vom Nachbarn zu uns interesannt.
-Die Rückrichtung ("`Neighbour Link Quality"') ist die Linkqualität aus Sicht des Nachbarn.
+Zusätzlich zur "Link Quality" ist auch die rückrichtung, also vom Nachbarn zu uns interesannt.
+Die Rückrichtung ist ("Neighbour Link Quality") ist die Linkqualität aus sicht des Nachbarn.
 Nur wenn beide Messdaten gute Werte zeigen ist ein Link auch Bidirektional nutzbar.
-Beim OSLR-Daemon sind die Werte für "`Link Quality"' sowie "Neighbor Link Quality" zwischen
-0 und 1 die die Wahrscheinlichkeit eines fehlerfreien Paketversands zwischen 0 Prozent und 100 Prozent anzeigen.
+Beim OSLR-Daemon sind die "Link Quality" sowie die "Neighbor Link Quality" werte zwischen
+0 und 1 die die Wahrscheinlichkeit eines fehlerfreien Paketversands zwischen 0Prozent und 100Prozent anzeigen.
 
 Der ETX-Wert (Expected Transmission Count) ist dabei die erwartete Anzahl an erneuten Übertragungen bis ein Paket fehlerfrei ankommt.
 $ETX= 1/(LQ*NLQ)$.
@@ -146,7 +136,9 @@ Das ergibt eine Wahrscheinlichkeit von $0.448$ für einen erfolgreichen Roundtri
 Der ETX-Wert liegt daher bei $1/0.448=2.23$. Ein Paket muss also im durchschnitt 2.23 mal versendet werden
 bevor es erfolgreich vom Empfänger bestätigt werden kann.
 
-\url{http://www.olsr.org/docs/README-Link-Quality.html}
+
+
+http://www.olsr.org/docs/README-Link-Quality.html
 
 \subsection{Wie bilden sich die lokalen Mesh-Konfigurationen?}
 
@@ -173,9 +165,7 @@ OLSR wird in dem RFC3626 (aus dem Jahr 2003) beschrieben.
 
 Bei OLSR ist allen Routern die Netztopologie vollständig bekannt. Ein Router benötigt daher im Vergleich zu B.A.T.M.A.N. bei größeren
 Netzen wesentlich mehr Speicherplatz.
-Weil das gesamte Netz bekannt ist, sollten Loops nicht vorkommen, allerdings wenn die Routing-Tabellen nicht 
-vollständig synchron kann es trotzdem zu Routing-Loops kommen.
-% routing-loops: http://www.open-mesh.org/wiki/the-olsr-story
+Weil das gesamte Netz bekannt ist, können Loops nicht vorkommen.
 Die im Praktikum eingesetzte OLSR Software (von olsr.org) ist nicht RFC-Konform sondern wurde um einige dinge erweitert:
 
 \begin{description}
@@ -191,14 +181,12 @@ Knoten einen Broadcast weiterleiten wird die Grundlast des Netzes (zur OLSR Topo
 Beim OLSR-Protokoll wird die Information über die Link-States auch nur von den MPRs generiert und nicht von jedem
 Teilnehmer des Netzes.
 
-Jeder Knoten hat eine Liste mit Multipoint Relays (MPRs). Diese MPRs wählt
-er wie folgt: 
-Multipoint Relays eines Knotens X sind nur die Nachbarn von X, so dass
+Multipoint Relays eines Knotens X nur die Nachbarn von X, so dass
 jeder 2-Hop Nachbar ein ein-Hop-Nachbar von mindestens einem Multipoint-Relay von X ist.
 
-Das flooden mit Routing-Informationen findet zur Traffic-Minimierung immer entlang der Multipoint-Relays statt.
+Das flooden findet also immer entlang der Multipoint-Relays statt.
 
-Durch Einsatz des Dijkstra-Algorithmusses wird stets die kürzeste Route 
+Durch einsatz des Dijkstra-Algorithmusses wird stets die kürzeste Route 
 eines Pakets (gemessen an der Hop-Anzahl) gefunden.
 
 \subsection{Ist das B.A.T.M.A.N.-Protokoll wirklich immer Loop-frei? Wie könnten sich ggf. Loops bilden?}
@@ -337,7 +325,7 @@ haben wir vor und während der Messungen immer überprüft ob das gerade zu unte
 %client: iperf -c [IP] -u -d
 %\end{lstlisting}
 %
-\subsection{Paketverluste (Loss)}
+\subsection{1. Paketverluste (Loss)}
 
 Die Paketverluste haben wir mittels Ping als auch mit Iperf gemessen.
 
@@ -581,157 +569,9 @@ Paketverluste von 30\% für OLSR und 17\% für B.A.T.M.A.N. bzgl. des Multi-Hop-
 %
 %In der Ausgabe findet sich der Packet-loss
 %
-\subsection{Paketlaufzeiten / -verzögerungen (Delay)}
+\subsection{2. Paketlaufzeiten / -verzögerungen (Delay)}
 
-%von AK zu bearbeiten
-
-Die Paketlaufzeiten haben wir mittels Ping gemessen.
-
-\subsubsection{Paketlaufzeiten für B.A.T.M.A.N.}
-
-Da bei uns und anderen Teilnehmern des Praktikums bzgl. B.A.T.M.A.N. häufig Probleme bei der Ende zu Ende Kommunikation auftraten mussten wir die Ping-Messungen bzgl. der Paketlaufzeiten für B.A.T.M.A.N. von Router zur Router durchführen.
-
-\subsubsection*{1-Hop-Szenario}
-
-\begin{lstlisting}
-root@AP-12:~# ping -c 20 10.0.0.14
-PING 10.0.0.14 (10.0.0.14): 56 data bytes
-64 bytes from 10.0.0.14: icmp_seq=1 ttl=64 time=3.9 ms
-64 bytes from 10.0.0.14: icmp_seq=2 ttl=64 time=3.9 ms
-64 bytes from 10.0.0.14: icmp_seq=3 ttl=64 time=10.6 ms
-64 bytes from 10.0.0.14: icmp_seq=4 ttl=64 time=40.6 ms
-64 bytes from 10.0.0.14: icmp_seq=5 ttl=64 time=3.8 ms
-64 bytes from 10.0.0.14: icmp_seq=6 ttl=64 time=5.3 ms
-64 bytes from 10.0.0.14: icmp_seq=7 ttl=64 time=6.5 ms
-64 bytes from 10.0.0.14: icmp_seq=8 ttl=64 time=3.5 ms
-64 bytes from 10.0.0.14: icmp_seq=9 ttl=64 time=21.0 ms
-64 bytes from 10.0.0.14: icmp_seq=10 ttl=64 time=3.5 ms
-64 bytes from 10.0.0.14: icmp_seq=11 ttl=64 time=3.5 ms
-64 bytes from 10.0.0.14: icmp_seq=12 ttl=64 time=59.7 ms
-64 bytes from 10.0.0.14: icmp_seq=13 ttl=64 time=3.5 ms
-64 bytes from 10.0.0.14: icmp_seq=14 ttl=64 time=3.5 ms
-64 bytes from 10.0.0.14: icmp_seq=15 ttl=64 time=4.8 ms
-64 bytes from 10.0.0.14: icmp_seq=16 ttl=64 time=3.1 ms
-64 bytes from 10.0.0.14: icmp_seq=17 ttl=64 time=3.1 ms
-64 bytes from 10.0.0.14: icmp_seq=18 ttl=64 time=3.0 ms
-64 bytes from 10.0.0.14: icmp_seq=19 ttl=64 time=3.1 ms
-
---- 10.0.0.14 ping statistics --- 
-20 packets transmitted, 19 packets received, 5% packet loss
-round-trip min/avg/max = 3.0/9.9/59.7 ms
-\end{lstlisting}
-
-Die durschnittliche Paketlaufzeit beträgt 9.9 ms.
-
-\subsubsection*{Multi-Hop-Szenario}
-
-\begin{lstlisting}
-user@notebook-1:~$ ping 10.0.0.14 -c 20
-PING 10.0.0.14 (10.0.0.14) 56(84) bytes of data.
-64 bytes from 10.0.0.14: icmp_req=1 ttl=62 time=64.9 ms
-64 bytes from 10.0.0.14: icmp_req=3 ttl=62 time=8.63 ms
-64 bytes from 10.0.0.14: icmp_req=4 ttl=62 time=9.56 ms
-64 bytes from 10.0.0.14: icmp_req=5 ttl=62 time=57.8 ms
-64 bytes from 10.0.0.14: icmp_req=7 ttl=62 time=92.5 ms
-64 bytes from 10.0.0.14: icmp_req=8 ttl=62 time=6.23 ms
-64 bytes from 10.0.0.14: icmp_req=9 ttl=62 time=10.4 ms
-64 bytes from 10.0.0.14: icmp_req=10 ttl=62 time=11.8 ms
-64 bytes from 10.0.0.14: icmp_req=11 ttl=62 time=7.81 ms
-64 bytes from 10.0.0.14: icmp_req=12 ttl=62 time=7.22 ms
-64 bytes from 10.0.0.14: icmp_req=13 ttl=62 time=8.84 ms
-64 bytes from 10.0.0.14: icmp_req=14 ttl=62 time=19.7 ms
-64 bytes from 10.0.0.14: icmp_req=15 ttl=62 time=36.3 ms
-64 bytes from 10.0.0.14: icmp_req=16 ttl=62 time=12.8 ms
-64 bytes from 10.0.0.14: icmp_req=17 ttl=62 time=5.69 ms
-64 bytes from 10.0.0.14: icmp_req=18 ttl=62 time=244 ms
-64 bytes from 10.0.0.14: icmp_req=19 ttl=62 time=105 ms
-64 bytes from 10.0.0.14: icmp_req=20 ttl=62 time=203 ms
-
---- 10.0.0.14 ping statistics --- 
-20 packets transmitted, 18 received, 10% packet loss, time 19019ms
-rtt min/avg/max/mdev = 5.697/50.818/244.965/68.620 ms
-\end{lstlisting}
-
-Die durschnittliche Paketlaufzeit beträgt 50.818 ms.
-
-Bei der Verwendung von B.A.T.M.A.N. haben wir einige "`Ausreisser"' bzgl. der Paketlaufzeiten festgestellt.
-Insgesamt sind die Paketlaufzeiten daher besonders für das Multi-Hop-Szenario \textbf{nicht} konstant.
-
-\subsubsection{Paketlaufzeiten für OLSR}
-
-Bei OLSR waren uns Messungen von Ende zu Ende immer möglich, so dass wir von Ende zu Ende gemessen haben.
-
-\subsubsection*{1-Hop-Szenario}
-
-\begin{lstlisting}
-user@notebook-1:~$ ping -c 20 192.168.14.232
-PING 192.168.14.232 (192.168.14.232) 56(84) bytes of data.
-64 bytes from 192.168.14.232: icmp_req=1 ttl=62 time=4.65 ms
-64 bytes from 192.168.14.232: icmp_req=2 ttl=62 time=4.89 ms
-64 bytes from 192.168.14.232: icmp_req=3 ttl=62 time=4.16 ms
-64 bytes from 192.168.14.232: icmp_req=4 ttl=62 time=2.74 ms
-64 bytes from 192.168.14.232: icmp_req=5 ttl=62 time=3.41 ms
-64 bytes from 192.168.14.232: icmp_req=6 ttl=62 time=2.92 ms
-64 bytes from 192.168.14.232: icmp_req=7 ttl=62 time=4.12 ms
-64 bytes from 192.168.14.232: icmp_req=9 ttl=62 time=6.49 ms
-64 bytes from 192.168.14.232: icmp_req=10 ttl=62 time=5.79 ms
-64 bytes from 192.168.14.232: icmp_req=11 ttl=62 time=2.80 ms
-64 bytes from 192.168.14.232: icmp_req=12 ttl=62 time=14.3 ms
-64 bytes from 192.168.14.232: icmp_req=13 ttl=62 time=3.62 ms
-64 bytes from 192.168.14.232: icmp_req=14 ttl=62 time=9.26 ms
-64 bytes from 192.168.14.232: icmp_req=15 ttl=62 time=5.30 ms
-64 bytes from 192.168.14.232: icmp_req=16 ttl=62 time=3.03 ms
-64 bytes from 192.168.14.232: icmp_req=17 ttl=62 time=2.98 ms
-64 bytes from 192.168.14.232: icmp_req=18 ttl=62 time=4.97 ms
-64 bytes from 192.168.14.232: icmp_req=19 ttl=62 time=2.97 ms
-64 bytes from 192.168.14.232: icmp_req=20 ttl=62 time=3.01 ms
-
---- 192.168.14.232 ping statistics ---
-20 packets transmitted, 19 received, 5% packet loss, time 19034ms
-rtt min/avg/max/mdev = 2.742/4.816/14.338/2.753 ms
-\end{lstlisting}
-
-Die durschnittliche Paketlaufzeit liegt bei 4.816 ms.
-
-\subsubsection*{Multi-Hop-Szenario}
-
-\begin{lstlisting}
-user@notebook-1:~$ ping 192.168.14.232 -c 20
-PING 192.168.14.232 (192.168.14.232) 56(84) bytes of data.
-64 bytes from 192.168.14.232: icmp_req=2 ttl=61 time=17.6 ms
-64 bytes from 192.168.14.232: icmp_req=3 ttl=61 time=18.4 ms
-64 bytes from 192.168.14.232: icmp_req=4 ttl=61 time=10.5 ms
-64 bytes from 192.168.14.232: icmp_req=5 ttl=61 time=32.0 ms
-64 bytes from 192.168.14.232: icmp_req=7 ttl=61 time=72.8 ms
-64 bytes from 192.168.14.232: icmp_req=8 ttl=61 time=158 ms
-64 bytes from 192.168.14.232: icmp_req=9 ttl=61 time=203 ms
-64 bytes from 192.168.14.232: icmp_req=10 ttl=61 time=60.9 ms
-64 bytes from 192.168.14.232: icmp_req=11 ttl=61 time=69.0 ms
-64 bytes from 192.168.14.232: icmp_req=12 ttl=61 time=80.3 ms
-64 bytes from 192.168.14.232: icmp_req=13 ttl=61 time=78.6 ms
-64 bytes from 192.168.14.232: icmp_req=14 ttl=61 time=196 ms
-64 bytes from 192.168.14.232: icmp_req=15 ttl=61 time=110 ms
-64 bytes from 192.168.14.232: icmp_req=16 ttl=61 time=183 ms
-64 bytes from 192.168.14.232: icmp_req=17 ttl=61 time=23.3 ms
-64 bytes from 192.168.14.232: icmp_req=18 ttl=61 time=24.7 ms
-64 bytes from 192.168.14.232: icmp_req=19 ttl=61 time=15.4 ms
-64 bytes from 192.168.14.232: icmp_req=20 ttl=61 time=9.41 ms
-
---- 192.168.14.232 ping statistics --- 
-20 packets transmitted, 18 received, 10% packet loss, time 19040ms
-rtt min/avg/max/mdev = 9.419/75.873/203.346/65.425 ms
-\end{lstlisting}
-
-Die durschnittliche Paketlaufzeit beträgt 75.873 ms.
-
-Auch OLSR weist "`Ausreisser"' auf.
-Die Paketlaufzeiten sind auch für OLSR und das Multi-Hop-Szenario \textbf{nicht} konstant.
-
-\subsubsection{Vergleich der Messungen bzgl. der Paketlaufzeiten für B.A.T.M.A.N. und OLSR}
-
-Beide Protokolle weisen ein ähnliches Verhalten auf.
-Die Paketlaufzeiten wachsen bei mehreren Hops stark an.
-B.A.T.M.A.N. scheint dabei ein etwas besseres Verhalten aufzuweisen.
+von AK zu bearbeiten
 
 %\url{http://blogs.itrinegy.com/2009/02/how-do-you-measure-latency-rtt-in-a-network-these-days/}
 %
@@ -759,7 +599,7 @@ B.A.T.M.A.N. scheint dabei ein etwas besseres Verhalten aufzuweisen.
 %
 %1,143 millis Latenz
 %
-\subsection{Laufzeitschwankungen (Jitter) der Pakete}
+\subsection{3. Laufzeitschwankungen (Jitter) der Pakete}
 
 Der Jitter ist die Varianz der Latenz und wird durch den Durchschnitt der Abweichung von der mittleren Latenz ausgedrückt.
 Um zunächst einen groben Eindruck vom vorhandenen Jitter zu erhalten haben wir die Latenz der Replies auf ICMP-Echo-Requests betrachtet.
@@ -767,7 +607,7 @@ Dies haben wir zunächst für das 1-Hop-Szenario und dann für das Multi-Hop-Sze
 
 \subsubsection{Grobe Einschätzung des Jitters für B.A.T.M.A.N. mittels Ping}
 
-Auch bzgl. des Jitters mussten wir aufgrund der genannten Probleme von Router zu Router messen.
+Da bei uns und anderen Teilnehmern des Praktikums bzgl. B.A.T.M.A.N. häufig Probleme bei der Ende zu Ende Kommunikation auftraten mussten wir die Ping-Messungen bzgl. des Jitters für B.A.T.M.A.N. von Router zur Router durchführen.
 
 \subsubsection*{1-Hop-Szenario}
 
@@ -1059,7 +899,7 @@ Tabelle \ref{measures} zeigen unsere Messwerte im Überblick.
 \hline
 Paketverluste & 1-5\% & 17-19\% & 5-9\% & 30-33\% \\ 
 \hline
-Paketlaufzeiten & 9.9 ms & 50.818 ms & 4.816 ms & 75.873 ms \\
+Paketlaufzeiten & & & & \\
 \hline
 Jitter & 1.91 ms & 7.3 ms & 4.59 ms & 14.44 ms \\ 
 \hline
@@ -1072,7 +912,7 @@ Zwar liegen Latenz und Jitter im Mittel bei unseren Messungen in diesem Rahmen,
 die Paketverluste fallen jedoch deutlich aus dem Rahmen, 
 was unseren subjektiven Eindruck belegt.
 Unsere Messreihen für das Multi-Hop-Szenario mittels Ping zeigen außerdem, 
-dass sich auch die Paketlaufzeiten nicht immer im Rahmen von $100ms$ bewegen können. 
+dass sich auch die Paketlaufzeiten nicht immer im Rahmen von $100ms$ bewegen kann. 
 
 %In the context of computer networks, the term jitter is often used as a measure of the variability over time of the packet latency across a network. A network with constant latency has no variation (or jitter).[2] Packet jitter is expressed as an average of the deviation from the network mean latency. However, for this use, the term is imprecise. The standards-based term is packet delay variation (PDV).[3] PDV is an important quality of service factor in assessment of network performance.
 %
