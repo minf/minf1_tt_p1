@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.10.14)  20 NOV 2010 22:34
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.10.14)  21 NOV 2010 10:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -230,7 +230,7 @@ File: uni-0.def 2004/10/17 UCS: Unicode data U+0000..U+00FF
 File: loop-routing.png Graphic file (type png)
  <use loop-routing.png>
 [4]
-Overfull \hbox (21.46237pt too wide) in paragraph at lines 243--245
+Overfull \hbox (21.46237pt too wide) in paragraph at lines 241--243
 []\OT1/cmr/m/n/10 Um die Sze-na-ri-en an-schau-li-cher zu be-schrei-ben las-sen
  sich die Sta-tis-ti-ken der Routing-Daemons ab-fra-gen. F[]ur B.A.T.M.A.N.
  []
@@ -254,7 +254,7 @@ File: 2hop_olsr.png Graphic file (type png)
 (/usr/share/texmf-texlive/tex/latex/ucs/utf8x.def
 File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
 )
-Overfull \hbox (8.99014pt too wide) in paragraph at lines 351--353
+Overfull \hbox (8.99014pt too wide) in paragraph at lines 349--351
 []\OT1/cmr/m/n/10 Die Mes-sung mit-tels Ping er-gab einen Pa-ket-ver-lust von 5
 %. An-schlie-^^Yend ha-ben wir die Pa-ket-ver-lus-te bzgl. B.A.T.M.A.N.
  []
@@ -320,7 +320,7 @@ xmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/
 fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/
 public/amsfonts/cm/cmr7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfon
 ts/cm/cmsy10.pfb>
-Output written on protokoll.pdf (15 pages, 234415 bytes).
+Output written on protokoll.pdf (15 pages, 234187 bytes).
 PDF statistics:
  86 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

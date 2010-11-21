@@ -189,7 +189,6 @@ Das flooden findet also immer entlang der Multipoint-Relays statt.
 Durch einsatz des Dijkstra-Algorithmusses wird stets die kürzeste Route 
 eines Pakets (gemessen an der Hop-Anzahl) gefunden.
 
-
 \subsection{Ist das B.A.T.M.A.N.-Protokoll wirklich immer Loop-frei? Wie könnten sich ggf. Loops bilden?}
 %von BJ zu bearbeiten
 % habe das Looping via Ethernet entfernt, da ich nicht denke das es
@@ -197,11 +196,10 @@ eines Pakets (gemessen an der Hop-Anzahl) gefunden.
 % Hier ein Link zu batman-adv und loops:
 % http://www.open-mesh.org/wiki/bridge-loop-avoidance
 
-Sind mehrere Nodes sowohl per BATMAN als auch per klassischem Ethernet verbunden, kann eine Loop entstehen.
-Die BATMAN-spezifischen Paketheader werden im Ethernet nicht weitergeleitet, damit die Mechanismen zur Loopverhinderung ausgehebelt....
- Allerdings ist folgendes Szenario denkbar:
+%Sind mehrere Nodes sowohl per BATMAN als auch per klassischem Ethernet verbunden, kann eine Loop entstehen.
+%Die BATMAN-spezifischen Paketheader werden im Ethernet nicht weitergeleitet, damit die Mechanismen zur Loopverhinderung ausgehebelt....
+% Allerdings ist folgendes Szenario denkbar:
 Bei schwankender Linkqualität könnte ein Paket mehrfach an einem Host ankommen.
-In der Abbildung \ref{batman-loop-air}
 
 \begin{figure}[thb]
  \begin{center}
@@ -211,15 +209,15 @@ In der Abbildung \ref{batman-loop-air}
   \end{center}
 \end{figure}
 
-möchte Host Z ein Paket an E senden. Dazu wählt er seinen nächsten Hop A aus.
-Die beiden Verbindungen zum zielhost sind jedoch von schlechter qualität.
+In Abbildung \ref{batman-loop-air} möchte Host Z ein Paket an E senden. Dazu wählt er seinen nächsten Hop A aus.
+Die beiden Verbindungen zum Zielhost sind jedoch von schlechter qualität.
 In dem moment in dem das Paket ankommt ist die Verbindung AE zusammengebrochen.
 Daher sendet A das Paket an D.
 D sendet an C.
-In dem moment in dem C das Paket erhält bricht die Verbindung zu E zusammen, so daß C das Paket wieder an A sendet.
-Durch wiederholung dieses Vorgangs können Loops entstehen.
+In dem Moment in dem C das Paket erhält bricht die Verbindung zu E zusammen, so daß C das Paket wieder an A sendet.
+Durch Wiederholung dieses Vorgangs können Loops entstehen.
 
-Bei unseren Versuchen konnten wir den oben genannten Loop nicht erzeugen.
+Bei unseren Versuchen konnten wir den oben genannte Loop nicht erzeugen.
 
 \section{Projektschritt 3: Vergleichende Analyse der Übertragungsqualität}
 
