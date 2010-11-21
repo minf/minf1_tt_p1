@@ -173,15 +173,15 @@ OLSR wird in dem RFC3626 (aus dem Jahr 2003) beschrieben.
 
 Bei OLSR ist allen Routern die Netztopologie vollständig bekannt. Ein Router benötigt daher im Vergleich zu B.A.T.M.A.N. bei größeren
 Netzen wesentlich mehr Speicherplatz.
-Weil das gesamte Netz bekannt ist, sollten Loops nicht vorkommen, allerdings wenn die Routing-Tabellen nicht 
-vollständig synchron kann es trotzdem zu Routing-Loops kommen.
+Weil das gesamte Netz bekannt ist, sollten Loops nicht vorkommen, allerdings kann es trotzdem zu Loops kommen, wenn die Routing-Tabellen nicht 
+vollständig synchron sind.
 % routing-loops: http://www.open-mesh.org/wiki/the-olsr-story
 Die im Praktikum eingesetzte OLSR Software (von olsr.org) ist nicht RFC-Konform sondern wurde um einige dinge erweitert:
 
 \begin{description}
-\item[Linkqualität], die Linkqualität wird zur berechnung der Route herangezogen.
-\item[ETX], Expected Transmission Count (eine Maßnahme zur feststellung der Linkqualität asymetrischer Links)
-\item[Fish Eye Algorithmus], Routen zu weiter entfernten Knoten werden seltener neu berechnet, dadurch bessere Skalierbarkeit
+\item[Linkqualität] die Linkqualität wird zur berechnung der Route herangezogen.
+\item[ETX] Expected Transmission Count (eine Maßnahme zur feststellung der Linkqualität asymetrischer Links)
+\item[Fish Eye Algorithmus] Routen zu weiter entfernten Knoten werden seltener neu berechnet, dadurch bessere Skalierbarkeit
 \end{description}
 
 Beim OLSR-Protokoll erhalten einige teilnehmende Knoten eine Sonderfunktion als Multipoint Relays (MPRs).
