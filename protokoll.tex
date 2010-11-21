@@ -113,13 +113,17 @@ Der Link, der die meisten Sequenznummern in seinem Fenster aufweisen kann, gilt 
 
 \subsubsection*{OLSR}
 
-%von AK zu bearbeiten
+Jeder Knoten baut sich basierend auf den empfangenen OLSR Nachrichten Informationen über das Netzwerk auf. 
+Unter anderem wird dabei eine "`Link Tupel"'-Liste gepflegt - das "`Link Set"'.
+Ein Link Tupel enthält die Adresse des lokalen Netzwerkinterfaces und die des Nachbarn.
+Weiterhin werden pro Tupel 3 Zeitpunkte gespeichert:
+\begin{description}
+  \item[L\_SYM\_time] Solange dieser Zeitpunkt nicht verstrichen ist, wird die Verbindung zu dem Nachbarn als \emph{symmetrisch} betrachtet, danach als \emph{asymmetrisch}.
+  \item[L\_ASYM\_time] Bis zu diesem Zeitpunkt ist die Verbindung zu dem Nachbarn zumindest \emph{asymmetrisch}, danach wird die Verbindung als tot betrachtet.
+  \item[L\_time] Zu diesem Zeitpunkt gilt das Link Tupel alt veraltet und muss aus der Liste entfernt werden.
+\end{description}
 
-%...RFC lesen..
-%Link Set über HELLO Messages aufbauen. Eigener Originator in 
-%empfangener Message enthalten -> Symmetrischer Link. Timeouts -> Asymmetrisch, dann Tot.
-%Symmetrie eines Links ist ein Indiz für Qualität.. bla..
-%Signal Noise Ratio -> l\_link\_quality P.57f
+Die so ermittelte Symmetrie eines Links ist ein Indiz für Qualität - trifft aber nur eine sehr grobe Aussage über die tatsächliche Brauchbarkeit einer Verbindung.
 
 OLSR versendet regelmäßig HELLO-Pakete um seine Nachbarn zu finden.
 Um einen Bidirektionalen Link zu finden geht OLSR wie in \ref{olsr-hello} zu sehen
@@ -128,7 +132,7 @@ ist vor.
 \begin{figure}[thb]
  \begin{center}
    \includegraphics[width=0.5\textwidth]{hello-message.png}
-    \caption{OLSR-Hello-Message (Quelle: http://www.olsr.org/docs/report_html/node34.html)}
+    \caption{OLSR-Hello-Message (Quelle: \url{http://www.olsr.org/docs/report_html/node34.html})}
     \label{olsr-hello}
   \end{center}
 \end{figure}
@@ -141,29 +145,30 @@ wieder mit einem HELLO-Paket um auch von seiner Seite aus einen Symmetrischen Li
 In den Hello-Paketen zeigt ein Host seine links und die ihm bekannten Nachbarn an. Zusätzlich zeigt er auch die
 von ihm ausgewählten MPRs (Multipoint Relays) an.
 
-Der verwendete OLSR-Daemon nutzte Link Quality Extensions (ETX-metrik).
-Das RFC-gemäße OLSR versucht nur die HOP-Distanz zu minimieren. Die Link-Qualität
-wird nach RFC nicht berücksichtigt. Das kann bedeuten das ein unzuverlässiger Link zu einem Ziel bevorzugt wird,
-wenn er eine geringere HOP-Distanz bietet.
+Seit der Version 0.4.8 enthält der OLSR-Daemon die sog. "`Link Quality Extensions"'.
+Das RFC-gemäße OLSR versucht nur die HOP-Distanz zu minimieren.
+Die Link-Qualität wird nach RFC nicht berücksichtigt.
+Das kann bedeuten das ein unzuverlässiger Link zu einem Ziel bevorzugt wird, wenn er eine geringere HOP-Distanz bietet.
 
-Der um Link Quality Extensions erweiterte OLSR-Daemon wertet die erwarteten und tatsächlich empfangenen
-HELLO Pakete seiner direkten Nachbarn aus und kann dadurch die Link-Qualität bestimmen.
+Der um Link Quality Extensions erweiterte OLSR-Daemon wertet die Anzahl der erwarteten und tatsächlich empfangenen HELLO Pakete seiner direkten Nachbarn pro Zeiteinheit aus.
+Der Quotient aus erwarteten und tatsächlich empfangenen Paketen wird als "`Link Quality"' bezeichnet.
 
-Zusätzlich zur "`Link Quality"' ist auch die Rückrichtung, also vom Nachbarn zu uns interesannt.
-Die Rückrichtung ("`Neighbour Link Quality"') ist die Linkqualität aus Sicht des Nachbarn.
+Zusätzlich zur "`Link Quality"' ist auch die Verbindungsqualität in Rückrichtung, also vom Nachbarn zu uns interessant, die "`Neighbor Link Quality"'.
+Als "`Neighbor Link Quality"' wird der "`Link Quality"'-Wert aus der Sicht des Nachbarn verwendet.
 Nur wenn beide Messdaten gute Werte zeigen ist ein Link auch Bidirektional nutzbar.
 Beim OSLR-Daemon sind die Werte für "`Link Quality"' sowie "`Neighbor Link Quality"' zwischen 0 und 1 die die Wahrscheinlichkeit eines fehlerfreien Paketversands zwischen 0 Prozent und 100 Prozent anzeigen.
 
 Der ETX-Wert (Expected Transmission Count) ist dabei die erwartete Anzahl an erneuten Übertragungen bis ein Paket fehlerfrei ankommt.
-$ETX= 1/(LQ*NLQ)$.
 
-Beispiel:
-$LQ=0.56$
+$ETX=\frac{1}{LQ*NLQ}$
+
+Beispiel:\\
+$LQ=0.56$\\
 $NLQ=0.80$
 
 Das ergibt eine Wahrscheinlichkeit von $0.448$ für einen erfolgreichen Roundtrip.
-Der ETX-Wert liegt daher bei $1/0.448=2.23$. Ein Paket muss also im durchschnitt 2.23 mal versendet werden
-bevor es erfolgreich vom Empfänger bestätigt werden kann.
+Der ETX-Wert liegt daher bei $1/0.448=2.23$.
+Ein Paket muss also im Durchschnitt 2.23 mal versendet werden, bevor es erfolgreich vom Empfänger bestätigt werden kann.
 
 \url{http://www.olsr.org/docs/README-Link-Quality.html}
 
@@ -190,25 +195,24 @@ Eine Verbindung mit einem spezifischen Nachbarn gilt als bidrektional wenn ein K
 Das OLSR (Optimized Link State Routing) Protokoll ist ebenso wie B.A.T.M.A.N. ein proaktives Routingprotokoll.
 OLSR wird in dem RFC3626 (aus dem Jahr 2003) beschrieben.
 
-Bei OLSR ist allen Routern die Netztopologie vollständig bekannt. Ein Router benötigt daher im Vergleich zu B.A.T.M.A.N. bei größeren
-Netzen wesentlich mehr Speicherplatz.
+Bei OLSR ist allen Routern die Netztopologie vollständig bekannt.
+Ein Router benötigt daher im Vergleich zu B.A.T.M.A.N. bei größeren Netzen wesentlich mehr Speicherplatz.
 Weil das gesamte Netz bekannt ist, sollten Loops nicht vorkommen, allerdings kann es trotzdem zu Loops kommen, wenn die Routing-Tabellen nicht 
 vollständig synchron sind.
 % routing-loops: http://www.open-mesh.org/wiki/the-olsr-story
 Die im Praktikum eingesetzte OLSR Software (von olsr.org) ist nicht RFC-Konform sondern wurde um einige dinge erweitert:
 
 \begin{description}
-\item[Linkqualität] die Linkqualität wird zur berechnung der Route herangezogen.
-\item[ETX] Expected Transmission Count (eine Maßnahme zur feststellung der Linkqualität asymetrischer Links)
+\item[Linkqualität] die Linkqualität wird zur Berechnung der Route herangezogen.
+\item[ETX] Expected Transmission Count (eine Maßnahme zur Feststellung der Linkqualität asymetrischer Links)
 \item[Fish Eye Algorithmus] Routen zu weiter entfernten Knoten werden seltener neu berechnet, dadurch bessere Skalierbarkeit
 \end{description}
 
 Beim OLSR-Protokoll erhalten einige teilnehmende Knoten eine Sonderfunktion als Multipoint Relays (MPRs).
-MPRs sind Knoten die die Broadcast-Nachrichten während des Flooding-Prozesses weiterleiten. Dadurch das nicht alle
-Knoten einen Broadcast weiterleiten wird die Grundlast des Netzes (zur OLSR Topologie-Erkennung) verkleinert.
+MPRs sind Knoten die die Broadcast-Nachrichten während des Flooding-Prozesses weiterleiten.
+Dadurch das nicht alle Knoten einen Broadcast weiterleiten wird die Grundlast des Netzes (zur OLSR Topologie-Erkennung) verkleinert.
 
-Beim OLSR-Protokoll wird die Information über die Link-States auch nur von den MPRs generiert und nicht von jedem
-Teilnehmer des Netzes.
+Beim OLSR-Protokoll wird die Information über die Link-States auch nur von den MPRs generiert und nicht von jedem Teilnehmer des Netzes.
 
 Jeder Knoten hat eine Liste mit Multipoint Relays (MPRs). Diese MPRs wählt
 er wie folgt: 
