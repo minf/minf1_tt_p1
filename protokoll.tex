@@ -132,8 +132,7 @@ HELLO Pakete seiner direkten Nachbarn aus und kann dadurch die Link-Qualität be
 Zusätzlich zur "`Link Quality"' ist auch die Rückrichtung, also vom Nachbarn zu uns interesannt.
 Die Rückrichtung ("`Neighbour Link Quality"') ist die Linkqualität aus Sicht des Nachbarn.
 Nur wenn beide Messdaten gute Werte zeigen ist ein Link auch Bidirektional nutzbar.
-Beim OSLR-Daemon sind die Werte für "`Link Quality"' sowie "Neighbor Link Quality" zwischen
-0 und 1 die die Wahrscheinlichkeit eines fehlerfreien Paketversands zwischen 0 Prozent und 100 Prozent anzeigen.
+Beim OSLR-Daemon sind die Werte für "`Link Quality"' sowie "`Neighbor Link Quality"' zwischen 0 und 1 die die Wahrscheinlichkeit eines fehlerfreien Paketversands zwischen 0 Prozent und 100 Prozent anzeigen.
 
 Der ETX-Wert (Expected Transmission Count) ist dabei die erwartete Anzahl an erneuten Übertragungen bis ein Paket fehlerfrei ankommt.
 $ETX= 1/(LQ*NLQ)$.
@@ -162,7 +161,7 @@ Seine Nachbarn re-broadcasten die OGMs und informieren ihrerseits ihre Nachbarn 
 Jeder Knoten re-broadcastet die OGM seines aktuell als Best-Next-Hop identifizierten Knotens, sofern der Knoten die OGM anhand der Sequenznummer als "`neu"' einstuft und die TTL noch nicht abgelaufen ist.
 Bei jedem Re-broadcasting wird der TTL-Wert um 1 verringert.
 Daher wird das Netz mit OGMs geflutet.
-Eine Verbindung mit einem spezifischen Nachbarn gilt als bidrektional wenn ein Knoten seine eigenen OGMs von diesem Nachbarn empfängt (als "Echo").
+Eine Verbindung mit einem spezifischen Nachbarn gilt als bidrektional wenn ein Knoten seine eigenen OGMs von diesem Nachbarn empfängt (als "`Echo"').
 
 % OLSR
 
@@ -222,8 +221,8 @@ Bei schwankender Linkqualität könnte ein Paket mehrfach an einem Host ankommen
 \end{figure}
 
 In Abbildung \ref{batman-loop-air} möchte Host Z ein Paket an E senden. Dazu wählt er seinen nächsten Hop A aus.
-Die beiden Verbindungen zum Zielhost sind jedoch von schlechter qualität.
-In dem moment in dem das Paket ankommt ist die Verbindung AE zusammengebrochen.
+Die beiden Verbindungen zum Zielhost sind jedoch von schlechter Qualität.
+In dem Moment in dem das Paket ankommt ist die Verbindung AE zusammengebrochen.
 Daher sendet A das Paket an D.
 D sendet an C.
 In dem Moment in dem C das Paket erhält bricht die Verbindung zu E zusammen, so daß C das Paket wieder an A sendet.
@@ -295,7 +294,7 @@ Abbildung \ref{1hop_olsr} zeigt die Routing-Informationen für OLSR bzgl. des 1-
 
 Unsere Route zu AP-14 weist die Metrik 1 auf und der Gateway zu AP-14 ist AP-14 selbst, d.h. bei einer Kommunikation von AP-12 zu AP-14 liegt kein weiterer Hop dazwischen.
 
-Figure \ref{2hop_olsr} zeigt die Routing-Informationen für OLSR bzgl. des Multi-Hop-Szenarios (AP-12).
+Abbildung \ref{2hop_olsr} zeigt die Routing-Informationen für OLSR bzgl. des Multi-Hop-Szenarios (AP-12).
 
 \begin{center}
   \begin{figure}[thb]
@@ -655,7 +654,7 @@ rtt min/avg/max/mdev = 5.697/50.818/244.965/68.620 ms
 Die durschnittliche Paketlaufzeit beträgt 50.818 ms.
 
 Bei der Verwendung von B.A.T.M.A.N. haben wir einige "`Ausreisser"' bzgl. der Paketlaufzeiten festgestellt.
-Insgesamt sind die Paketlaufzeiten daher besonders für das Multi-Hop-Szenario \textbf{nicht} konstant.
+Insgesamt sind die Paketlaufzeiten daher besonders für das Multi-Hop-Szenario sehr unkonstant.
 
 \subsubsection{Paketlaufzeiten für OLSR}
 
@@ -725,7 +724,7 @@ rtt min/avg/max/mdev = 9.419/75.873/203.346/65.425 ms
 Die durschnittliche Paketlaufzeit beträgt 75.873 ms.
 
 Auch OLSR weist "`Ausreisser"' auf.
-Die Paketlaufzeiten sind auch für OLSR und das Multi-Hop-Szenario \textbf{nicht} konstant.
+Die Paketlaufzeiten sind auch für OLSR und das Multi-Hop-Szenario sehr unkonstant.
 
 \subsubsection{Vergleich der Messungen bzgl. der Paketlaufzeiten für B.A.T.M.A.N. und OLSR}
 

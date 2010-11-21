@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.10.14)  21 NOV 2010 20:05
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.10.14)  21 NOV 2010 20:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -360,7 +360,7 @@ File: uni-0.def 2004/10/17 UCS: Unicode data U+0000..U+00FF
 File: loop-routing.png Graphic file (type png)
  <use loop-routing.png>
 [4]
-Overfull \hbox (21.46237pt too wide) in paragraph at lines 253--255
+Overfull \hbox (21.46237pt too wide) in paragraph at lines 252--254
 []\OT1/cmr/m/n/10 Um die Sze-na-ri-en an-schau-li-cher zu be-schrei-ben las-sen
  sich die Sta-tis-ti-ken der Routing-Daemons ab-fra-gen. F[]ur B.A.T.M.A.N.
  []
@@ -383,7 +383,7 @@ File: 2hop_olsr.png Graphic file (type png)
 /tex/latex/ucs/utf8x.def
 File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
 )
-Overfull \hbox (8.99014pt too wide) in paragraph at lines 361--363
+Overfull \hbox (8.99014pt too wide) in paragraph at lines 360--362
 []\OT1/cmr/m/n/10 Die Mes-sung mit-tels Ping er-gab einen Pa-ket-ver-lust von 5
 %. An-schlie-^^Yend ha-ben wir die Pa-ket-ver-lus-te bzgl. B.A.T.M.A.N.
  []
@@ -446,10 +446,10 @@ File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
 File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
 ) [16] [17] (./protokoll.aux) ) 
 Here is how much of TeX's memory you used:
- 7552 strings out of 495021
- 109615 string characters out of 1181034
+ 7550 strings out of 495021
+ 109585 string characters out of 1181034
  335942 words of memory out of 3000000
- 10078 multiletter control sequences out of 15000+50000
+ 10076 multiletter control sequences out of 15000+50000
  8063 words of font info for 29 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  38i,8n,44p,510b,1333s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -462,7 +462,7 @@ fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/
 public/amsfonts/cm/cmr7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfon
 ts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt1
 0.pfb>
-Output written on protokoll.pdf (17 pages, 334992 bytes).
+Output written on protokoll.pdf (17 pages, 334960 bytes).
 PDF statistics:
  834 PDF objects out of 1000 (max. 8388607)
  534 named destinations out of 1000 (max. 500000)
