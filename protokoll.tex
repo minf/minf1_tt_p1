@@ -165,7 +165,9 @@ OLSR wird in dem RFC3626 (aus dem Jahr 2003) beschrieben.
 
 Bei OLSR ist allen Routern die Netztopologie vollständig bekannt. Ein Router benötigt daher im Vergleich zu B.A.T.M.A.N. bei größeren
 Netzen wesentlich mehr Speicherplatz.
-Weil das gesamte Netz bekannt ist, können Loops nicht vorkommen.
+Weil das gesamte Netz bekannt ist, sollten Loops nicht vorkommen, allerdings wenn die Routing-Tabellen nicht 
+vollständig synchron kann es trotzdem zu Routing-Loops kommen.
+% routing-loops: http://www.open-mesh.org/wiki/the-olsr-story
 Die im Praktikum eingesetzte OLSR Software (von olsr.org) ist nicht RFC-Konform sondern wurde um einige dinge erweitert:
 
 \begin{description}
@@ -181,12 +183,14 @@ Knoten einen Broadcast weiterleiten wird die Grundlast des Netzes (zur OLSR Topo
 Beim OLSR-Protokoll wird die Information über die Link-States auch nur von den MPRs generiert und nicht von jedem
 Teilnehmer des Netzes.
 
-Multipoint Relays eines Knotens X nur die Nachbarn von X, so dass
+Jeder Knoten hat eine Liste mit Multipoint Relays (MPRs). Diese MPRs wählt
+er wie folgt: 
+Multipoint Relays eines Knotens X sind nur die Nachbarn von X, so dass
 jeder 2-Hop Nachbar ein ein-Hop-Nachbar von mindestens einem Multipoint-Relay von X ist.
 
-Das flooden findet also immer entlang der Multipoint-Relays statt.
+Das flooden mit Routing-Informationen findet zur Traffic-Minimierung immer entlang der Multipoint-Relays statt.
 
-Durch einsatz des Dijkstra-Algorithmusses wird stets die kürzeste Route 
+Durch Einsatz des Dijkstra-Algorithmusses wird stets die kürzeste Route 
 eines Pakets (gemessen an der Hop-Anzahl) gefunden.
 
 \subsection{Ist das B.A.T.M.A.N.-Protokoll wirklich immer Loop-frei? Wie könnten sich ggf. Loops bilden?}
