@@ -121,6 +121,18 @@ Der Link, der die meisten Sequenznummern in seinem Fenster aufweisen kann, gilt 
 %Symmetrie eines Links ist ein Indiz für Qualität.. bla..
 %Signal Noise Ratio -> l\_link\_quality P.57f
 
+OLSR versendet regelmäßig HELLO-Pakete um seine Nachbarn zu finden.
+Um einen Bidirektionalen Link zu finden geht OLSR wie in \ref{olsr-hello} zu sehen
+ist vor.
+
+\begin{figure}[thb]
+ \begin{center}
+   \includegraphics[width=0.5\textwidth]{hello-message.png}
+    \caption{OLSR-Hello-Message (Quelle: http://www.olsr.org/docs/report_html/node34.html)}
+    \label{olsr-hello}
+  \end{center}
+\end{figure}
+
 Der verwendete OLSR-Daemon nutzte Link Quality Extensions (ETX-metrik).
 Das RFC-gemäße OLSR versucht nur die HOP-Distanz zu minimieren. Die Link-Qualität
 wird nach RFC nicht berücksichtigt. Das kann bedeuten das ein unzuverlässiger Link zu einem Ziel bevorzugt wird,
